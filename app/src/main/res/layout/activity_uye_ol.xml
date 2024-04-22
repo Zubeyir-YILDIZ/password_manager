@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".UyeOlActivity">
+
+    <EditText
+        android:id="@+id/editTextOlusturIsim"
+        android:layout_width="250dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="140dp"
+        android:layout_marginBottom="13dp"
+        android:ems="10"
+        android:hint="İsminiz"
+        android:inputType="text"
+        android:textColorHint="#03A9F4"
+        app:layout_constraintBottom_toTopOf="@+id/editTextOlusturSoyisim"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/editTextOlusturSoyisim"
+        android:layout_width="250dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="12dp"
+        android:ems="10"
+        android:hint="Soyisminiz"
+        android:inputType="text"
+        android:textColorHint="#03A9F4"
+        app:layout_constraintBottom_toTopOf="@+id/editTextOlusturMail"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextOlusturIsim" />
+
+    <EditText
+        android:id="@+id/editTextOlusturMail"
+        android:layout_width="250dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="12dp"
+        android:ems="10"
+        android:hint="Email Adresiniz"
+        android:inputType="textEmailAddress"
+        android:textColorHint="#03A9F4"
+        app:layout_constraintBottom_toTopOf="@+id/editTextOlusturSifre"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextOlusturSoyisim" />
+
+    <EditText
+        android:id="@+id/editTextOlusturSifre"
+        android:layout_width="250dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="20dp"
+        android:ems="10"
+        android:hint="Şifreniz"
+        android:inputType="textPassword"
+        android:textColorHint="#03A9F4"
+        app:layout_constraintBottom_toTopOf="@+id/buttonOlusturUyelik"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextOlusturMail" />
+
+    <Button
+        android:id="@+id/buttonOlusturUyelik"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginBottom="284dp"
+        android:text="Üye Ol"
+        android:textColor="#03A9F4"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/editTextOlusturSifre"
+        app:layout_constraintStart_toStartOf="@+id/editTextOlusturSifre"
+        app:layout_constraintTop_toBottomOf="@+id/editTextOlusturSifre" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

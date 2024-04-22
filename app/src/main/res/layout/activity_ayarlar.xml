@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AyarlarActivity">
+
+
+    <EditText
+        android:id="@+id/editTextIsim"
+        android:layout_width="250dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        android:editable="false"
+        android:ems="10"
+        android:enabled="false"
+        android:hint="İsminiz"
+        android:inputType="text"
+        app:layout_constraintBottom_toTopOf="@+id/editTextSoyisim"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewProfilBaslik" />
+
+    <EditText
+        android:id="@+id/editTextSoyisim"
+        android:layout_width="250dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        android:editable="false"
+        android:ems="10"
+        android:enabled="false"
+        android:hint="Soyisminiz"
+        android:inputType="text"
+        app:layout_constraintBottom_toTopOf="@+id/editTextEpostaEdit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextIsim" />
+
+    <EditText
+        android:id="@+id/editTextEpostaEdit"
+        android:layout_width="250dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="9dp"
+        android:editable="false"
+        android:ems="10"
+        android:enabled="false"
+        android:hint="Email adresiniz"
+        android:inputType="textEmailAddress"
+        app:layout_constraintBottom_toTopOf="@+id/editTextSifreEdit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextSoyisim" />
+
+    <EditText
+        android:id="@+id/editTextSifreEdit"
+        android:layout_width="250dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="12dp"
+        android:editable="false"
+        android:ems="10"
+        android:enabled="false"
+        android:hint="Şifreniz"
+        android:inputType="textPassword"
+        app:layout_constraintBottom_toTopOf="@+id/buttonDuzenle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextEpostaEdit" />
+
+    <Button
+        android:id="@+id/buttonDuzenle"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginBottom="11dp"
+        android:backgroundTint="@color/black"
+        android:text="Düzenle"
+        android:textColor="#4CAF50"
+        app:layout_constraintBottom_toTopOf="@+id/buttonYedekle"
+        app:layout_constraintStart_toStartOf="@+id/buttonYedekle"
+        app:layout_constraintTop_toBottomOf="@+id/editTextSifreEdit" />
+
+    <Button
+        android:id="@+id/buttonYedekle"
+        android:layout_width="148dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="12dp"
+        android:backgroundTint="@color/black"
+        android:text="Şifre Yedekle"
+        android:textColor="#4CAF50"
+        app:layout_constraintBottom_toTopOf="@+id/buttonSifreleriGetir"
+        app:layout_constraintEnd_toEndOf="@+id/buttonSifreleriGetir"
+        app:layout_constraintStart_toStartOf="@+id/buttonSifreleriGetir"
+        app:layout_constraintTop_toBottomOf="@+id/buttonDuzenle" />
+
+    <Button
+        android:id="@+id/buttonSifreleriGetir"
+        android:layout_width="250dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="220dp"
+        android:backgroundTint="@color/black"
+        android:text="Yedeklenmiş Sifreleri Getir"
+        android:textColor="#4CAF50"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonYedekle" />
+
+    <TextView
+        android:id="@+id/textViewProfilBaslik"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="79dp"
+        android:layout_marginBottom="16dp"
+        android:text="Profiliniz"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintBottom_toTopOf="@+id/editTextIsim"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewSil"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="11dp"
+        android:text="Hesabımı Sil"
+        app:layout_constraintEnd_toEndOf="@+id/buttonSifreleriGetir"
+        app:layout_constraintStart_toStartOf="@+id/buttonSifreleriGetir"
+        app:layout_constraintTop_toBottomOf="@+id/buttonSifreleriGetir" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
