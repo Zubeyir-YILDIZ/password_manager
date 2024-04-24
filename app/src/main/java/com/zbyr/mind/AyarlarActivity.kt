@@ -48,30 +48,58 @@ class AyarlarActivity : AppCompatActivity() {
             }
         }
         bagla.buttonYedekle.setOnClickListener {
-            var sifreler:MutableList<Sifre> = sqLiteIslemci.getirSifre()!!
+            var sifreler:MutableList<Sifre> = sqLiteIslemci.getirSifre(MainActivity.AktifKullanici!!)!!
             if(sifreler.isNotEmpty())
             {
                 for(sifre in sifreler)
                 {
                     firebaseIslemci.SifreEkle(sifre)
+                    firebaseIslemci.KullaniciEkle(MainActivity.AktifKullanici!!)
                 }
                 Toast.makeText(this,"Şifreleriniz yedeklendi",Toast.LENGTH_SHORT).show()
             }
             if(MainActivity.AktifKullanici!=null)
                 firebaseIslemci.KullaniciEkle(MainActivity.AktifKullanici!!)
+
         }
         bagla.buttonSifreleriGetir.setOnClickListener {
             if(MainActivity.AktifKullanici!=null)
             {
-                var kullanicilar=firebaseIslemci.KullaniciGetir(MainActivity.AktifKullanici!!)
-                // eksik **
-            }
+                firebaseIslemci.SifreGetir(MainActivity.AktifKullanici!!)
+                var sifreler=MainActivity.sifreListesi
+
+                for(sifre in sifreler)
+                {
+                    if(kontrol(sifre))
+                    {
+                        sqLiteIslemci.ekleSifre(sifre)
+                    }
+                }
+                MainActivity.sifreListesi.clear()
+                finish()
+            }else
+                Toast.makeText(this,"Başarısız oldu",Toast.LENGTH_SHORT).show()
         }
         bagla.textViewSil.setOnClickListener {
             sqLiteIslemci.silKullanici(MainActivity.AktifKullanici!!._kMail)
             MainActivity.AktifKullanici=null
             finish()
         }
-
+        bagla.textViewYedekSil.setOnClickListener {
+            firebaseIslemci.sifreleriSil(MainActivity.AktifKullanici!!)
+        }
+    }
+    fun kontrol(sifre: Sifre):Boolean
+    {
+        var sonuc=true
+        var liste=sqLiteIslemci.getirSifre(MainActivity.AktifKullanici!!)
+        if (liste != null) {
+            for(_sifre in liste)
+            {
+                if(_sifre._sId == sifre._sId && _sifre._sKullanici!!._kId == sifre._sKullanici!!._kId)
+                    sonuc=false
+            }
+        }
+        return sonuc
     }
 }

@@ -75,15 +75,19 @@ class SqLiteIslemleri (var context: Context):SQLiteOpenHelper(context, database_
         cv.put(col_kSoyadi,kullanici._kSoyadi)
         cv.put(col_kMail,kullanici._kMail)
         cv.put(col_kSifre,kullanici._kSifre)
-
-        var sonuc = db.insert(tablo_adi3,null,cv)
-        if(sonuc==(-1).toLong())
+        if(kontrolKullanici(kullanici))
         {
-            Toast.makeText(context,"Hatalı ekleme",Toast.LENGTH_SHORT).show()
+            var sonuc = db.insert(tablo_adi3,null,cv)
+            if(sonuc==(-1).toLong())
+            {
+                Toast.makeText(context,"Hatalı ekleme",Toast.LENGTH_SHORT).show()
+            }else
+            {
+                Toast.makeText(context,"Kayıt başarılı",Toast.LENGTH_SHORT).show()
+            }
         }else
-        {
-            Toast.makeText(context,"Kayıt başarılı",Toast.LENGTH_SHORT).show()
-        }
+            Toast.makeText(context,"Kayıt zaten var",Toast.LENGTH_SHORT).show()
+
     }
     fun ekleSifre(sifre: Sifre)
     {
@@ -95,6 +99,7 @@ class SqLiteIslemleri (var context: Context):SQLiteOpenHelper(context, database_
         cv.put(col_tId,sifre._sTur?._TipId)
 
         var sonuc = db.insert(tablo_adi,null,cv)
+
         if(sonuc==(-1).toLong())
         {
             Toast.makeText(context,"Hatalı ekleme",Toast.LENGTH_SHORT).show()
@@ -119,6 +124,41 @@ class SqLiteIslemleri (var context: Context):SQLiteOpenHelper(context, database_
             Toast.makeText(context,"Kayıt başarılı",Toast.LENGTH_SHORT).show()
         }
     }
+    fun kontrolSifre(sifre: Sifre):Boolean
+    {
+        var donus=true
+        var sifreler=getirSifre(sifre._sKullanici!!)
+        if (sifreler != null) {
+            for(_sifre in sifreler)
+            {
+                if(_sifre._sId==sifre._sId && _sifre._sKullanici!!._kId==sifre._sKullanici!!._kId)
+                    donus=false
+            }
+        }
+
+        return donus
+    }
+    fun kontrolKullanici(kullanici1: Kullanici):Boolean
+    {
+        var liste:MutableList<Kullanici> = ArrayList()
+        val db=this.readableDatabase
+        var sorgu = "SELECT * FROM "+ tablo_adi3 + " WHERE $col_kMail = "+kullanici1._kMail
+        var sonuc=db.rawQuery(sorgu,null)
+        var kullanici=Kullanici()
+        if(sonuc.moveToFirst())
+        {
+            kullanici._kId=sonuc.getString(sonuc.getColumnIndexOrThrow(col_kId)).toLong()
+            kullanici._kAdi=sonuc.getString(sonuc.getColumnIndexOrThrow(col_kAdi)).toString()
+            kullanici._kSoyadi=sonuc.getString(sonuc.getColumnIndexOrThrow(col_kSoyadi)).toString()
+            kullanici._kMail=sonuc.getString(sonuc.getColumnIndexOrThrow(col_kMail)).toString()
+            kullanici._kSifre=sonuc.getString(sonuc.getColumnIndexOrThrow(col_kSifre)).toString()
+        }
+        else
+            return true
+        sonuc.close()
+        db.close()
+        return false
+    }
     fun getirKullanici():MutableList<Kullanici>
     {
         var liste:MutableList<Kullanici> = ArrayList()
@@ -141,9 +181,32 @@ class SqLiteIslemleri (var context: Context):SQLiteOpenHelper(context, database_
         db.close()
         return liste
     }
-    fun getirSifre():MutableList<Sifre>?
+    fun getirSifre(kullanici: Kullanici):ArrayList<Sifre>?
     {
-        return null
+        var s=kullanici._kMail
+        var liste:ArrayList<Sifre> = ArrayList()
+        val db=this.readableDatabase
+        var sorgu = "SELECT s.SifreId,s.Sifre,s.TipId,s.KullaniciId,t.TipId,t.SifreTipi FROM "+ tablo_adi+
+                " AS s JOIN "+ tablo_adi2 + " AS t ON s.TipId=t.TipId Where s.KullaniciId=(SELECT k.KullaniciId FROM Kullanicilar AS k WHERE k.Eposta="+s+" )"
+        var sonuc=db.rawQuery(sorgu,null)
+        if(sonuc.moveToFirst())
+        {
+            do {
+                var sifre=Sifre()
+                sifre._sId=sonuc.getString(sonuc.getColumnIndexOrThrow(col_sId)).toInt()
+                sifre._sSifre=sonuc.getString(sonuc.getColumnIndexOrThrow(col_sifre))
+                var sifreTip=SifreTip()
+                sifreTip._TipId=sonuc.getString(sonuc.getColumnIndexOrThrow(col_tId)).toLong()
+                sifreTip._SifreTipi=sonuc.getString(sonuc.getColumnIndexOrThrow(col_tip))
+                sifre._sTur=sifreTip
+                sifre._sKullanici=kullanici
+
+                liste.add(sifre)
+            }while (sonuc.moveToNext())
+        }
+        sonuc.close()
+        db.close()
+        return liste
     }
     fun getirSifreTip():MutableList<SifreTip>
     {
@@ -201,6 +264,26 @@ class SqLiteIslemleri (var context: Context):SQLiteOpenHelper(context, database_
         sonuc.close()
         db.close()
     }
+    fun güncelleSifre(sifre: Sifre)
+    {
+        val db=this.readableDatabase
+        val sorgu="SELECT * FROM "+ tablo_adi
+        val sonuc=db.rawQuery(sorgu,null)
+        if(sonuc.moveToFirst())
+        {
+            do {
+                var cv=ContentValues()
+                cv.put(col_sId,sifre._sId)
+                cv.put(col_sifre,sifre._sSifre)
+                cv.put(col_tId, sifre._sTur!!._TipId)
+                cv.put(col_kId,sifre._sKullanici!!._kId)
+                db.update(tablo_adi,cv,"$col_sId=?",
+                    arrayOf(sifre._sId.toString()))
+            }while (sonuc.moveToNext())
+        }
+        sonuc.close()
+        db.close()
+    }
     fun getirKullaniciIleMail(mail:String):Kullanici
     {
         var kullanici=Kullanici()
@@ -236,6 +319,12 @@ class SqLiteIslemleri (var context: Context):SQLiteOpenHelper(context, database_
         db.close()
 
         return sonuc !=-1
+    }
+    fun silSifre(sifre: Sifre)
+    {
+        val db=this.writableDatabase
+        var sonuc=db.delete(tablo_adi,"$col_sId=?", arrayOf(sifre._sId.toString()))
+        db.close()
     }
 
 

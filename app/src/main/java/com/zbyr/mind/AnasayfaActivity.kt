@@ -6,16 +6,22 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.navigation.Navigation
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.zbyr.mind.databinding.ActivityAnasayfaBinding
 import com.zbyr.mind.databinding.ActivityMainBinding
 
 class AnasayfaActivity : AppCompatActivity() {
     private lateinit var bagla:ActivityAnasayfaBinding
+    private lateinit var sqLiteIslemleri: SqLiteIslemleri
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         bagla= ActivityAnasayfaBinding.inflate(layoutInflater)
+        sqLiteIslemleri=SqLiteIslemleri(this)
         setContentView(bagla.root)
         yonCubugu()
+        sifreleriGetir()
+
+
 
     }
     fun yonCubugu()
@@ -26,7 +32,14 @@ class AnasayfaActivity : AppCompatActivity() {
             startActivity(intent)
         }
     }
+    fun sifreleriGetir()
+    {
+        var liste=sqLiteIslemleri.getirSifre(MainActivity.AktifKullanici!!)
 
+        bagla.RecyclerViewSifreler.layoutManager=LinearLayoutManager(this)
+        val sifreAdapter=SifreAdapter(liste!!)
+        bagla.RecyclerViewSifreler.adapter=sifreAdapter
+    }
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.cubuk,menu)
         return true
@@ -47,6 +60,7 @@ class AnasayfaActivity : AppCompatActivity() {
     }
 
     override fun onResume() {
+        sifreleriGetir()
         super.onResume()
         if(MainActivity.AktifKullanici==null)
         {

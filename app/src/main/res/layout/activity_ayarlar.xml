@@ -72,7 +72,7 @@
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginStart="24dp"
-        android:layout_marginBottom="11dp"
+        android:layout_marginBottom="8dp"
         android:backgroundTint="@color/black"
         android:text="Düzenle"
         android:textColor="#4CAF50"
@@ -84,28 +84,28 @@
         android:id="@+id/buttonYedekle"
         android:layout_width="148dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="12dp"
+        android:layout_marginBottom="9dp"
         android:backgroundTint="@color/black"
         android:text="Şifre Yedekle"
         android:textColor="#4CAF50"
-        app:layout_constraintBottom_toTopOf="@+id/buttonSifreleriGetir"
-        app:layout_constraintEnd_toEndOf="@+id/buttonSifreleriGetir"
-        app:layout_constraintStart_toStartOf="@+id/buttonSifreleriGetir"
+        app:layout_constraintBottom_toTopOf="@+id/textViewYedekSil"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buttonDuzenle" />
 
     <Button
         android:id="@+id/buttonSifreleriGetir"
         android:layout_width="250dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="220dp"
+        android:layout_marginBottom="12dp"
         android:backgroundTint="@color/black"
         android:text="Yedeklenmiş Sifreleri Getir"
         android:textColor="#4CAF50"
         android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/textViewSil"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonYedekle" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewYedekSil" />
 
     <TextView
         android:id="@+id/textViewProfilBaslik"
@@ -126,10 +126,22 @@
         android:id="@+id/textViewSil"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="11dp"
+        android:layout_marginBottom="166dp"
         android:text="Hesabımı Sil"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/buttonSifreleriGetir"
         app:layout_constraintStart_toStartOf="@+id/buttonSifreleriGetir"
         app:layout_constraintTop_toBottomOf="@+id/buttonSifreleriGetir" />
+
+    <TextView
+        android:id="@+id/textViewYedekSil"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="31dp"
+        android:layout_marginBottom="8dp"
+        android:text="Yedekleri Sil"
+        app:layout_constraintBottom_toTopOf="@+id/buttonSifreleriGetir"
+        app:layout_constraintStart_toStartOf="@+id/buttonYedekle"
+        app:layout_constraintTop_toBottomOf="@+id/buttonYedekle" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

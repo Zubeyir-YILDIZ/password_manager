@@ -12,6 +12,7 @@ import com.zbyr.mind.databinding.ActivityMainBinding
 class MainActivity : AppCompatActivity() {
     companion object{
         var AktifKullanici:Kullanici?=null
+        var sifreListesi:ArrayList<Sifre> = ArrayList<Sifre>()
     }
     private lateinit var baglan:ActivityMainBinding
     private lateinit var sqLiteIslemleri: SqLiteIslemleri
