@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#ff555555"
     tools:context=".SifreOnerActivity">
 
     <TextView
@@ -24,7 +25,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        android:background="@drawable/sifre_olustur_check_buton"
+        android:buttonTint="#F44336"
         android:text="Büyük/Küçük harf olacak mı"
+        android:textColor="#F44336"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewSelamOneri" />
@@ -34,7 +38,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="13dp"
+        android:background="@drawable/sifre_olustur_check_buton"
+        android:buttonTint="#F44336"
         android:text="Sayı olacak mı"
+        android:textColor="#F44336"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
@@ -45,7 +52,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
+        android:background="@drawable/sifre_olustur_check_buton"
+        android:buttonTint="#F44336"
         android:text="Özel Karakter olacak mı"
+        android:textColor="#F44336"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/checkBoxHarfTipi" />
@@ -55,7 +65,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
+        android:backgroundTint="#F44336"
         android:text="Oluştur"
+        android:textColor="#555555"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/checkBoxSayi" />
@@ -66,6 +78,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:text="Şifreniz: "
+        android:textColor="#F44336"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.134"
         app:layout_constraintStart_toStartOf="parent"
@@ -76,8 +89,13 @@
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:layout_marginTop="20dp"
+        android:background="@drawable/sifre_olustur_check_buton"
         android:ems="10"
+        android:hint="Burada görünecek"
         android:inputType="text"
+        android:textAlignment="center"
+        android:textColor="#F44336"
+        android:textColorHint="#F44336"
         app:layout_constraintStart_toEndOf="@+id/textViewBilgiSifre"
         app:layout_constraintTop_toBottomOf="@+id/buttonOlusturSifre" />
 

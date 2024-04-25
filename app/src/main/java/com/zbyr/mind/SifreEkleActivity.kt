@@ -64,7 +64,6 @@ class SifreEkleActivity : AppCompatActivity() {
     {
         val adapter=ArrayAdapter(this,android.R.layout.simple_spinner_item,sifreTipleri)
         spinner.adapter=adapter
-
         spinner.onItemSelectedListener=object :AdapterView.OnItemSelectedListener{
             override fun onItemSelected(
                 parent: AdapterView<*>?,

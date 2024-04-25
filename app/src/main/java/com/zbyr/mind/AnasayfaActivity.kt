@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.PopupMenu
+import androidx.appcompat.app.ActionBar
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.zbyr.mind.databinding.ActivityAnasayfaBinding
@@ -20,8 +22,7 @@ class AnasayfaActivity : AppCompatActivity() {
         setContentView(bagla.root)
         yonCubugu()
         sifreleriGetir()
-
-
+        supportActionBar?.title="Hoşgeldin "+MainActivity.AktifKullanici?._kAdi
 
     }
     fun yonCubugu()

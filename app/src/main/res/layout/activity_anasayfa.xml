@@ -10,6 +10,7 @@
         android:id="@+id/appBarLayout"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:background="#333332"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -19,17 +20,20 @@
             android:id="@+id/yon"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?attr/colorPrimary"
+            android:background="@drawable/yon_cubugu"
             android:minHeight="?attr/actionBarSize"
-            android:theme="?attr/actionBarTheme" />
+            android:theme="?attr/actionBarTheme"
+            app:popupTheme="@style/Theme.Material3.Dark"
+            app:titleTextColor="@color/black" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <TextView
         android:id="@+id/textViewSifreleriniz"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="73dp"
-        android:layout_marginBottom="64dp"
+        android:layout_width="109dp"
+        android:layout_height="33dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/yuvarlak_kose"
         android:text="Şifreleriniz"
         android:textColor="#050505"
         android:textSize="20sp"
@@ -41,11 +45,13 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/RecyclerViewSifreler"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginEnd="5dp"
-        android:layout_marginBottom="63dp"
+        android:layout_width="392dp"
+        android:layout_height="500dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/yuvarlak_kose"
+        android:scrollbars="horizontal|vertical"
         app:layout_constraintBottom_toTopOf="@+id/floatingActionButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -59,9 +65,12 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:clickable="true"
+        app:backgroundTint="#FFC107"
+        app:borderWidth="3dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/RecyclerViewSifreler"
+        app:maxImageSize="38dp"
         app:srcCompat="@android:drawable/ic_menu_add"
         tools:ignore="MissingConstraints" />
 

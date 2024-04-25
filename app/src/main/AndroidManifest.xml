@@ -7,7 +7,7 @@
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
+        android:label="Anasayfa"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Mind"
@@ -23,9 +23,6 @@
             android:exported="false" />
         <activity
             android:name=".UyeOlActivity"
-            android:exported="false" />
-        <activity
-            android:name=".SifremiUnuttumActivity"
             android:exported="false" />
         <activity
             android:name=".AnasayfaActivity"

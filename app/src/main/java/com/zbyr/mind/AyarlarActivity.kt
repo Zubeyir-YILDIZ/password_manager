@@ -1,8 +1,11 @@
 package com.zbyr.mind
 
+import android.annotation.SuppressLint
+import android.content.res.ColorStateList
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import com.google.firebase.database.collection.LLRBNode.Color
 import com.zbyr.mind.databinding.ActivityAyarlarBinding
 
 class AyarlarActivity : AppCompatActivity() {
@@ -10,6 +13,7 @@ class AyarlarActivity : AppCompatActivity() {
     private lateinit var firebaseIslemci:FirebaseIslemleri
     private lateinit var sqLiteIslemci:SqLiteIslemleri
 
+    @SuppressLint("ResourceAsColor")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         bagla=ActivityAyarlarBinding.inflate(layoutInflater)
@@ -21,7 +25,7 @@ class AyarlarActivity : AppCompatActivity() {
         bagla.editTextSoyisim.setText(MainActivity.AktifKullanici!!._kSoyadi.toString())
         bagla.editTextEpostaEdit.setText(MainActivity.AktifKullanici!!._kMail.toString())
         bagla.editTextSifreEdit.setText(MainActivity.AktifKullanici!!._kSifre.toString())
-
+        val color=android.graphics.Color.argb(255,76,175,80)
         bagla.buttonDuzenle.setOnClickListener {
             if(bagla.buttonDuzenle.text=="Düzenle")
             {
@@ -30,12 +34,14 @@ class AyarlarActivity : AppCompatActivity() {
                 bagla.editTextSoyisim.isEnabled=true
                 bagla.editTextEpostaEdit.isEnabled=true
                 bagla.editTextSifreEdit.isEnabled=true
+                bagla.buttonDuzenle.backgroundTintList=ColorStateList.valueOf(color)
             }else{
                 bagla.buttonDuzenle.setText("Düzenle")
                 bagla.editTextIsim.isEnabled=false
                 bagla.editTextSoyisim.isEnabled=false
                 bagla.editTextEpostaEdit.isEnabled=false
                 bagla.editTextSifreEdit.isEnabled=false
+                bagla.buttonDuzenle.backgroundTintList=ColorStateList.valueOf(color)
 
                 var profil=sqLiteIslemci.getirKullaniciIleMail(bagla.editTextEpostaEdit.text.toString())
                 profil._kAdi=bagla.editTextIsim.text.toString()
@@ -45,6 +51,7 @@ class AyarlarActivity : AppCompatActivity() {
 
                 sqLiteIslemci.güncelleKullanici(profil)
                 MainActivity.AktifKullanici=profil
+                bagla.buttonDuzenle.setBackgroundResource(R.drawable.ayarlar_text_alani)
             }
         }
         bagla.buttonYedekle.setOnClickListener {
