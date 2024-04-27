@@ -33,8 +33,8 @@ class SifreEkleActivity : AppCompatActivity() {
             if(txtSifre.text.isNotEmpty())
             {
                 var sifreTipi=SifreTip()
-                if(tipDogrula(seciliDeger!!)!=null)
-                    sifreTipi._TipId= tipDogrula(seciliDeger!!)!!._TipId as Long
+                if(sqLiteIslemci.tipDogrula(seciliDeger!!)!=null)
+                    sifreTipi._TipId= sqLiteIslemci.tipDogrula(seciliDeger!!)!!._TipId as Long
                 sifreTipi._SifreTipi=seciliDeger.toString()
                 var sifre=Sifre(0,txtSifre.text.toString(),sifreTipi, MainActivity.AktifKullanici!!)
                 sqLiteIslemci.ekleSifre(sifre)
@@ -52,9 +52,9 @@ class SifreEkleActivity : AppCompatActivity() {
             startActivity(intent)
         }
         bagla.textViewSilTip.setOnClickListener {
-            if(tipDogrula(seciliDeger!!)!=null)
+            if(sqLiteIslemci.tipDogrula(seciliDeger!!)!=null)
             {
-                sqLiteIslemci.silTip(tipDogrula(seciliDeger!!)!!)
+                sqLiteIslemci.silTip(sqLiteIslemci.tipDogrula(seciliDeger!!)!!)
                 spinnerOlustur(bagla.spinnerSifreTurleri,tipleriListele(sqLiteIslemci.getirSifreTip()))
             }
         }
@@ -86,7 +86,7 @@ class SifreEkleActivity : AppCompatActivity() {
         inputDialog.setView(inputEditText)
         inputDialog.setPositiveButton("Tamam") {dialog,which ->
             val sonuc = inputEditText.text.toString()
-            if(sonuc.isNotEmpty() && tipKarsilastir(sonuc))
+            if(sonuc.isNotEmpty() && sqLiteIslemci.tipKarsilastir(sonuc))
             {
                 sqLiteIslemci.ekleSifreTipi(SifreTip(0,sonuc))
                 spinnerOlustur(spinner,tipleriListele(sqLiteIslemci.getirSifreTip()))
@@ -103,27 +103,6 @@ class SifreEkleActivity : AppCompatActivity() {
         }
         return liste
     }
-    fun tipKarsilastir(tip:String):Boolean
-    {
-        var liste=sqLiteIslemci.getirSifreTip()
-        for(_tip in liste)
-        {
-            if(_tip._SifreTipi==tip)
-            {
-                return false
-            }
-        }
-        return true
-    }
-    fun tipDogrula(tip:String):SifreTip?
-    {
-        var liste=sqLiteIslemci.getirSifreTip()
-        for(_tip in liste)
-        {
-            if(_tip._SifreTipi==tip)
-                return _tip
-        }
-        return null
-    }
+
 
 }

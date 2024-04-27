@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity() {
             inputDialog.setView(inputEditText)
             inputDialog.setPositiveButton("Tamam") {dialog,which ->
                 val sonuc = inputEditText.text.toString()
-                if(sonuc==sqLiteIslemleri.getirKullaniciIleMail(sonuc)._kMail)
+                if(sonuc.isNotEmpty() && sonuc==sqLiteIslemleri.getirKullaniciIleMail(sonuc)._kMail)
                 {
                     var profil=sqLiteIslemleri.getirKullaniciIleMail(sonuc)
                     inputDialog.setTitle("Yeni şifrenizi giriniz")
@@ -54,8 +54,13 @@ class MainActivity : AppCompatActivity() {
                     inputDialog.setView(inputEditText2)
                     inputDialog.setPositiveButton("Tamam") {dialog2,which2 ->
                         val sonuc2 = inputEditText2.text.toString()
-                        profil._kSifre=sonuc2
-                        sqLiteIslemleri.güncelleKullanici(profil)
+                        if(sonuc2.isNotEmpty())
+                        {
+                            profil._kSifre=sonuc2
+                            sqLiteIslemleri.güncelleKullanici(profil)
+                            Toast.makeText(this,"Şifreniz güncellendi",Toast.LENGTH_SHORT).show()
+                        }else
+                            Toast.makeText(this,"Şifre girmediniz",Toast.LENGTH_SHORT).show()
                     }
                     inputDialog.show()
                 }else{

@@ -14,15 +14,15 @@ class FirebaseIslemleri {
     private var firebase: DatabaseReference = Firebase.database.reference
     fun KullaniciEkle(kullanici: Kullanici)
     {
-        firebase.child("Kullanicilar").child(kullanici._kMail).setValue(kullanici)
+        firebase.child("Kullanicilar").child(kullanici._kId.toString()).setValue(kullanici)
     }
     fun SifreEkle(sifre: Sifre)
     {
-        firebase.child("Sifreler").child(sifre._sKullanici!!._kMail).child(sifre._sId.toString()).setValue(sifre)
+        firebase.child("Sifreler").child(sifre._sKullanici!!._kId.toString()).child(sifre._sId.toString()).setValue(sifre)
     }
     fun SifreGetir(kullanici: Kullanici)
     {
-        firebase.child("Sifreler").child(kullanici._kMail).get().addOnSuccessListener {
+        firebase.child("Sifreler").child(kullanici._kId.toString()).get().addOnSuccessListener {
             for(deger in it.children)
             {
                 var sifre=Sifre()
@@ -75,7 +75,12 @@ class FirebaseIslemleri {
     }
     fun sifreleriSil(kullanici: Kullanici)
     {
-        firebase.child("Sifreler").child(kullanici._kMail).setValue(null)
+        firebase.child("Sifreler").child(kullanici._kId.toString()).setValue(null)
+    }
+    fun kullaniciSil(kullanici: Kullanici)
+    {
+        firebase.child("Kullanicilar").child(kullanici._kId.toString()).setValue(null)
+        sifreleriSil(kullanici)
     }
 
 }

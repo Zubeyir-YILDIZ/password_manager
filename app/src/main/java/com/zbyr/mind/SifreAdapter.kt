@@ -34,7 +34,7 @@ class SifreAdapter(val sifreler:ArrayList<Sifre>) :RecyclerView.Adapter<SifreAda
             holder.binding.floatingActionButtonSil.setOnClickListener {
                 sqLiteIslemleri.silSifre(sifreler.get(position))
 
-                (holder.itemView.context as AnasayfaActivity).sifreleriGetir()
+                (holder.itemView.context as AnasayfaActivity).sifreleriGetir(sifreler.get(position)._sTur?._TipId.toString())
             }
             holder.binding.floatingActionButtonDuzenle.setOnClickListener {
                 val inputDialog = AlertDialog.Builder(holder.itemView.context)
@@ -50,7 +50,7 @@ class SifreAdapter(val sifreler:ArrayList<Sifre>) :RecyclerView.Adapter<SifreAda
                     sifre._sKullanici=sifreler.get(position)._sKullanici
                     sifreler[position]=sifre
                     sqLiteIslemleri.güncelleSifre(sifre)
-                    (holder.itemView.context as AnasayfaActivity).sifreleriGetir()
+                    (holder.itemView.context as AnasayfaActivity).sifreleriGetir(sifreler.get(position)._sTur?._TipId.toString())
                 }
                 inputDialog.show()
             }

@@ -89,6 +89,7 @@ class AyarlarActivity : AppCompatActivity() {
         }
         bagla.textViewSil.setOnClickListener {
             sqLiteIslemci.silKullanici(MainActivity.AktifKullanici!!._kMail)
+            firebaseIslemci.kullaniciSil(MainActivity.AktifKullanici!!)
             MainActivity.AktifKullanici=null
             finish()
         }

@@ -10,6 +10,7 @@ const val database_adi="MindDb"
 
 const val tablo_adi="Sifreler"
 const val col_sId="SifreId"
+const val col_hesapAdi="HesapAdi"
 const val col_sifre="Sifre"
 const val col_kId="KullaniciId"
 const val col_tId="TipId"
@@ -43,6 +44,7 @@ class SqLiteIslemleri (var context: Context):SQLiteOpenHelper(context, database_
 
         val olusturTablo = "CREATE TABLE " + tablo_adi + "(" +
                 col_sId + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                col_hesapAdi + "VARCHAR(256)," +
                 col_sifre + " VARCHAR(256), " +
                 col_tId + " INTEGER, " +
                 col_kId + " INTEGER, " +
@@ -97,8 +99,10 @@ class SqLiteIslemleri (var context: Context):SQLiteOpenHelper(context, database_
         cv.put(col_sifre,sifre._sSifre)
         cv.put(col_kId,sifre._sKullanici?._kId)
         cv.put(col_tId,sifre._sTur?._TipId)
+        if(sifre._sHesapAdi.isNotEmpty())
+            cv.put(col_hesapAdi,sifre._sHesapAdi)
 
-        var sonuc = db.insert(tablo_adi,null,cv)
+        val sonuc = db.insert(tablo_adi,null,cv)
 
         if(sonuc==(-1).toLong())
         {
@@ -140,9 +144,10 @@ class SqLiteIslemleri (var context: Context):SQLiteOpenHelper(context, database_
     }
     fun kontrolKullanici(kullanici1: Kullanici):Boolean
     {
+        var mail=kullanici1._kMail
         var liste:MutableList<Kullanici> = ArrayList()
         val db=this.readableDatabase
-        var sorgu = "SELECT * FROM "+ tablo_adi3 + " WHERE $col_kMail = "+kullanici1._kMail
+        var sorgu = "SELECT * FROM "+ tablo_adi3 + " WHERE $col_kMail = '$mail'"
         var sonuc=db.rawQuery(sorgu,null)
         var kullanici=Kullanici()
         if(sonuc.moveToFirst())
@@ -187,7 +192,7 @@ class SqLiteIslemleri (var context: Context):SQLiteOpenHelper(context, database_
         var liste:ArrayList<Sifre> = ArrayList()
         val db=this.readableDatabase
         var sorgu = "SELECT s.SifreId,s.Sifre,s.TipId,s.KullaniciId,t.TipId,t.SifreTipi FROM "+ tablo_adi+
-                " AS s JOIN "+ tablo_adi2 + " AS t ON s.TipId=t.TipId Where s.KullaniciId=(SELECT k.KullaniciId FROM Kullanicilar AS k WHERE k.Eposta="+s+" )"
+                " AS s JOIN "+ tablo_adi2 + " AS t ON s.TipId=t.TipId Where s.KullaniciId=(SELECT k.KullaniciId FROM Kullanicilar AS k WHERE k.Eposta='$s')"
         var sonuc=db.rawQuery(sorgu,null)
         if(sonuc.moveToFirst())
         {
@@ -257,8 +262,8 @@ class SqLiteIslemleri (var context: Context):SQLiteOpenHelper(context, database_
                 cv.put(col_kSoyadi,kullanici._kSoyadi)
                 cv.put(col_kMail,kullanici._kMail)
                 cv.put(col_kSifre,kullanici._kSifre)
-                db.update(tablo_adi3,cv,"$col_kId=? AND $col_kMail=?",
-                    arrayOf(kullanici._kId.toString(),kullanici._kMail))
+                db.update(tablo_adi3,cv,"$col_kId=? AND $col_kMail='${kullanici._kMail}'",
+                    arrayOf(kullanici._kId.toString()))
             }while (sonuc.moveToNext())
         }
         sonuc.close()
@@ -288,7 +293,7 @@ class SqLiteIslemleri (var context: Context):SQLiteOpenHelper(context, database_
     {
         var kullanici=Kullanici()
         val db=this.readableDatabase
-        var sorgu = "SELECT * FROM "+ tablo_adi3+" WHERE $col_kMail=$mail"
+        var sorgu = "SELECT * FROM "+ tablo_adi3+" WHERE $col_kMail= '$mail'"
         var sonuc=db.rawQuery(sorgu,null)
         if(sonuc.moveToFirst())
         {
@@ -306,7 +311,7 @@ class SqLiteIslemleri (var context: Context):SQLiteOpenHelper(context, database_
     {
         var kullanici=getirKullaniciIleMail(mail)
         val db=this.writableDatabase
-        var sonuc=db.delete(tablo_adi3,"$col_kMail=?", arrayOf(kullanici._kMail))
+        var sonuc=db.delete(tablo_adi3,"$col_kMail='?'", arrayOf(kullanici._kMail))
         db.close()
 
         return sonuc !=-1
@@ -325,6 +330,51 @@ class SqLiteIslemleri (var context: Context):SQLiteOpenHelper(context, database_
         val db=this.writableDatabase
         var sonuc=db.delete(tablo_adi,"$col_sId=?", arrayOf(sifre._sId.toString()))
         db.close()
+    }
+    fun tipKarsilastir(tip:String):Boolean
+    {
+        var liste=getirSifreTip()
+        for(_tip in liste)
+        {
+            if(_tip._SifreTipi==tip)
+            {
+                return false
+            }
+        }
+        return true
+    }
+    fun tipDogrula(tip:String):SifreTip?
+    {
+        var liste=getirSifreTip()
+        for(_tip in liste)
+        {
+            if(_tip._SifreTipi==tip)
+                return _tip
+        }
+        return null
+    }
+    fun getirSifrelerTipIle(sifreTip: String,kullanici: Kullanici):ArrayList<Sifre>
+    {
+        var liste=ArrayList<Sifre>()
+        val db = this.readableDatabase
+        var sorgu = "SELECT * FROM $tablo_adi WHERE $col_tId= "+sifreTip +" AND $col_kId= "+kullanici._kId
+        var sonuc =  db.rawQuery(sorgu,null)
+
+        if(sonuc.moveToFirst())
+        {
+            do {
+                var sifre=Sifre()
+                sifre._sId=sonuc.getString(sonuc.getColumnIndexOrThrow(col_sId)).toInt()
+                sifre._sSifre=sonuc.getString(sonuc.getColumnIndexOrThrow(col_sifre))
+                sifre._sTur=getirSifreTipIleId(sifreTip.toLong())
+                sifre._sKullanici=kullanici
+
+                liste.add(sifre)
+            }while (sonuc.moveToNext())
+        }
+        sonuc.close()
+        db.close()
+        return liste
     }
 
 
