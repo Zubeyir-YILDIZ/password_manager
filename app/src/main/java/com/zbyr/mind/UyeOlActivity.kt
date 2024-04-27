@@ -27,7 +27,7 @@ class UyeOlActivity : AppCompatActivity() {
             var txtSifre=bagla.editTextOlusturSifre
             if(txtIsim.text.isNotEmpty() && txtMail.text.isNotEmpty() && txtSifre.text.isNotEmpty() && txtSoyisim.text.isNotEmpty())
             {
-                var kullanici=Kullanici(0,txtIsim.text.toString(),txtSoyisim.text.toString(),txtMail.text.toString(),txtSifre.text.toString())
+                var kullanici=Kullanici(txtIsim.text.toString(),txtSoyisim.text.toString(),txtMail.text.toString(),txtSifre.text.toString())
                 //firebaseIslemci.KullaniciEkle(kullanici)
                 sqLiteIslemci.ekleKullanici(kullanici)
                 finish()

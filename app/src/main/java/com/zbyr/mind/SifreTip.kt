@@ -4,9 +4,8 @@ class SifreTip {
     var _TipId:Long=0
     var _SifreTipi:String=""
 
-    constructor(tipId:Long,sifreTipi:String)
+    constructor(sifreTipi:String)
     {
-        this._TipId=tipId
         this._SifreTipi=sifreTipi
     }
     constructor()

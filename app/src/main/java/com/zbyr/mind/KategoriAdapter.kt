@@ -4,6 +4,8 @@ import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.EditText
@@ -38,17 +40,33 @@ class KategoriAdapter(val kategorilar:MutableList<SifreTip>):RecyclerView.Adapte
     }
 
     override fun onBindViewHolder(holder: KategoriHolder, position: Int) {
+
         holder.bagla.textViewKategorilar.setText(kategorilar.get(position)._SifreTipi)
         holder.bagla.textViewKategorilar.setOnClickListener {
-
             (holder.itemView.context as AnasayfaActivity).sifreleriGetir(kategorilar.get(position)._TipId.toString())
-
+            notifyItemInserted(position)
         }
-
+        ayar(holder)
     }
+    fun ayar(holder:KategoriHolder)
+    {
+        if(holder.bagla.textViewKategorilar.text=="Ekle")
+        {
+            var buton=holder.bagla.textViewKategorilar
+            val deger=buton.layoutParams
+            deger.width=130
+            deger.height=130
+            buton.layoutParams=deger
+            buton.setBackgroundResource(R.drawable.recycler_ekle_buton)
+            buton.setTextColor(Color.parseColor("#ffc107"))
+            buton.gravity=Gravity.CENTER
 
-    @SuppressLint("SuspiciousIndentation")
-    fun kategoriSor(holder: KategoriHolder, position:Int)
+            buton.setOnClickListener {
+                kategoriSor(holder)
+            }
+        }
+    }
+    fun kategoriSor(holder: KategoriHolder)
     {
         val inputDialog = AlertDialog.Builder(holder.itemView.context)
         inputDialog.setTitle("Yeni kategorinizi giriniz")
@@ -56,16 +74,11 @@ class KategoriAdapter(val kategorilar:MutableList<SifreTip>):RecyclerView.Adapte
         inputDialog.setView(inputEditText2)
         inputDialog.setPositiveButton("Tamam") {dialog2,which2 ->
             val sonuc = inputEditText2.text.toString()
-                if(sqLiteIslemci.tipKarsilastir(sonuc))
+                if(sqLiteIslemci.tipKarsilastir(sonuc) && sonuc.isNotEmpty())
                 {
-                    var textViewKategori=TextView(holder.bagla.root.context)
-                    textViewKategori.setText(position)
-
+                    sqLiteIslemci.ekleSifreTipi(SifreTip(sonuc))
                 }
-
-
-
-            //(holder.itemView.context as AnasayfaActivity).sifreleriGetir()
+            (holder.itemView.context as AnasayfaActivity).kategoriOlustur()
         }
         inputDialog.show()
     }

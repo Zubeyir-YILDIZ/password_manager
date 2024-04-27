@@ -20,6 +20,7 @@ class AnasayfaActivity : AppCompatActivity() {
     private lateinit var sqLiteIslemleri: SqLiteIslemleri
     companion object{
         var anahtar:Boolean=false
+        var kategori:String=""
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,12 +40,14 @@ class AnasayfaActivity : AppCompatActivity() {
         setSupportActionBar(bagla.yon)
         bagla.floatingActionButton.setOnClickListener {
             val intent=Intent(this,SifreEkleActivity::class.java)
+            intent.putExtra("anaContex",bagla.root.context.toString())
             startActivity(intent)
         }
     }
     fun sifreleriGetir(kategori:String)
     {
-        var liste=sqLiteIslemleri.getirSifrelerTipIle(kategori,MainActivity.AktifKullanici!!)
+        val liste=sqLiteIslemleri.getirSifrelerTipIle(kategori,MainActivity.AktifKullanici!!)
+
         supportActionBar?.title=""
 
         if(!bagla.floatingActionButton.isShown)
@@ -58,11 +61,11 @@ class AnasayfaActivity : AppCompatActivity() {
     fun kategoriOlustur()
     {
         var kategoriler=sqLiteIslemleri.getirSifreTip()
+        kategoriler.add(kategoriler.count(),SifreTip("Ekle"))
         bagla.textViewSifreleriniz.setText("Kategoriler")
         supportActionBar?.title="Hoşgeldin "+MainActivity.AktifKullanici?._kAdi
 
-        if(bagla.floatingActionButton.isShown)
-            bagla.floatingActionButton.hide()
+        bagla.floatingActionButton.hide()
         bagla.textViewOncekiSayfa.visibility=View.GONE
         bagla.RecyclerViewSifreler.layoutManager=GridLayoutManager(this,3)
         val kategoriAdapter=KategoriAdapter(kategoriler)
@@ -72,7 +75,6 @@ class AnasayfaActivity : AppCompatActivity() {
         menuInflater.inflate(R.menu.cubuk,menu)
         return true
     }
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
         if(item.itemId==R.id.yon_ayarlar)
@@ -86,9 +88,12 @@ class AnasayfaActivity : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
-
     override fun onResume() {
-        //sifreleriGetir()
+        if(anahtar)
+        {
+            sifreleriGetir(kategori)
+            anahtar=false
+        }
         super.onResume()
         if(MainActivity.AktifKullanici==null)
         {

@@ -7,9 +7,8 @@ class Kullanici {
     var _kMail:String=""
     var _kSifre:String=""
 
-    constructor(kId: Long,kAdi: String,kSoyadi:String,kMail:String,kSifre:String)
+    constructor(kAdi: String,kSoyadi:String,kMail:String,kSifre:String)
     {
-        this._kId=kId
         this._kAdi=kAdi
         this._kSoyadi=kSoyadi
         this._kMail=kMail

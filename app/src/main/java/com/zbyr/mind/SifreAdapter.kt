@@ -28,6 +28,7 @@ class SifreAdapter(val sifreler:ArrayList<Sifre>) :RecyclerView.Adapter<SifreAda
     }
 
     override fun onBindViewHolder(holder: SifreHolder, position: Int) {
+
             holder.binding.textViewRecItem.setText("Şifre: "+sifreler.get(position)._sSifre)
             holder.binding.textViewRecItem2.setText("Türü: "+sifreler.get(position)._sTur?._SifreTipi)
 
@@ -50,6 +51,7 @@ class SifreAdapter(val sifreler:ArrayList<Sifre>) :RecyclerView.Adapter<SifreAda
                     sifre._sKullanici=sifreler.get(position)._sKullanici
                     sifreler[position]=sifre
                     sqLiteIslemleri.güncelleSifre(sifre)
+
                     (holder.itemView.context as AnasayfaActivity).sifreleriGetir(sifreler.get(position)._sTur?._TipId.toString())
                 }
                 inputDialog.show()

@@ -36,8 +36,10 @@ class SifreEkleActivity : AppCompatActivity() {
                 if(sqLiteIslemci.tipDogrula(seciliDeger!!)!=null)
                     sifreTipi._TipId= sqLiteIslemci.tipDogrula(seciliDeger!!)!!._TipId as Long
                 sifreTipi._SifreTipi=seciliDeger.toString()
-                var sifre=Sifre(0,txtSifre.text.toString(),sifreTipi, MainActivity.AktifKullanici!!)
+                var sifre=Sifre(txtSifre.text.toString(),sifreTipi, MainActivity.AktifKullanici!!)
                 sqLiteIslemci.ekleSifre(sifre)
+                AnasayfaActivity.kategori=sifre._sTur?._TipId.toString()
+                AnasayfaActivity.anahtar=true
                 finish()
             }else
             {
@@ -88,7 +90,7 @@ class SifreEkleActivity : AppCompatActivity() {
             val sonuc = inputEditText.text.toString()
             if(sonuc.isNotEmpty() && sqLiteIslemci.tipKarsilastir(sonuc))
             {
-                sqLiteIslemci.ekleSifreTipi(SifreTip(0,sonuc))
+                sqLiteIslemci.ekleSifreTipi(SifreTip(sonuc))
                 spinnerOlustur(spinner,tipleriListele(sqLiteIslemci.getirSifreTip()))
             }
         }
