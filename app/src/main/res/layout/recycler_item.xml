@@ -1,94 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
-
-    <TextView
-        android:id="@+id/textViewRecItem"
-        android:layout_width="132dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:text="TextView"
-        tools:layout_editor_absoluteX="31dp"
-        tools:layout_editor_absoluteY="134dp" />
-
-    <TextView
-        android:id="@+id/textViewRecItem2"
-        android:layout_width="108dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginBottom="10dp"
-        android:layout_weight="1"
-        android:text="TextView" />
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="5dp"
+    android:orientation="horizontal"
+    android:paddingBottom="5dp">
 
     <LinearLayout
-        android:id="@+id/fab1Sinir"
-        android:layout_width="wrap_content"
-        android:layout_height="48dp"
-        android:layout_marginLeft="3dp"
-        android:layout_marginTop="3dp"
-        android:layout_marginRight="3dp"
-        android:layout_marginBottom="3dp"
-        android:background="@drawable/floating_buton_renk"
+        android:id="@+id/linearLayout"
+        android:layout_width="259dp"
+        android:layout_height="72dp"
+        android:layout_marginStart="2dp"
+        android:orientation="vertical"
+        android:padding="3dp"
+        app:layout_constraintEnd_toStartOf="@+id/linearLayout2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/floatingActionButtonSil"
-            android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/textViewRecItem"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal|center_vertical"
-            android:layout_marginLeft="2dp"
-            android:layout_marginTop="2dp"
-            android:layout_marginRight="2dp"
-            android:layout_marginBottom="2dp"
-            android:layout_weight="1"
-            android:clickable="true"
-            android:textAlignment="center"
-            app:backgroundTint="#FFC107"
-            app:borderWidth="3dp"
-            app:fabCustomSize="46dp"
-            app:fabSize="auto"
-            app:maxImageSize="28dp"
-            app:srcCompat="@android:drawable/ic_menu_delete" />
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="6dp"
+            android:textStyle="bold"
+            tools:layout_editor_absoluteX="31dp"
+            tools:layout_editor_absoluteY="134dp" />
+
+        <TextView
+            android:id="@+id/textViewRecItem2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="6dp"
+            android:textStyle="bold" />
+
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/fab2Sinir"
-        android:layout_width="wrap_content"
-        android:layout_height="48dp"
-        android:layout_marginLeft="3dp"
-        android:layout_marginTop="3dp"
-        android:layout_marginRight="3dp"
-        android:layout_marginBottom="3dp"
-        android:background="@drawable/floating_buton_renk"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:id="@+id/linearLayout2"
+        android:layout_width="141dp"
+        android:layout_height="70dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginRight="2dp"
+        android:orientation="horizontal"
+        android:padding="3dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/linearLayout"
+        app:layout_constraintTop_toTopOf="@+id/linearLayout">
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/floatingActionButtonDuzenle"
+        <LinearLayout
+            android:id="@+id/fab1Sinir"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="2dp"
-            android:layout_marginTop="2dp"
-            android:layout_marginRight="2dp"
-            android:layout_marginBottom="2dp"
-            android:layout_weight="1"
-            android:clickable="true"
-            android:textAlignment="center"
-            app:backgroundTint="#FFC107"
-            app:borderWidth="3dp"
-            app:fabCustomSize="46dp"
-            app:maxImageSize="28dp"
-            app:srcCompat="@android:drawable/ic_menu_edit" />
+            android:layout_marginRight="3dp"
+            android:background="@drawable/floating_buton_renk">
 
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/floatingActionButtonSil"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:layout_margin="5dp"
+                android:clickable="true"
+                android:textAlignment="center"
+                app:backgroundTint="#FFC107"
+                app:fabCustomSize="57dp"
+                app:fabSize="auto"
+                app:maxImageSize="28dp"
+                app:srcCompat="@android:drawable/ic_menu_delete" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/fab2Sinir"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/floating_buton_renk">
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/floatingActionButtonDuzenle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="5dp"
+                android:clickable="true"
+                android:textAlignment="center"
+                app:backgroundTint="#FFC107"
+                app:fabCustomSize="57dp"
+                app:maxImageSize="28dp"
+                app:srcCompat="@android:drawable/ic_menu_edit" />
+        </LinearLayout>
     </LinearLayout>
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

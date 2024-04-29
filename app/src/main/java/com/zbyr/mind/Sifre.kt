@@ -5,7 +5,7 @@ class Sifre {
     var _sSifre:String=""
     var _sTur:SifreTip?=null
     var _sKullanici: Kullanici? =null
-    var _sHesapAdi:String=""
+    var _sHesapAdi:String="-"
 
     constructor(sSifre: String,sTur:SifreTip,sKullanici: Kullanici)
     {

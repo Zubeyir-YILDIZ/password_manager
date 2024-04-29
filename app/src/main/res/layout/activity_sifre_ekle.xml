@@ -10,8 +10,8 @@
     <EditText
         android:id="@+id/editTextSifreSifre"
         android:layout_width="253dp"
-        android:layout_height="49dp"
-        android:layout_marginBottom="422dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="328dp"
         android:background="@drawable/sifre_ekle_text_alani"
         android:ems="10"
         android:hint="Şifreyi giriniz"
@@ -22,103 +22,82 @@
         android:textStyle="bold|italic"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewSelamSifre" />
-
-    <Button
-        android:id="@+id/buttonSifreOner"
-        android:layout_width="115dp"
-        android:layout_height="51dp"
-        android:layout_marginTop="36dp"
-        android:layout_marginEnd="80dp"
-        android:backgroundTint="#FF282A2B"
-        android:text="Şifre Öner"
-        android:textColor="#FF9800"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerSifreTurleri"
-        app:layout_constraintVertical_bias="0.012" />
-
-    <TextView
-        android:id="@+id/textViewEkleTip"
-        android:layout_width="60dp"
-        android:layout_height="51dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginEnd="10dp"
-        android:paddingTop="10dp"
-        android:text="Şifre Türü Ekle"
-        android:textAlignment="center"
-        android:textColor="#000000"
-        android:textStyle="bold|italic"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/spinnerSifreTurleri"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/switchAcKullaniciAdi" />
 
     <TextView
         android:id="@+id/textViewSelamSifre"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="194dp"
-        android:layout_marginBottom="38dp"
+        android:layout_marginTop="211dp"
+        android:layout_marginBottom="8dp"
         android:text="Yeni Şifre Ekle"
         android:textAlignment="center"
         android:textColor="#000000"
         android:textSize="20sp"
         android:textStyle="bold|italic"
-        app:layout_constraintBottom_toTopOf="@+id/editTextSifreSifre"
-        app:layout_constraintEnd_toEndOf="@+id/spinnerSifreTurleri"
-        app:layout_constraintStart_toStartOf="@+id/spinnerSifreTurleri"
+        app:layout_constraintBottom_toTopOf="@+id/editTextText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/buttonSifreOlustur"
         android:layout_width="115dp"
-        android:layout_height="51dp"
-        android:layout_marginTop="39dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="24dp"
         android:backgroundTint="#FF282A2B"
         android:text="Oluştur"
         android:textColor="#FF9800"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/buttonSifreOner"
-        app:layout_constraintHorizontal_bias="0.858"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerSifreTurleri"
-        app:layout_constraintVertical_bias="0.0" />
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.036"
+        app:layout_constraintStart_toEndOf="@+id/buttonSifreOner"
+        app:layout_constraintTop_toBottomOf="@+id/editTextSifreSifre" />
 
-    <TextView
-        android:id="@+id/textViewSilTip"
-        android:layout_width="60dp"
-        android:layout_height="51dp"
-        android:paddingTop="10dp"
-        android:text="Şifre Türü Sil"
-        android:textAlignment="center"
-        android:textColor="#000000"
-        android:textStyle="bold|italic"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/spinnerSifreTurleri"
+    <Button
+        android:id="@+id/buttonSifreOner"
+        android:layout_width="115dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="76dp"
+        android:layout_marginTop="24dp"
+        android:backgroundTint="#FF282A2B"
+        android:text="Şifre Öner"
+        android:textColor="#FF9800"
+        android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextSifreSifre" />
 
-    <Spinner
-        android:id="@+id/spinnerSifreTurleri"
-        android:layout_width="0dp"
-        android:layout_height="51dp"
-        android:layout_marginStart="85dp"
-        android:layout_marginEnd="10dp"
-        android:autofillHints="Seçiniz"
+    <EditText
+        android:id="@+id/editTextText"
+        android:layout_width="253dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="3dp"
         android:background="@drawable/sifre_ekle_text_alani"
-        android:dropDownSelector="@android:drawable/alert_dark_frame"
-        android:padding="1dp"
-        android:pointerIcon="arrow"
-        android:popupBackground="@drawable/sifre_ekle_text_alani"
-        android:spinnerMode="dropdown"
+        android:ems="10"
+        android:hint="Kullanıcı adı giriniz"
+        android:inputType="text"
         android:textAlignment="center"
         android:textColor="#FF9800"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/textViewEkleTip"
+        android:textColorHint="#FF9800"
+        android:textSize="18sp"
+        android:textStyle="bold|italic"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/switchAcKullaniciAdi"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewSelamSifre" />
+
+    <Switch
+        android:id="@+id/switchAcKullaniciAdi"
+        android:layout_width="253dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="2dp"
+        android:text="Kullanıcı adı ekle"
+        app:layout_constraintBottom_toTopOf="@+id/editTextSifreSifre"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

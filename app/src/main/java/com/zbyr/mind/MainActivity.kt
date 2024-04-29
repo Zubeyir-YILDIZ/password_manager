@@ -4,6 +4,12 @@ import android.app.AlertDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.animation.Animation
+import android.view.animation.AnimationSet
+import android.view.animation.AnimationUtils
+import android.view.animation.RotateAnimation
+import android.view.animation.ScaleAnimation
+import android.view.animation.TranslateAnimation
 import android.widget.EditText
 import android.widget.Toast
 import androidx.navigation.findNavController
@@ -69,6 +75,14 @@ class MainActivity : AppCompatActivity() {
             }
             inputDialog.show()
         }
+        kaydirma()
+        girisAnimasyon()
+
+    }
+    fun kaydirma()
+    {
+        val animation = AnimationUtils.loadAnimation(this, R.anim.giris_kayirma)
+        baglan.constraintLayoutIcerik.startAnimation(animation)
     }
     fun dogrulama(mutableList: MutableList<Kullanici>,mail:String,sifre:String): Kullanici?
     {
@@ -80,6 +94,35 @@ class MainActivity : AppCompatActivity() {
             }
         }
         return null
+    }
+    fun girisAnimasyon()
+    {
+        var simge=baglan.imageViewLogo
+
+        val scaleAnimation = ScaleAnimation(
+            1.0f, 1.5f,
+            1.0f, 1.5f,
+            Animation.RELATIVE_TO_SELF, 0.5f,
+            Animation.RELATIVE_TO_SELF, 0.5f
+        )
+        scaleAnimation.duration = 1000
+        scaleAnimation.repeatCount = Animation.REVERSE
+        scaleAnimation.repeatMode = Animation.REVERSE
+
+        val rotateAnimation = RotateAnimation(
+            0f, 360f,
+            Animation.RELATIVE_TO_SELF, 0.5f,
+            Animation.RELATIVE_TO_SELF, 0.5f
+        )
+        rotateAnimation.duration = 1000
+        //rotateAnimation.repeatCount = Animation.REVERSE
+        simge.scaleX=1.5f
+        simge.scaleY=1.5f
+        val animasyonlar = AnimationSet(true)
+        animasyonlar.addAnimation(scaleAnimation)
+        animasyonlar.addAnimation(rotateAnimation)
+
+        simge.startAnimation(animasyonlar)
     }
 
 }

@@ -26,7 +26,6 @@ class KategoriAdapter(val kategorilar:MutableList<SifreTip>):RecyclerView.Adapte
     {
 
     }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): KategoriHolder {
         bagla=RecyclerKategorilerBinding.inflate(LayoutInflater.from(parent.context),parent,false)
         sqLiteIslemci= SqLiteIslemleri(bagla.root.context)
@@ -34,16 +33,18 @@ class KategoriAdapter(val kategorilar:MutableList<SifreTip>):RecyclerView.Adapte
         bind=ActivityAnasayfaBinding.inflate(layoutInflater)
         return KategoriHolder(bagla)
     }
-
     override fun getItemCount(): Int {
         return kategorilar.count()
     }
-
     override fun onBindViewHolder(holder: KategoriHolder, position: Int) {
-
-        holder.bagla.textViewKategorilar.setText(kategorilar.get(position)._SifreTipi)
+        var sifreAdeti=sqLiteIslemci.getirSifrelerTipIle(kategorilar.get(position)._TipId.toString(),MainActivity.AktifKullanici!!).count()
+        var metin=kategorilar.get(position)._SifreTipi
+        if(metin!="Ekle")
+            metin+="\n adet:"+sifreAdeti
+        holder.bagla.textViewKategorilar.setText(metin)
         holder.bagla.textViewKategorilar.setOnClickListener {
             (holder.itemView.context as AnasayfaActivity).sifreleriGetir(kategorilar.get(position)._TipId.toString())
+            AnasayfaActivity.kategori=kategorilar.get(position)._TipId.toString()
             notifyItemInserted(position)
         }
         ayar(holder)
@@ -74,9 +75,9 @@ class KategoriAdapter(val kategorilar:MutableList<SifreTip>):RecyclerView.Adapte
         inputDialog.setView(inputEditText2)
         inputDialog.setPositiveButton("Tamam") {dialog2,which2 ->
             val sonuc = inputEditText2.text.toString()
-                if(sqLiteIslemci.tipKarsilastir(sonuc) && sonuc.isNotEmpty())
+                if(sqLiteIslemci.tipKarsilastir(sonuc,MainActivity.AktifKullanici!!) && sonuc.isNotEmpty())
                 {
-                    sqLiteIslemci.ekleSifreTipi(SifreTip(sonuc))
+                    sqLiteIslemci.ekleSifreTipi(SifreTip(sonuc,MainActivity.AktifKullanici!!._kId),MainActivity.AktifKullanici!!)
                 }
             (holder.itemView.context as AnasayfaActivity).kategoriOlustur()
         }
