@@ -18,9 +18,10 @@
             android:id="@+id/textViewKategorilar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/arkaplan_3"
+            android:background="@drawable/kategori_renk"
             android:padding="25dp"
             android:textAlignment="center"
+            android:textColor="#FFC107"
             android:textSize="16sp"
             android:textStyle="bold" />
     </LinearLayout>

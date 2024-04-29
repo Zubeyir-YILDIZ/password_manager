@@ -46,7 +46,7 @@ class SifreOnerActivity : AppCompatActivity() {
 
         val buyukHarf = "ABCDEFGHIİJKLMNOÖPQRSŞTUÜVWXYZ"
         val kucukHarf = "abcdefghıijklmnoöpqrsştuüvwxyz"
-        val ozelKarakter = "!@#$%^&*()_+{}[]|:;<>,.?/~"
+        val ozelKarakter = "!@#$%^&*()_+{}[]|;<>,.?/~"
         val sayi = "0123456789"
 
         val havuz = mutableListOf<Char>()

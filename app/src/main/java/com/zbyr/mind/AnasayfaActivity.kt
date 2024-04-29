@@ -1,5 +1,8 @@
 package com.zbyr.mind
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
+import android.animation.ObjectAnimator
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -8,6 +11,8 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.PopupMenu
 import androidx.appcompat.app.ActionBar
+import androidx.core.animation.addListener
+import androidx.core.animation.doOnEnd
 import androidx.core.view.children
 import androidx.core.view.isVisible
 import androidx.navigation.Navigation
@@ -15,6 +20,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.zbyr.mind.databinding.ActivityAnasayfaBinding
 import com.zbyr.mind.databinding.ActivityMainBinding
+import kotlinx.coroutines.delay
 
 class AnasayfaActivity : AppCompatActivity() {
     private lateinit var bagla:ActivityAnasayfaBinding
@@ -44,10 +50,16 @@ class AnasayfaActivity : AppCompatActivity() {
             startActivity(intent)
         }
     }
+    fun gecisAnimasyonu()
+    {
+        val rotationAnimation = ObjectAnimator.ofFloat(bagla.RecyclerViewSifreler, "rotation", 0f, 360f)
+        rotationAnimation.duration = 500
+        rotationAnimation.start()
+    }
     fun sifreleriGetir(kategori:String)
     {
         val liste=sqLiteIslemleri.getirSifrelerTipIle(kategori,MainActivity.AktifKullanici!!)
-
+        gecisAnimasyonu()
         supportActionBar?.title=sqLiteIslemleri.tipDogrula(kategori,MainActivity.AktifKullanici!!)!!._SifreTipi
         if(!bagla.floatingActionButton.isShown)
             bagla.floatingActionButton.show()

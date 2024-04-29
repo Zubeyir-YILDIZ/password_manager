@@ -6,137 +6,160 @@
     android:layout_height="match_parent"
     tools:context=".SifreOnerActivity">
 
-    <TextView
-        android:id="@+id/textViewSelamOneri"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="21dp"
-        android:layout_marginBottom="21dp"
-        android:text="Şifre Oluşturucu"
-        android:textColor="#000000"
-        android:textSize="24sp"
-        android:textStyle="bold|italic"
-        app:layout_constraintBottom_toTopOf="@+id/checkBoxHarfTipi"
-        app:layout_constraintEnd_toEndOf="@+id/checkBoxHarfTipi" />
-
-    <CheckBox
-        android:id="@+id/checkBoxHarfTipi"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="129dp"
-        android:layout_marginBottom="139dp"
-        android:text="Büyük/Küçük harf olacak mı"
-        app:layout_constraintBottom_toTopOf="@+id/textView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <CheckBox
-        android:id="@+id/checkBoxSayi"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="29dp"
-        android:layout_marginTop="13dp"
-        android:text="Sayı olacak mı"
-        app:layout_constraintStart_toStartOf="@+id/checkBoxOzelKarakter"
-        app:layout_constraintTop_toBottomOf="@+id/checkBoxOzelKarakter" />
-
-    <CheckBox
-        android:id="@+id/checkBoxOzelKarakter"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="13dp"
-        android:text="Özel Karakter olacak mı"
-        app:layout_constraintEnd_toEndOf="@+id/checkBoxHarfTipi"
-        app:layout_constraintTop_toBottomOf="@+id/checkBoxHarfTipi" />
-
-    <Button
-        android:id="@+id/buttonOlusturSifre"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:text="Oluştur"
-        app:layout_constraintBottom_toTopOf="@+id/editTextBilgiSifre"
-        app:layout_constraintEnd_toEndOf="@+id/editTextBilgiSifre"
-        app:layout_constraintStart_toStartOf="@+id/editTextBilgiSifre" />
-
-    <TextView
-        android:id="@+id/textViewBilgiSifre"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="45dp"
-        android:layout_marginEnd="1dp"
-        android:text="Şifreniz: "
-        app:layout_constraintBaseline_toBaselineOf="@+id/editTextBilgiSifre"
-        app:layout_constraintEnd_toStartOf="@+id/editTextBilgiSifre"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <EditText
-        android:id="@+id/editTextBilgiSifre"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="7dp"
-        android:ems="10"
-        android:hint="Burada görünecek"
-        android:inputType="text"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/textViewKopyala"
-        app:layout_constraintStart_toEndOf="@+id/textViewBilgiSifre"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.632" />
-
-    <TextView
-        android:id="@+id/textViewSayiUzunluk"
-        android:layout_width="wrap_content"
-        android:layout_height="19dp"
-        android:text="8"
-        app:layout_constraintBottom_toBottomOf="@+id/seekBarSayiUzunluk"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.152"
-        app:layout_constraintStart_toEndOf="@+id/seekBarSayiUzunluk"
-        app:layout_constraintTop_toTopOf="@+id/seekBarSayiUzunluk"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <TextView
-        android:id="@+id/textViewKopyala"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="51dp"
-        android:background="@drawable/baseline_content_copy_24"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/editTextBilgiSifre"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.62" />
-
-    <SeekBar
-        android:id="@+id/seekBarSayiUzunluk"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout3"
         android:layout_width="0dp"
-        android:layout_height="19dp"
-        android:layout_marginEnd="76dp"
-        android:layout_marginBottom="88dp"
-        android:max="100"
-        android:min="8"
-        app:layout_constraintBottom_toTopOf="@+id/textViewKopyala"
+        android:layout_height="210dp"
+        android:layout_marginBottom="232dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintStart_toStartOf="parent">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="19dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="82dp"
-        android:text="Şifre uzunluğu"
-        app:layout_constraintBottom_toTopOf="@+id/editTextBilgiSifre"
-        app:layout_constraintEnd_toStartOf="@+id/seekBarSayiUzunluk"
+        <EditText
+            android:id="@+id/editTextBilgiSifre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="7dp"
+            android:ems="10"
+            android:hint="Burada görünecek"
+            android:inputType="text"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.369" />
+
+        <TextView
+            android:id="@+id/textViewBilgiSifre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Şifreniz: "
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.392"
+            tools:layout_editor_absoluteX="39dp" />
+
+        <Button
+            android:id="@+id/buttonOlusturSifre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Oluştur"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.03" />
+
+        <TextView
+            android:id="@+id/textViewKopyala"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/baseline_content_copy_24"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/editTextBilgiSifre"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.41" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout4"
+        android:layout_width="0dp"
+        android:layout_height="290dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkBoxHarfTipi" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/textViewSelamOneri"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Şifre Oluşturucu"
+            android:textColor="#000000"
+            android:textSize="24sp"
+            android:textStyle="bold|italic"
+            app:layout_constraintBottom_toBottomOf="@+id/seekBarSayiUzunluk"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.102" />
+
+        <CheckBox
+            android:id="@+id/checkBoxHarfTipi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Büyük/Küçük harf olacak mı"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.489"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.715" />
+
+        <CheckBox
+            android:id="@+id/checkBoxOzelKarakter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Özel Karakter olacak mı"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <CheckBox
+            android:id="@+id/checkBoxSayi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sayı olacak mı"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.285" />
+
+        <SeekBar
+            android:id="@+id/seekBarSayiUzunluk"
+            android:layout_width="180dp"
+            android:layout_height="19dp"
+            android:max="100"
+            android:min="8"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.844" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="7dp"
+            android:text="Şifre uzunluğu"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.05"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.845" />
+
+        <TextView
+            android:id="@+id/textViewSayiUzunluk"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:text="8"
+            app:layout_constraintBottom_toBottomOf="@+id/seekBarSayiUzunluk"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.769"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/seekBarSayiUzunluk"
+            app:layout_constraintVertical_bias="0.0" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
