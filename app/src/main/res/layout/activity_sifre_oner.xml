@@ -8,6 +8,7 @@
     tools:context=".SifreOnerActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutBaslik"
         android:layout_width="232dp"
         android:layout_height="78dp"
         android:background="@drawable/ustten_yuvarlak"
@@ -30,6 +31,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutSol"
         android:layout_width="275dp"
         android:layout_height="275dp"
         android:background="@drawable/sagdan_yuvarlak"
@@ -151,6 +153,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutSag"
         android:layout_width="275dp"
         android:layout_height="275dp"
         android:background="@drawable/soldan_yuvarlak"

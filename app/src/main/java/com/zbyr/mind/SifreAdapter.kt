@@ -33,15 +33,17 @@ class SifreAdapter(val sifreler:ArrayList<Sifre>) :RecyclerView.Adapter<SifreAda
 
     override fun onBindViewHolder(holder: SifreHolder, position: Int) {
             if(sifreler.get(position)._sHesapAdi!="-")
-                holder.binding.textViewRecItem2.setText("Giriş Bilgisi:"+sifreler.get(position)._sHesapAdi)
-            holder.binding.textViewRecItem.setText("Şifre:"+sifreler.get(position)._sSifre)
+                holder.binding.textViewRecItem2.setText("Kullanıcı Adı::"+sifreler.get(position)._sHesapAdi)
+            else
+                holder.binding.textViewRecItem2.visibility=View.GONE
+            holder.binding.textViewRecItem.setText("Şifre::"+sifreler.get(position)._sSifre)
 
             holder.binding.textViewRecItem.setOnClickListener {
-                var sifre=holder.binding.textViewRecItem.text.split(":")[1]
+                var sifre=holder.binding.textViewRecItem.text.split("::")[1]
                 panoyaKopyala(sifre)
             }
             holder.binding.textViewRecItem2.setOnClickListener {
-                var hesapBilgisi=holder.binding.textViewRecItem2.text.split(":")[1]
+                var hesapBilgisi=holder.binding.textViewRecItem2.text.split("::")[1]
                 panoyaKopyala(hesapBilgisi)
             }
             holder.binding.floatingActionButtonSil.setOnClickListener {

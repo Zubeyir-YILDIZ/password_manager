@@ -4,90 +4,107 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/arkaplan_3"
+    android:background="#333333"
     tools:context=".UyeOlActivity">
+
+    <Button
+        android:id="@+id/buttonOlusturUyelik"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="#FFC107"
+        android:text="Üye Ol"
+        android:textColor="#333333"
+        app:cornerRadius="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextOlusturSifre"
+        app:layout_constraintVertical_bias="0.042" />
 
     <EditText
         android:id="@+id/editTextOlusturIsim"
         android:layout_width="250dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="140dp"
-        android:layout_marginBottom="13dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/uye_ol_text_alani"
         android:ems="10"
         android:hint="İsminiz"
         android:inputType="text"
         android:paddingStart="20dp"
-        android:textColor="#9C27B0"
-        android:textColorHint="#E91E63"
-        app:layout_constraintBottom_toTopOf="@+id/editTextOlusturSoyisim"
+        android:textColor="#FFC107"
+        android:textColorHint="#FFC107"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/editTextOlusturSoyisim"
-        android:layout_width="250dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="12dp"
-        android:background="@drawable/uye_ol_text_alani"
-        android:ems="10"
-        android:hint="Soyisminiz"
-        android:inputType="text"
-        android:paddingStart="20dp"
-        android:textColor="#9C27B0"
-        android:textColorHint="#E91E63"
-        app:layout_constraintBottom_toTopOf="@+id/editTextOlusturMail"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextOlusturIsim" />
-
-    <EditText
-        android:id="@+id/editTextOlusturMail"
-        android:layout_width="250dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="12dp"
-        android:background="@drawable/uye_ol_text_alani"
-        android:ems="10"
-        android:hint="Email Adresiniz"
-        android:inputType="textEmailAddress"
-        android:paddingStart="20dp"
-        android:textColor="#9C27B0"
-        android:textColorHint="#E91E63"
-        app:layout_constraintBottom_toTopOf="@+id/editTextOlusturSifre"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextOlusturSoyisim" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewBaslikUyeOl" />
 
     <EditText
         android:id="@+id/editTextOlusturSifre"
         android:layout_width="250dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="20dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/uye_ol_text_alani"
         android:ems="10"
         android:hint="Şifreniz"
         android:inputType="textPassword"
         android:paddingStart="20dp"
-        android:textColor="#9C27B0"
-        android:textColorHint="#E91E63"
-        app:layout_constraintBottom_toTopOf="@+id/buttonOlusturUyelik"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextOlusturMail" />
-
-    <Button
-        android:id="@+id/buttonOlusturUyelik"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginBottom="284dp"
-        android:backgroundTint="#94BC3664"
-        android:text="Üye Ol"
-        android:textColor="#FFEB3B"
+        android:textColor="#FFC107"
+        android:textColorHint="#FFC107"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/editTextOlusturSifre"
-        app:layout_constraintStart_toStartOf="@+id/editTextOlusturSifre"
-        app:layout_constraintTop_toBottomOf="@+id/editTextOlusturSifre" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextOlusturMail"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <EditText
+        android:id="@+id/editTextOlusturMail"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/uye_ol_text_alani"
+        android:ems="10"
+        android:hint="Email Adresiniz"
+        android:inputType="textEmailAddress"
+        android:paddingStart="20dp"
+        android:textColor="#FFC107"
+        android:textColorHint="#FFC107"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextOlusturSoyisim" />
+
+    <EditText
+        android:id="@+id/editTextOlusturSoyisim"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/uye_ol_text_alani"
+        android:ems="10"
+        android:hint="Soyisminiz"
+        android:inputType="text"
+        android:paddingStart="20dp"
+        android:textColor="#FFC107"
+        android:textColorHint="#FFC107"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextOlusturIsim" />
+
+    <TextView
+        android:id="@+id/textViewBaslikUyeOl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ÜYE OL"
+        android:textAlignment="center"
+        android:textColor="#FFC107"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.484"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.23" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

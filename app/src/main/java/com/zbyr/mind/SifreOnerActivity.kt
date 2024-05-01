@@ -4,6 +4,9 @@ import android.content.ClipboardManager
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
+import android.view.animation.RotateAnimation
 import android.widget.SeekBar
 import android.widget.Toast
 import com.zbyr.mind.databinding.ActivitySifreOnerBinding
@@ -35,6 +38,16 @@ class SifreOnerActivity : AppCompatActivity() {
 
             }
         })
+        kaydirma()
+    }
+    fun kaydirma()
+    {
+        val animasyonBaslık = AnimationUtils.loadAnimation(this, R.anim.sifre_oner_kaydirma)
+        bagla.layoutBaslik.startAnimation(animasyonBaslık)
+        val animasyonSol = AnimationUtils.loadAnimation(this, R.anim.sifre_oner_kaydirma_sol)
+        bagla.layoutSol.startAnimation(animasyonSol)
+        val animasyonSag = AnimationUtils.loadAnimation(this, R.anim.sifre_oner_kaydirma_sag)
+        bagla.layoutSag.startAnimation(animasyonSag)
     }
     fun RastgeleSifreOlustur():String
     {

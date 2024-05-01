@@ -6,6 +6,8 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.view.animation.Animation
+import android.view.animation.RotateAnimation
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.EditText
@@ -25,7 +27,9 @@ class SifreEkleActivity : AppCompatActivity() {
         sqLiteIslemci= SqLiteIslemleri(this)
         bagla=ActivitySifreEkleBinding.inflate(layoutInflater)
         setContentView(bagla.root)
-
+        bagla.constraintLayout.rotationX=90f
+        bagla.editTextText.visibility=View.GONE
+        acılısAnimasyonu()
         bagla.buttonSifreOlustur.setOnClickListener {
             var txtSifre=bagla.editTextSifreSifre
             var sifre:Sifre
@@ -38,7 +42,7 @@ class SifreEkleActivity : AppCompatActivity() {
                 {
                     sifreTipi._TipId= tip._TipId
                     sifreTipi._SifreTipi=tip._SifreTipi
-                    if(bagla.switchAcKullaniciAdi.isChecked)
+                    if(bagla.switchAcKullaniciAdi.isChecked && bagla.editTextText.text.isNotEmpty())
                     {
                         var txtKullaniciAdi=bagla.editTextText
                         sifre=Sifre(txtSifre.text.toString(),sifreTipi, MainActivity.AktifKullanici!!,txtKullaniciAdi.text.toString())
@@ -61,6 +65,12 @@ class SifreEkleActivity : AppCompatActivity() {
         bagla.switchAcKullaniciAdi.setOnClickListener {
             aktifMi()
         }
+    }
+    fun acılısAnimasyonu()
+    {
+        var layout=bagla.constraintLayout
+
+        layout.animate().rotationX(0f).duration=1000
     }
     fun aktifMi()
     {

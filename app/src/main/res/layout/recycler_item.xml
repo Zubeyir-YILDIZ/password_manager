@@ -11,13 +11,22 @@
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="259dp"
-        android:layout_height="72dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="2dp"
         android:orientation="vertical"
         android:padding="3dp"
         app:layout_constraintEnd_toStartOf="@+id/linearLayout2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/textViewRecItem2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="6dp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/textViewRecItem"
@@ -29,15 +38,6 @@
             android:textStyle="bold"
             tools:layout_editor_absoluteX="31dp"
             tools:layout_editor_absoluteY="134dp" />
-
-        <TextView
-            android:id="@+id/textViewRecItem2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="6dp"
-            android:layout_marginBottom="6dp"
-            android:textStyle="bold" />
 
     </LinearLayout>
 

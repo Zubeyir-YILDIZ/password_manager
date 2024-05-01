@@ -2,6 +2,7 @@ package com.zbyr.mind
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.database.DatabaseReference
@@ -19,7 +20,7 @@ class UyeOlActivity : AppCompatActivity() {
         bagla=ActivityUyeOlBinding.inflate(layoutInflater)
         setContentView(bagla.root)
 
-
+        girisAnimasyonu()
         bagla.buttonOlusturUyelik.setOnClickListener {
             var txtIsim=bagla.editTextOlusturIsim
             var txtSoyisim=bagla.editTextOlusturSoyisim
@@ -28,19 +29,22 @@ class UyeOlActivity : AppCompatActivity() {
             if(txtIsim.text.isNotEmpty() && txtMail.text.isNotEmpty() && txtSifre.text.isNotEmpty() && txtSoyisim.text.isNotEmpty())
             {
                 var kullanici=Kullanici(txtIsim.text.toString(),txtSoyisim.text.toString(),txtMail.text.toString(),txtSifre.text.toString())
-                //firebaseIslemci.KullaniciEkle(kullanici)
                 sqLiteIslemci.ekleKullanici(kullanici)
                 finish()
             }else
             {
-                Toast.makeText(applicationContext,"Lütfen boş alanları dolduralım", Toast.LENGTH_LONG).show()
+                Toast.makeText(applicationContext,"Lütfen boş alanları doldurunuz", Toast.LENGTH_LONG).show()
             }
-
-
         }
-
-
-
-
+    }
+    fun girisAnimasyonu()
+    {
+        bagla.textViewBaslikUyeOl.alpha=0f
+        bagla.editTextOlusturIsim.animate().rotationX(-360f).duration=1000
+        bagla.editTextOlusturSoyisim.animate().rotationX(-360f).duration=1200
+        bagla.editTextOlusturMail.animate().rotationX(-360f).duration=1400
+        bagla.editTextOlusturSifre.animate().rotationX(-360f).duration=1600
+        bagla.buttonOlusturUyelik.animate().rotationX(-360f).duration=2000
+        bagla.textViewBaslikUyeOl.animate().alpha(1f).duration=3000
     }
 }

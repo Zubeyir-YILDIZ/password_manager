@@ -41,49 +41,18 @@ class KategoriAdapter(val kategorilar:MutableList<SifreTip>):RecyclerView.Adapte
     override fun onBindViewHolder(holder: KategoriHolder, position: Int) {
         var sifreAdeti=sqLiteIslemci.getirSifrelerTipIle(kategorilar.get(position)._TipId.toString(),MainActivity.AktifKullanici!!).count()
         var metin=kategorilar.get(position)._SifreTipi
-        if(metin!="Ekle")
-            metin+="\n adet:"+sifreAdeti
+        if(metin.length>11)
+        {
+            metin=metin.removeRange(10,metin.length)
+            metin+=".."
+        }
+        metin+="\n adet:"+sifreAdeti
         holder.bagla.textViewKategorilar.setText(metin)
         holder.bagla.textViewKategorilar.setOnClickListener {
             (holder.itemView.context as AnasayfaActivity).sifreleriGetir(kategorilar.get(position)._TipId.toString())
             AnasayfaActivity.kategori=kategorilar.get(position)._TipId.toString()
             notifyItemInserted(position)
         }
-        ayar(holder)
-    }
-    fun ayar(holder:KategoriHolder)
-    {
-        if(holder.bagla.textViewKategorilar.text=="Ekle")
-        {
-            var buton=holder.bagla.textViewKategorilar
-            val deger=buton.layoutParams
-            deger.width=130
-            deger.height=130
-            buton.layoutParams=deger
-            buton.setBackgroundResource(R.drawable.recycler_ekle_buton)
-            buton.setTextColor(Color.parseColor("#ffc107"))
-            buton.gravity=Gravity.CENTER
-
-            buton.setOnClickListener {
-                kategoriSor(holder)
-            }
-        }
-    }
-    fun kategoriSor(holder: KategoriHolder)
-    {
-        val inputDialog = AlertDialog.Builder(holder.itemView.context)
-        inputDialog.setTitle("Yeni kategorinizi giriniz")
-        val inputEditText2 = EditText(holder.itemView.context)
-        inputDialog.setView(inputEditText2)
-        inputDialog.setPositiveButton("Tamam") {dialog2,which2 ->
-            val sonuc = inputEditText2.text.toString()
-                if(sqLiteIslemci.tipKarsilastir(sonuc,MainActivity.AktifKullanici!!) && sonuc.isNotEmpty())
-                {
-                    sqLiteIslemci.ekleSifreTipi(SifreTip(sonuc,MainActivity.AktifKullanici!!._kId),MainActivity.AktifKullanici!!)
-                }
-            (holder.itemView.context as AnasayfaActivity).kategoriOlustur()
-        }
-        inputDialog.show()
     }
 
 }

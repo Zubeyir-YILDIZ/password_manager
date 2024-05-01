@@ -9,6 +9,6 @@
     <corners android:radius="7dp" />
     <gradient
         android:startColor="#1C1B1A"
-        android:endColor="#CF7D04" android:angle="@integer/material_motion_duration_short_2"
+        android:endColor="#FFC107" android:angle="@integer/material_motion_duration_short_2"
         />
 </shape>
