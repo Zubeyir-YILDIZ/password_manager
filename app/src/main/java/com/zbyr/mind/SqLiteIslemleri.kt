@@ -63,6 +63,8 @@ class SqLiteIslemleri (var context: Context):SQLiteOpenHelper(context, database_
                 col_sId + "))"
         db?.execSQL(olusturTablo4)
 
+        val olusturTablo5 = "CREATE TABLE AktifK(kId INTEGER PRIMARY KEY,kontrol INTEGER)" //yedekleme işlemleri için
+        db?.execSQL(olusturTablo5)
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
@@ -188,12 +190,32 @@ class SqLiteIslemleri (var context: Context):SQLiteOpenHelper(context, database_
         db.close()
         return liste
     }
+    fun getirKullaniciIleId(id:Long):Kullanici
+    {
+        var kullanici=Kullanici()
+        val db=this.readableDatabase
+        var sorgu = "SELECT * FROM "+ tablo_adi3 + " WHERE $col_kId=$id"
+        var sonuc=db.rawQuery(sorgu,null)
+        if(sonuc.moveToFirst())
+        {
+            do {
+                kullanici._kId=sonuc.getString(sonuc.getColumnIndexOrThrow(col_kId)).toLong()
+                kullanici._kAdi=sonuc.getString(sonuc.getColumnIndexOrThrow(col_kAdi)).toString()
+                kullanici._kSoyadi=sonuc.getString(sonuc.getColumnIndexOrThrow(col_kSoyadi)).toString()
+                kullanici._kMail=sonuc.getString(sonuc.getColumnIndexOrThrow(col_kMail)).toString()
+                kullanici._kSifre=sonuc.getString(sonuc.getColumnIndexOrThrow(col_kSifre)).toString()
+            }while (sonuc.moveToNext())
+        }
+        sonuc.close()
+        db.close()
+        return kullanici
+    }
     fun getirSifre(kullanici: Kullanici):ArrayList<Sifre>?
     {
         var s=kullanici._kMail
         var liste:ArrayList<Sifre> = ArrayList()
         val db=this.readableDatabase
-        var sorgu = "SELECT s.SifreId,s.Sifre,s.TipId,s.KullaniciId,t.TipId,t.SifreTipi FROM "+ tablo_adi+
+        var sorgu = "SELECT s.SifreId,s.Sifre,s.HesapAdi,s.TipId,s.KullaniciId,t.TipId,t.SifreTipi FROM "+ tablo_adi+
                 " AS s JOIN "+ tablo_adi2 + " AS t ON s.TipId=t.TipId Where s.KullaniciId=(SELECT k.KullaniciId FROM Kullanicilar AS k WHERE k.Eposta='$s')"
         var sonuc=db.rawQuery(sorgu,null)
         if(sonuc.moveToFirst())
@@ -211,6 +233,47 @@ class SqLiteIslemleri (var context: Context):SQLiteOpenHelper(context, database_
                 sifre._sKullanici=kullanici
 
                 liste.add(sifre)
+            }while (sonuc.moveToNext())
+        }
+        sonuc.close()
+        db.close()
+        return liste
+    }
+    fun aktifKullaniciEkle(kullanici: Kullanici,kontrol:Int)
+    {
+        val db = this.writableDatabase
+        val cv = ContentValues()
+
+        cv.put("kId",kullanici._kId)
+        cv.put("kontrol",kontrol)
+
+        var sonuc = db.insert("AktifK",null,cv)
+        if(sonuc==(-1).toLong())
+        {
+            Toast.makeText(context,"Hatalı ekleme",Toast.LENGTH_SHORT).show()
+        }else
+        {
+            Toast.makeText(context,"Kayıt başarılı",Toast.LENGTH_SHORT).show()
+        }
+
+
+    }
+    fun aktifKullaniciSil(kullanici:Kullanici)
+    {
+        val db=this.writableDatabase
+        var sonuc=db.delete("AktifK","kId=? ", arrayOf(kullanici._kId.toString()))
+        db.close()
+    }
+    fun aktifKullaniciGetir():ArrayList<String>
+    {
+        var liste:ArrayList<String> = ArrayList()
+        val db=this.readableDatabase
+        var sorgu = "SELECT * FROM AktifK"
+        var sonuc=db.rawQuery(sorgu,null)
+        if(sonuc.moveToFirst())
+        {
+            do {
+                liste.add(sonuc.getString(sonuc.getColumnIndexOrThrow("kId")))
             }while (sonuc.moveToNext())
         }
         sonuc.close()

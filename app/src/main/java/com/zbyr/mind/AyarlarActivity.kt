@@ -1,12 +1,21 @@
 package com.zbyr.mind
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.res.ColorStateList
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.core.content.ContextCompat
+import androidx.work.Constraints
+import androidx.work.ExistingPeriodicWorkPolicy
+import androidx.work.NetworkType
+import androidx.work.PeriodicWorkRequestBuilder
+import androidx.work.WorkManager
 import com.google.firebase.database.collection.LLRBNode.Color
 import com.zbyr.mind.databinding.ActivityAyarlarBinding
+import java.sql.Time
+import java.util.concurrent.TimeUnit
 
 class AyarlarActivity : AppCompatActivity() {
     private lateinit var bagla:ActivityAyarlarBinding
@@ -55,19 +64,10 @@ class AyarlarActivity : AppCompatActivity() {
             }
         }
         bagla.buttonYedekle.setOnClickListener {
-            var sifreler:MutableList<Sifre> = sqLiteIslemci.getirSifre(MainActivity.AktifKullanici!!)!!
-            if(sifreler.isNotEmpty())
-            {
-                for(sifre in sifreler)
-                {
-                    firebaseIslemci.SifreEkle(sifre)
-                    firebaseIslemci.KullaniciEkle(MainActivity.AktifKullanici!!)
-                }
-                Toast.makeText(this,"Şifreleriniz yedeklendi",Toast.LENGTH_SHORT).show()
-            }
-            if(MainActivity.AktifKullanici!=null)
-                firebaseIslemci.KullaniciEkle(MainActivity.AktifKullanici!!)
-
+            sqLiteIslemci.aktifKullaniciSil(MainActivity.AktifKullanici!!)
+            sqLiteIslemci.aktifKullaniciEkle(MainActivity.AktifKullanici!!,1)
+            yedekle(this,7)
+            firebaseIslemci.KullaniciEkle(MainActivity.AktifKullanici!!)
         }
         bagla.buttonSifreleriGetir.setOnClickListener {
             if(MainActivity.AktifKullanici!=null)
@@ -94,8 +94,19 @@ class AyarlarActivity : AppCompatActivity() {
             finish()
         }
         bagla.textViewYedekSil.setOnClickListener {
+            WorkManager.getInstance(this).cancelAllWork()
             firebaseIslemci.sifreleriSil(MainActivity.AktifKullanici!!)
+            sqLiteIslemci.aktifKullaniciSil(MainActivity.AktifKullanici!!)
         }
+    }
+    fun ok(isDrawableUp:Boolean)
+    {
+        val drawableUp = ContextCompat.getDrawable(this, R.drawable.baseline_keyboard_double_arrow_up_24)
+        val drawableDown = ContextCompat.getDrawable(this, R.drawable.baseline_keyboard_double_arrow_down_24)
+
+        val drawable = if (isDrawableUp) drawableDown else drawableUp
+        drawable?.setBounds(0, 0, drawable.intrinsicWidth, drawable.intrinsicHeight)
+        bagla.textViewKisiselBilgiler.setCompoundDrawables(null, null, drawable, null)
     }
     fun kontrol(sifre: Sifre):Boolean
     {
@@ -109,5 +120,20 @@ class AyarlarActivity : AppCompatActivity() {
             }
         }
         return sonuc
+    }
+    fun yedekle(context: Context,aralik:Long) {
+        val constraints = Constraints.Builder()
+            .setRequiresBatteryNotLow(true)
+            .setRequiredNetworkType(NetworkType.CONNECTED)
+            .build()
+        val yedek =
+            PeriodicWorkRequestBuilder<periyodikIslem>(aralik,TimeUnit.MILLISECONDS)
+                .setConstraints(constraints)
+                .build()
+        WorkManager.getInstance(context).enqueueUniquePeriodicWork(
+            "haftalik_yedek",
+            ExistingPeriodicWorkPolicy.KEEP,
+            yedek
+        )
     }
 }
