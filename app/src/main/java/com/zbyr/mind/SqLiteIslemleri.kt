@@ -65,6 +65,9 @@ class SqLiteIslemleri (var context: Context):SQLiteOpenHelper(context, database_
 
         val olusturTablo5 = "CREATE TABLE AktifK(kId INTEGER PRIMARY KEY,kontrol INTEGER)" //yedekleme işlemleri için
         db?.execSQL(olusturTablo5)
+
+        val olusturTablo6 = "CREATE TABLE AcikKullanici(kId INTEGER PRIMARY KEY)"
+        db?.execSQL(olusturTablo6)
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
@@ -134,17 +137,16 @@ class SqLiteIslemleri (var context: Context):SQLiteOpenHelper(context, database_
     }
     fun kontrolSifre(sifre: Sifre):Boolean
     {
-        var donus=true
-        var sifreler=getirSifre(sifre._sKullanici!!)
-        if (sifreler != null) {
-            for(_sifre in sifreler)
+        var sonuc=false
+        var liste=getirSifre(MainActivity.AktifKullanici!!)
+        if (liste != null) {
+            for(_sifre in liste)
             {
-                if(_sifre._sId==sifre._sId && _sifre._sKullanici!!._kId==sifre._sKullanici!!._kId)
-                    donus=false
+                if(_sifre._sId != sifre._sId)
+                    sonuc=true
             }
         }
-
-        return donus
+        return sonuc
     }
     fun kontrolKullanici(kullanici1: Kullanici):Boolean
     {
@@ -239,6 +241,44 @@ class SqLiteIslemleri (var context: Context):SQLiteOpenHelper(context, database_
         db.close()
         return liste
     }
+    fun acKullanici(kullanici: Kullanici)
+    {
+        val db = this.writableDatabase
+        val cv = ContentValues()
+
+        cv.put("kId",kullanici._kId)
+
+        var sonuc = db.insert("AcikKullanici",null,cv)
+        if(sonuc==(-1).toLong())
+        {
+            Toast.makeText(context,"Hatalı ekleme",Toast.LENGTH_SHORT).show()
+        }else
+        {
+            Toast.makeText(context,"Kayıt başarılı",Toast.LENGTH_SHORT).show()
+        }
+    }
+    fun acikKullaniciGetir():String
+    {
+        var st:String=""
+        val db=this.readableDatabase
+        var sorgu = "SELECT * FROM AcikKullanici"
+        var sonuc=db.rawQuery(sorgu,null)
+        if(sonuc.moveToFirst())
+        {
+            do {
+                st=(sonuc.getString(sonuc.getColumnIndexOrThrow("kId")))
+            }while (sonuc.moveToNext())
+        }
+        sonuc.close()
+        db.close()
+        return st
+    }
+    fun kapatKullanici()
+    {
+        val db=this.writableDatabase
+        var sonuc=db.delete("AcikKullanici",null, null)
+        db.close()
+    }
     fun aktifKullaniciEkle(kullanici: Kullanici,kontrol:Int)
     {
         val db = this.writableDatabase
@@ -255,8 +295,6 @@ class SqLiteIslemleri (var context: Context):SQLiteOpenHelper(context, database_
         {
             Toast.makeText(context,"Kayıt başarılı",Toast.LENGTH_SHORT).show()
         }
-
-
     }
     fun aktifKullaniciSil(kullanici:Kullanici)
     {

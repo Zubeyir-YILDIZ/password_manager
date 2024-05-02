@@ -15,7 +15,7 @@ class UyeOlActivity : AppCompatActivity() {
     private lateinit var sqLiteIslemci:SqLiteIslemleri
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        firebaseIslemci=FirebaseIslemleri()
+        firebaseIslemci=FirebaseIslemleri(this)
         sqLiteIslemci= SqLiteIslemleri(this)
         bagla=ActivityUyeOlBinding.inflate(layoutInflater)
         setContentView(bagla.root)

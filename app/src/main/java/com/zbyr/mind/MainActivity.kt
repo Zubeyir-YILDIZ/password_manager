@@ -4,22 +4,22 @@ import android.app.AlertDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.MotionEvent
 import android.view.animation.Animation
 import android.view.animation.AnimationSet
 import android.view.animation.AnimationUtils
 import android.view.animation.RotateAnimation
 import android.view.animation.ScaleAnimation
-import android.view.animation.TranslateAnimation
 import android.widget.EditText
 import android.widget.Toast
-import androidx.navigation.findNavController
+import androidx.biometric.BiometricPrompt
+import Biyometrik
 import com.zbyr.mind.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     companion object{
         var AktifKullanici:Kullanici?=null
-        var sifreListesi:ArrayList<Sifre> = ArrayList<Sifre>()
+
+        var biyo=false
     }
     private lateinit var baglan:ActivityMainBinding
     private lateinit var sqLiteIslemleri: SqLiteIslemleri
@@ -28,6 +28,19 @@ class MainActivity : AppCompatActivity() {
         baglan= ActivityMainBinding.inflate(layoutInflater)
         setContentView(baglan.root)
         sqLiteIslemleri= SqLiteIslemleri(this)
+        var biometrik:Biyometrik=Biyometrik(this)
+        if(giris()!=null)
+        {
+            AktifKullanici=giris()
+            baglan.editTextEposta.setText(AktifKullanici!!._kMail)
+            baglan.checkBoxBeniHatirla.isChecked=true
+            biometrik.authenticate()
+        }
+        if(biyo)
+        {
+            val intent = Intent(this, AnasayfaActivity::class.java)
+            startActivity(intent)
+        }
         baglan.buttonGiris.setOnClickListener {
             var txtMail=baglan.editTextEposta
             var txtSifre=baglan.editTextSifre
@@ -35,6 +48,15 @@ class MainActivity : AppCompatActivity() {
             var kisi=dogrulama(liste,txtMail.text.toString(),txtSifre.text.toString())
             if(kisi!=null)
             {
+                if(baglan.checkBoxBeniHatirla.isChecked)
+                {
+                    sqLiteIslemleri.kapatKullanici()
+                    sqLiteIslemleri.acKullanici(kisi)
+                }else
+                {
+                    sqLiteIslemleri.kapatKullanici()
+                    baglan.editTextEposta.text.clear()
+                }
                 AktifKullanici=kisi
                 val intent = Intent(this, AnasayfaActivity::class.java)
                 startActivity(intent)
@@ -78,6 +100,13 @@ class MainActivity : AppCompatActivity() {
         }
         kaydirma()
         girisAnimasyon()
+    }
+    fun giris():Kullanici?
+    {   var acikHesap:Kullanici= Kullanici()
+        var hatirla=sqLiteIslemleri.acikKullaniciGetir()
+        if(hatirla.isNotEmpty())
+             acikHesap=sqLiteIslemleri.getirKullaniciIleId(hatirla.toLong())
+        return acikHesap
     }
     fun kaydirma()
     {
@@ -124,5 +153,8 @@ class MainActivity : AppCompatActivity() {
 
         simge.startAnimation(animasyonlar)
     }
-
+    override fun onResume() {
+        baglan.editTextSifre.text.clear()
+        super.onResume()
+    }
 }

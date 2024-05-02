@@ -23,7 +23,7 @@ class SifreEkleActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        firebaseIslemci=FirebaseIslemleri()
+        firebaseIslemci=FirebaseIslemleri(this)
         sqLiteIslemci= SqLiteIslemleri(this)
         bagla=ActivitySifreEkleBinding.inflate(layoutInflater)
         setContentView(bagla.root)
@@ -48,7 +48,8 @@ class SifreEkleActivity : AppCompatActivity() {
                         sifre=Sifre(txtSifre.text.toString(),sifreTipi, MainActivity.AktifKullanici!!,txtKullaniciAdi.text.toString())
                     }else
                         sifre=Sifre(txtSifre.text.toString(),sifreTipi, MainActivity.AktifKullanici!!)
-                    sqLiteIslemci.ekleSifre(sifre)
+                    if(sqLiteIslemci.kontrolSifre(sifre))
+                        sqLiteIslemci.ekleSifre(sifre)
                     AnasayfaActivity.anahtar=true
                     finish()
                 }else

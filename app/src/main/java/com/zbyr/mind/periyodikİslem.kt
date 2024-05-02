@@ -11,7 +11,7 @@ import com.google.firebase.ktx.Firebase
 class periyodikIslem( private val context: Context,workerParams:WorkerParameters):Worker(context,workerParams)
 {
     private var sqLiteIslemci=SqLiteIslemleri(context)
-    private var firebaseIslemci=FirebaseIslemleri()
+    private var firebaseIslemci=FirebaseIslemleri(context)
     override fun doWork(): Result {
         var firebase: DatabaseReference = Firebase.database.reference
         var list=sqLiteIslemci.aktifKullaniciGetir()

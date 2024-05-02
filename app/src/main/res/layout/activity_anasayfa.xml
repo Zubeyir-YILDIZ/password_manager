@@ -44,10 +44,9 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/RecyclerViewSifreler"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="448dp"
-        android:layout_marginStart="9dp"
-        android:layout_marginEnd="9dp"
+        android:layout_marginHorizontal="8dp"
         android:background="@drawable/yuvarlak_kose"
         android:scrollbars="horizontal|vertical"
         app:layout_constraintBottom_toBottomOf="parent"

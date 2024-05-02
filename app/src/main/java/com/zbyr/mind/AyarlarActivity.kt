@@ -21,12 +21,11 @@ class AyarlarActivity : AppCompatActivity() {
     private lateinit var bagla:ActivityAyarlarBinding
     private lateinit var firebaseIslemci:FirebaseIslemleri
     private lateinit var sqLiteIslemci:SqLiteIslemleri
-
     @SuppressLint("ResourceAsColor")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         bagla=ActivityAyarlarBinding.inflate(layoutInflater)
-        firebaseIslemci=FirebaseIslemleri()
+        firebaseIslemci=FirebaseIslemleri(this)
         sqLiteIslemci=SqLiteIslemleri(this)
         setContentView(bagla.root)
 
@@ -34,7 +33,7 @@ class AyarlarActivity : AppCompatActivity() {
         bagla.editTextSoyisim.setText(MainActivity.AktifKullanici!!._kSoyadi.toString())
         bagla.editTextEpostaEdit.setText(MainActivity.AktifKullanici!!._kMail.toString())
         bagla.editTextSifreEdit.setText(MainActivity.AktifKullanici!!._kSifre.toString())
-        val color=android.graphics.Color.argb(255,76,175,80)
+        val color=android.graphics.Color.argb(255,255,193,7)
         bagla.buttonDuzenle.setOnClickListener {
             if(bagla.buttonDuzenle.text=="Düzenle")
             {
@@ -73,16 +72,6 @@ class AyarlarActivity : AppCompatActivity() {
             if(MainActivity.AktifKullanici!=null)
             {
                 firebaseIslemci.SifreGetir(MainActivity.AktifKullanici!!)
-                var sifreler=MainActivity.sifreListesi
-
-                for(sifre in sifreler)
-                {
-                    if(kontrol(sifre))
-                    {
-                        sqLiteIslemci.ekleSifre(sifre)
-                    }
-                }
-                MainActivity.sifreListesi.clear()
                 finish()
             }else
                 Toast.makeText(this,"Başarısız oldu",Toast.LENGTH_SHORT).show()
@@ -91,6 +80,7 @@ class AyarlarActivity : AppCompatActivity() {
             sqLiteIslemci.silKullanici(MainActivity.AktifKullanici!!._kMail)
             firebaseIslemci.kullaniciSil(MainActivity.AktifKullanici!!)
             MainActivity.AktifKullanici=null
+            MainActivity.biyo=false
             finish()
         }
         bagla.textViewYedekSil.setOnClickListener {

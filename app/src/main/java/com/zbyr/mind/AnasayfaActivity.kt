@@ -121,6 +121,8 @@ class AnasayfaActivity : AppCompatActivity() {
         }
         if(item.itemId==R.id.yon_cikis)
         {
+            MainActivity.biyo=false
+            MainActivity.AktifKullanici=null
             finish()
         }
         if(item.itemId==R.id.yon_sil)
