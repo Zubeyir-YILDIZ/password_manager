@@ -80,11 +80,11 @@ class AyarlarActivity : AppCompatActivity() {
             sqLiteIslemci.silKullanici(MainActivity.AktifKullanici!!._kMail)
             firebaseIslemci.kullaniciSil(MainActivity.AktifKullanici!!)
             MainActivity.AktifKullanici=null
-            MainActivity.biyo=false
             finish()
         }
         bagla.textViewYedekSil.setOnClickListener {
             WorkManager.getInstance(this).cancelAllWork()
+
             firebaseIslemci.sifreleriSil(MainActivity.AktifKullanici!!)
             sqLiteIslemci.aktifKullaniciSil(MainActivity.AktifKullanici!!)
         }
@@ -117,7 +117,7 @@ class AyarlarActivity : AppCompatActivity() {
             .setRequiredNetworkType(NetworkType.CONNECTED)
             .build()
         val yedek =
-            PeriodicWorkRequestBuilder<periyodikIslem>(aralik,TimeUnit.MILLISECONDS)
+            PeriodicWorkRequestBuilder<periyodikIslem>(aralik,TimeUnit.DAYS)
                 .setConstraints(constraints)
                 .build()
         WorkManager.getInstance(context).enqueueUniquePeriodicWork(

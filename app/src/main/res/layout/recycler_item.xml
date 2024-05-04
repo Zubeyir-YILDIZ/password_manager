@@ -2,99 +2,117 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginHorizontal="2sp"
+    android:layout_marginHorizontal="2dp"
     android:layout_marginBottom="5dp"
     android:orientation="horizontal"
+    android:padding="5dp"
     android:paddingBottom="5dp">
 
     <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="259dp"
+        android:id="@+id/fab1Sinir"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="2dp"
-        android:orientation="vertical"
-        android:padding="3dp"
-        app:layout_constraintEnd_toStartOf="@+id/linearLayout2"
+        android:background="@drawable/floating_buton_renk"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.73"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.025">
 
-        <TextView
-            android:id="@+id/textViewRecItem2"
-            android:layout_width="match_parent"
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/floatingActionButtonSil"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="6dp"
-            android:layout_marginBottom="6dp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/textViewRecItem"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="6dp"
-            android:layout_marginBottom="6dp"
-            android:textStyle="bold"
-            tools:layout_editor_absoluteX="31dp"
-            tools:layout_editor_absoluteY="134dp" />
-
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:layout_margin="5dp"
+            android:clickable="true"
+            android:textAlignment="center"
+            app:backgroundTint="#FFC107"
+            app:fabCustomSize="57dp"
+            app:fabSize="auto"
+            app:maxImageSize="28dp"
+            app:srcCompat="@android:drawable/ic_menu_delete" />
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="141dp"
-        android:layout_height="70dp"
-        android:layout_marginLeft="2dp"
-        android:layout_marginRight="2dp"
-        android:orientation="horizontal"
-        android:padding="3dp"
+        android:id="@+id/fab2Sinir"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
+        android:background="@drawable/floating_buton_renk"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/linearLayout"
-        app:layout_constraintTop_toTopOf="@+id/linearLayout">
+        app:layout_constraintHorizontal_bias="0.982"
+        app:layout_constraintStart_toEndOf="@+id/constraintLayout2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.025">
 
-        <LinearLayout
-            android:id="@+id/fab1Sinir"
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/floatingActionButtonDuzenle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="3dp"
-            android:background="@drawable/floating_buton_renk">
-
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/floatingActionButtonSil"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal|center_vertical"
-                android:layout_margin="5dp"
-                android:clickable="true"
-                android:textAlignment="center"
-                app:backgroundTint="#FFC107"
-                app:fabCustomSize="57dp"
-                app:fabSize="auto"
-                app:maxImageSize="28dp"
-                app:srcCompat="@android:drawable/ic_menu_delete" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/fab2Sinir"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/floating_buton_renk">
-
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/floatingActionButtonDuzenle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="5dp"
-                android:clickable="true"
-                android:textAlignment="center"
-                app:backgroundTint="#FFC107"
-                app:fabCustomSize="57dp"
-                app:maxImageSize="28dp"
-                app:srcCompat="@android:drawable/ic_menu_edit" />
-        </LinearLayout>
+            android:layout_gravity="center"
+            android:layout_margin="5dp"
+            android:clickable="true"
+            android:textAlignment="center"
+            app:backgroundTint="#FFC107"
+            app:fabCustomSize="57dp"
+            app:maxImageSize="28dp"
+            app:srcCompat="@android:drawable/ic_menu_edit" />
     </LinearLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="72dp"
+        app:layout_constraintBottom_toBottomOf="@+id/fab1Sinir"
+        app:layout_constraintEnd_toStartOf="@+id/fab2Sinir"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/fab1Sinir"
+        app:layout_constraintVertical_bias="0.0">
+
+        <TextView
+            android:id="@+id/textViewRecItem2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.061"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.042" />
+
+        <TextView
+            android:id="@+id/textViewRecItem3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.061"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewRecItem2"
+            app:layout_constraintVertical_bias="0.094" />
+
+        <TextView
+            android:id="@+id/textViewRecItem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.058"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewRecItem3"
+            app:layout_constraintVertical_bias="1.0" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

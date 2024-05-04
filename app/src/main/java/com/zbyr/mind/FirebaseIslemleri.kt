@@ -45,6 +45,10 @@ class FirebaseIslemleri(var context: Context) {
                     {
                         sifre._sSifre=sifreD.value.toString()
                     }
+                    if(sifreD.key.equals("_sSifreAdi"))
+                    {
+                        sifre._sSifreAdi=sifreD.value.toString()
+                    }
                     if(sifreD.key.equals("_sTur"))
                     {
                         for(j in sifreD.children)
@@ -53,6 +57,8 @@ class FirebaseIslemleri(var context: Context) {
                                 tip._TipId=j.value as Long
                             if(j.key.equals("_SifreTipi"))
                                 tip._SifreTipi=j.value.toString()
+                            if(j.key.equals("_kId"))
+                                tip._kId=j.value.toString().toLong()
                         }
                         sifre._sTur=tip
                     }
@@ -74,8 +80,12 @@ class FirebaseIslemleri(var context: Context) {
                         sifre._sKullanici=_kullanici
                     }
                 }
+                if(sqLiteIslemci.kontrolKategori(sifre._sTur!!))
+                {
+                    sqLiteIslemci.ekleSifreTipiFirebaseden(sifre._sTur!!)
+                }
                 if(sqLiteIslemci.kontrolSifre(sifre))
-                    sqLiteIslemci.ekleSifre(sifre)
+                    sqLiteIslemci.ekleSifreFirebaseden(sifre)
             }
         }
     }

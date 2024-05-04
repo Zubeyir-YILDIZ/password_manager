@@ -12,15 +12,15 @@ import android.view.animation.ScaleAnimation
 import android.widget.EditText
 import android.widget.Toast
 import androidx.biometric.BiometricPrompt
-import Biyometrik
+import androidx.core.content.ContextCompat
 import com.zbyr.mind.databinding.ActivityMainBinding
+import java.util.concurrent.Executor
 
 class MainActivity : AppCompatActivity() {
     companion object{
         var AktifKullanici:Kullanici?=null
-
-        var biyo=false
     }
+
     private lateinit var baglan:ActivityMainBinding
     private lateinit var sqLiteIslemleri: SqLiteIslemleri
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,19 +28,14 @@ class MainActivity : AppCompatActivity() {
         baglan= ActivityMainBinding.inflate(layoutInflater)
         setContentView(baglan.root)
         sqLiteIslemleri= SqLiteIslemleri(this)
-        var biometrik:Biyometrik=Biyometrik(this)
         if(giris()!=null)
         {
             AktifKullanici=giris()
             baglan.editTextEposta.setText(AktifKullanici!!._kMail)
             baglan.checkBoxBeniHatirla.isChecked=true
-            biometrik.authenticate()
+            biyometrik()
         }
-        if(biyo)
-        {
-            val intent = Intent(this, AnasayfaActivity::class.java)
-            startActivity(intent)
-        }
+
         baglan.buttonGiris.setOnClickListener {
             var txtMail=baglan.editTextEposta
             var txtSifre=baglan.editTextSifre
@@ -101,9 +96,42 @@ class MainActivity : AppCompatActivity() {
         kaydirma()
         girisAnimasyon()
     }
+    fun biyometrik()
+    {
+        var executor: Executor = ContextCompat.getMainExecutor(this)
+        var biometricPrompt = BiometricPrompt(this as AppCompatActivity, executor,
+            object : BiometricPrompt.AuthenticationCallback() {
+                override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
+                    super.onAuthenticationError(errorCode, errString)
+
+                }
+                override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
+                    super.onAuthenticationSucceeded(result)
+                        girisYap()
+
+                }
+                override fun onAuthenticationFailed() {
+                    super.onAuthenticationFailed()
+
+                }
+            })
+        var promptInfo = BiometricPrompt.PromptInfo.Builder()
+            .setTitle("Giriş Yap")
+            .setSubtitle("Biyometrik doğrulama kullanarak giriş yapın")
+            .setNegativeButtonText("İptal")
+            .build()
+
+        biometricPrompt.authenticate(promptInfo)
+
+    }
+    fun girisYap()
+    {
+        val intent = Intent(this, UyeOlActivity::class.java)
+        startActivity(intent)
+    }
     fun giris():Kullanici?
     {   var acikHesap:Kullanici= Kullanici()
-        var hatirla=sqLiteIslemleri.acikKullaniciGetir()
+        val hatirla=sqLiteIslemleri.acikKullaniciGetir()
         if(hatirla.isNotEmpty())
              acikHesap=sqLiteIslemleri.getirKullaniciIleId(hatirla.toLong())
         return acikHesap
@@ -157,4 +185,5 @@ class MainActivity : AppCompatActivity() {
         baglan.editTextSifre.text.clear()
         super.onResume()
     }
+
 }

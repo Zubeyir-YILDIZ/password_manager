@@ -5,6 +5,8 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.widget.Toast
+import javax.crypto.Cipher
+import javax.crypto.spec.SecretKeySpec
 
 const val database_adi="MindDb"
 
@@ -12,12 +14,13 @@ const val tablo_adi="Sifreler"
 const val col_sId="SifreId"
 const val col_hesapAdi="HesapAdi"
 const val col_sifre="Sifre"
+const val col_sifreAdi="SifreAdi"
 const val col_kId="KullaniciId"
 const val col_tId="TipId"
 
 const val tablo_adi2="SifreTipi"
 const val col_tip="SifreTipi"
-
+const val col_shk="3123wrqT6534hjrtndgh8767hrtfvg23"
 const val tablo_adi3="Kullanicilar"
 const val col_kAdi="Isim"
 const val col_kSoyadi="Soyisim"
@@ -46,6 +49,7 @@ class SqLiteIslemleri (var context: Context):SQLiteOpenHelper(context, database_
         val olusturTablo = "CREATE TABLE " + tablo_adi + "(" +
                 col_sId + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 col_hesapAdi + " VARCHAR(256)," +
+                col_sifreAdi + " VARCHAR(250)," +
                 col_sifre + " VARCHAR(256), " +
                 col_tId + " INTEGER, " +
                 col_kId + " INTEGER, " +
@@ -69,20 +73,36 @@ class SqLiteIslemleri (var context: Context):SQLiteOpenHelper(context, database_
         val olusturTablo6 = "CREATE TABLE AcikKullanici(kId INTEGER PRIMARY KEY)"
         db?.execSQL(olusturTablo6)
     }
-
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
         TODO("Not yet implemented")
     }
+
+    fun encryptAES(text: String, secretKey: String): String {
+        val cipher = Cipher.getInstance("AES/ECB/PKCS5Padding")
+        val keySpec = SecretKeySpec(secretKey.toByteArray(), "AES")
+        cipher.init(Cipher.ENCRYPT_MODE, keySpec)
+        val encryptedBytes = cipher.doFinal(text.toByteArray())
+        return android.util.Base64.encodeToString(encryptedBytes, android.util.Base64.DEFAULT)
+    }
+
+    fun decryptAES(encryptedText: String, secretKey: String): String {
+        val cipher = Cipher.getInstance("AES/ECB/PKCS5Padding")
+        val keySpec = SecretKeySpec(secretKey.toByteArray(), "AES")
+        cipher.init(Cipher.DECRYPT_MODE, keySpec)
+        val decryptedBytes = cipher.doFinal(android.util.Base64.decode(encryptedText, android.util.Base64.DEFAULT))
+        return String(decryptedBytes)
+    }
+
 
     fun ekleKullanici(kullanici: Kullanici)
     {
         val db = this.writableDatabase
         val cv = ContentValues()
 
-        cv.put(col_kAdi,kullanici._kAdi)
-        cv.put(col_kSoyadi,kullanici._kSoyadi)
-        cv.put(col_kMail,kullanici._kMail)
-        cv.put(col_kSifre,kullanici._kSifre)
+        cv.put(col_kAdi,encryptAES(kullanici._kAdi, col_shk))
+        cv.put(col_kSoyadi,encryptAES(kullanici._kSoyadi, col_shk))
+        cv.put(col_kMail,encryptAES(kullanici._kMail, col_shk))
+        cv.put(col_kSifre,encryptAES(kullanici._kSifre, col_shk))
         if(kontrolKullanici(kullanici))
         {
             var sonuc = db.insert(tablo_adi3,null,cv)
@@ -102,11 +122,35 @@ class SqLiteIslemleri (var context: Context):SQLiteOpenHelper(context, database_
         val db = this.writableDatabase
         val cv = ContentValues()
 
-        cv.put(col_sifre,sifre._sSifre)
+        cv.put(col_sifre,encryptAES(sifre._sSifre, col_shk))
         cv.put(col_kId,sifre._sKullanici?._kId)
         cv.put(col_tId,sifre._sTur?._TipId)
+        cv.put(col_sifreAdi,encryptAES(sifre._sSifreAdi, col_shk))
         if(sifre._sHesapAdi.isNotEmpty())
-            cv.put(col_hesapAdi,sifre._sHesapAdi)
+            cv.put(col_hesapAdi,encryptAES(sifre._sHesapAdi, col_shk))
+
+        val sonuc = db.insert(tablo_adi,null,cv)
+
+        if(sonuc==(-1).toLong())
+        {
+            Toast.makeText(context,"Hatalı ekleme",Toast.LENGTH_SHORT).show()
+        }else
+        {
+            Toast.makeText(context,"Kayıt başarılı",Toast.LENGTH_SHORT).show()
+        }
+    }
+    fun ekleSifreFirebaseden(sifre: Sifre)
+    {
+        val db = this.writableDatabase
+        val cv = ContentValues()
+
+        cv.put(col_sId,sifre._sId)
+        cv.put(col_sifre,encryptAES(sifre._sSifre, col_shk))
+        cv.put(col_kId,sifre._sKullanici?._kId)
+        cv.put(col_tId,sifre._sTur?._TipId)
+        cv.put(col_sifreAdi,encryptAES(sifre._sSifreAdi, col_shk))
+        if(sifre._sHesapAdi.isNotEmpty())
+            cv.put(col_hesapAdi,encryptAES(sifre._sHesapAdi, col_shk))
 
         val sonuc = db.insert(tablo_adi,null,cv)
 
@@ -137,16 +181,46 @@ class SqLiteIslemleri (var context: Context):SQLiteOpenHelper(context, database_
     }
     fun kontrolSifre(sifre: Sifre):Boolean
     {
-        var sonuc=false
+        var sonuc=true
         var liste=getirSifre(MainActivity.AktifKullanici!!)
         if (liste != null) {
             for(_sifre in liste)
             {
-                if(_sifre._sId != sifre._sId)
-                    sonuc=true
+                if(_sifre._sId == sifre._sId)
+                    sonuc=false
             }
         }
         return sonuc
+    }
+    fun ekleSifreTipiFirebaseden(sifreTip: SifreTip)
+    {
+        val db = this.writableDatabase
+        val cv = ContentValues()
+
+        cv.put(col_tId,sifreTip._TipId)
+        cv.put(col_tip,sifreTip._SifreTipi)
+        cv.put(col_kId,sifreTip._kId)
+
+        var sonuc = db.insert(tablo_adi2,null,cv)
+        if(sonuc==(-1).toLong())
+        {
+            Toast.makeText(context,"Hatalı ekleme",Toast.LENGTH_SHORT).show()
+        }else
+        {
+            Toast.makeText(context,"Kayıt başarılı",Toast.LENGTH_SHORT).show()
+        }
+    }
+    fun kontrolKategori(sifreTip: SifreTip):Boolean
+    {
+        var liste=getirSifreTip()
+        for(list in liste)
+        {
+            if(list._TipId==sifreTip._TipId && list._kId==sifreTip._kId && list._SifreTipi==sifreTip._SifreTipi)
+            {
+                return false
+            }
+        }
+        return true
     }
     fun kontrolKullanici(kullanici1: Kullanici):Boolean
     {
@@ -217,7 +291,7 @@ class SqLiteIslemleri (var context: Context):SQLiteOpenHelper(context, database_
         var s=kullanici._kMail
         var liste:ArrayList<Sifre> = ArrayList()
         val db=this.readableDatabase
-        var sorgu = "SELECT s.SifreId,s.Sifre,s.HesapAdi,s.TipId,s.KullaniciId,t.TipId,t.SifreTipi FROM "+ tablo_adi+
+        var sorgu = "SELECT s.SifreId,s.Sifre,s.HesapAdi,s.SifreAdi,s.TipId,s.KullaniciId,t.TipId,t.SifreTipi FROM "+ tablo_adi+
                 " AS s JOIN "+ tablo_adi2 + " AS t ON s.TipId=t.TipId Where s.KullaniciId=(SELECT k.KullaniciId FROM Kullanicilar AS k WHERE k.Eposta='$s')"
         var sonuc=db.rawQuery(sorgu,null)
         if(sonuc.moveToFirst())
@@ -227,6 +301,7 @@ class SqLiteIslemleri (var context: Context):SQLiteOpenHelper(context, database_
                 sifre._sId=sonuc.getString(sonuc.getColumnIndexOrThrow(col_sId)).toInt()
                 sifre._sSifre=sonuc.getString(sonuc.getColumnIndexOrThrow(col_sifre))
                 sifre._sHesapAdi=sonuc.getString(sonuc.getColumnIndexOrThrow(col_hesapAdi))
+                sifre._sSifreAdi=sonuc.getString(sonuc.getColumnIndexOrThrow(col_sifreAdi))
                 var sifreTip=SifreTip()
                 sifreTip._TipId=sonuc.getString(sonuc.getColumnIndexOrThrow(col_tId)).toLong()
                 sifreTip._SifreTipi=sonuc.getString(sonuc.getColumnIndexOrThrow(col_tip))
@@ -387,6 +462,7 @@ class SqLiteIslemleri (var context: Context):SQLiteOpenHelper(context, database_
                 var cv=ContentValues()
                 cv.put(col_sId,sifre._sId)
                 cv.put(col_sifre,sifre._sSifre)
+                cv.put(col_sifreAdi,sifre._sSifreAdi)
                 cv.put(col_tId, sifre._sTur!!._TipId)
                 cv.put(col_kId,sifre._sKullanici!!._kId)
                 cv.put(col_hesapAdi,sifre._sHesapAdi)
@@ -500,6 +576,7 @@ class SqLiteIslemleri (var context: Context):SQLiteOpenHelper(context, database_
                 sifre._sId=sonuc.getString(sonuc.getColumnIndexOrThrow(col_sId)).toInt()
                 sifre._sSifre=sonuc.getString(sonuc.getColumnIndexOrThrow(col_sifre))
                 sifre._sHesapAdi=sonuc.getString(sonuc.getColumnIndexOrThrow(col_hesapAdi))
+                sifre._sSifreAdi=sonuc.getString(sonuc.getColumnIndexOrThrow(col_sifreAdi))
                 sifre._sTur=getirSifreTipIleId(sifreTip.toLong())
                 sifre._sKullanici=kullanici
 

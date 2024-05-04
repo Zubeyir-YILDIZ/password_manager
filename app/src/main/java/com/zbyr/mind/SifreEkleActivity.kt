@@ -29,27 +29,28 @@ class SifreEkleActivity : AppCompatActivity() {
         setContentView(bagla.root)
         bagla.constraintLayout.rotationX=90f
         bagla.editTextText.visibility=View.GONE
-        acılısAnimasyonu()
+        acilisAnimasyonu()
         bagla.buttonSifreOlustur.setOnClickListener {
-            var txtSifre=bagla.editTextSifreSifre
-            var sifre:Sifre
-            if(txtSifre.text.isNotEmpty())
+            val txtSifre=bagla.editTextSifreSifre
+            val sifre:Sifre
+            val txtSifreAdi=bagla.editTextSifreAdi
+            if(txtSifre.text.isNotEmpty() && txtSifreAdi.text.isNotEmpty())
             {
                 val seciliDeger:String=AnasayfaActivity.kategori
-                var sifreTipi=SifreTip()
-                var tip=sqLiteIslemci.tipDogrula(seciliDeger,MainActivity.AktifKullanici!!)
+                val sifreTipi=SifreTip()
+                val tip=sqLiteIslemci.tipDogrula(seciliDeger,MainActivity.AktifKullanici!!)
                 if(tip!=null)
                 {
                     sifreTipi._TipId= tip._TipId
                     sifreTipi._SifreTipi=tip._SifreTipi
                     if(bagla.switchAcKullaniciAdi.isChecked && bagla.editTextText.text.isNotEmpty())
                     {
-                        var txtKullaniciAdi=bagla.editTextText
-                        sifre=Sifre(txtSifre.text.toString(),sifreTipi, MainActivity.AktifKullanici!!,txtKullaniciAdi.text.toString())
+                        val txtKullaniciAdi=bagla.editTextText
+                        sifre=Sifre(txtSifre.text.toString(),sifreTipi, MainActivity.AktifKullanici!!,txtKullaniciAdi.text.toString(),txtSifreAdi.text.toString())
                     }else
-                        sifre=Sifre(txtSifre.text.toString(),sifreTipi, MainActivity.AktifKullanici!!)
-                    if(sqLiteIslemci.kontrolSifre(sifre))
-                        sqLiteIslemci.ekleSifre(sifre)
+                        sifre=Sifre(txtSifre.text.toString(),sifreTipi, MainActivity.AktifKullanici!!,txtSifreAdi.text.toString())
+
+                    sqLiteIslemci.ekleSifre(sifre)
                     AnasayfaActivity.anahtar=true
                     finish()
                 }else
@@ -67,7 +68,7 @@ class SifreEkleActivity : AppCompatActivity() {
             aktifMi()
         }
     }
-    fun acılısAnimasyonu()
+    fun acilisAnimasyonu()
     {
         var layout=bagla.constraintLayout
 
