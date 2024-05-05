@@ -8,20 +8,19 @@
     android:layout_marginHorizontal="2dp"
     android:layout_marginBottom="5dp"
     android:orientation="horizontal"
-    android:padding="5dp"
+    android:paddingTop="5dp"
     android:paddingBottom="5dp">
 
     <LinearLayout
         android:id="@+id/fab1Sinir"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="80dp"
         android:background="@drawable/floating_buton_renk"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.73"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.025">
+        app:layout_constraintVertical_bias="0.0">
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/floatingActionButtonSil"
@@ -46,11 +45,11 @@
         android:background="@drawable/floating_buton_renk"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.982"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/constraintLayout2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.025">
+        app:layout_constraintVertical_bias="0.0">
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/floatingActionButtonDuzenle"
@@ -69,14 +68,14 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout2"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginEnd="72dp"
-        app:layout_constraintBottom_toBottomOf="@+id/fab1Sinir"
-        app:layout_constraintEnd_toStartOf="@+id/fab2Sinir"
-        app:layout_constraintHorizontal_bias="1.0"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="10dp"
+        android:paddingEnd="10dp"
+        app:layout_constraintEnd_toStartOf="@+id/fab1Sinir"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/fab1Sinir"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/textViewRecItem2"
@@ -109,7 +108,7 @@
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.058"
+            app:layout_constraintHorizontal_bias="0.061"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textViewRecItem3"
             app:layout_constraintVertical_bias="1.0" />

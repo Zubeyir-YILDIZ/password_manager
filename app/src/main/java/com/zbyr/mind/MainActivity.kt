@@ -126,11 +126,11 @@ class MainActivity : AppCompatActivity() {
     }
     fun girisYap()
     {
-        val intent = Intent(this, UyeOlActivity::class.java)
+        val intent = Intent(this, AnasayfaActivity::class.java)
         startActivity(intent)
     }
     fun giris():Kullanici?
-    {   var acikHesap:Kullanici= Kullanici()
+    {   var acikHesap:Kullanici?=null
         val hatirla=sqLiteIslemleri.acikKullaniciGetir()
         if(hatirla.isNotEmpty())
              acikHesap=sqLiteIslemleri.getirKullaniciIleId(hatirla.toLong())

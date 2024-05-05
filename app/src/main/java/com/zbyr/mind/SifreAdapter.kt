@@ -47,11 +47,14 @@ class SifreAdapter(val sifreler:ArrayList<Sifre>) :RecyclerView.Adapter<SifreAda
                 holder.binding.textViewRecItem.visibility=View.VISIBLE
                 if(holder.binding.textViewRecItem2.text.isNotEmpty())
                     holder.binding.textViewRecItem2.visibility=View.VISIBLE
+                holder.binding.constraintLayout.layoutParams.height=ViewGroup.LayoutParams.MATCH_PARENT
+
             }else
             {
                 holder.binding.textViewRecItem3.visibility=View.VISIBLE
                 holder.binding.textViewRecItem.visibility=View.GONE
                 holder.binding.textViewRecItem2.visibility=View.GONE
+                holder.binding.constraintLayout.layoutParams.height=ViewGroup.LayoutParams.WRAP_CONTENT
             }
         }
         holder.binding.textViewRecItem.setOnClickListener {
