@@ -16,15 +16,15 @@ class FirebaseIslemleri(var context: Context) {
     var sqLiteIslemci=SqLiteIslemleri(context)
     fun KullaniciEkle(kullanici: Kullanici)
     {
-        firebase.child("Kullanicilar").child(kullanici._kMail.toString()).setValue(kullanici)
+        firebase.child("Kullanicilar").child(kullanici._kId.toString()).setValue(kullanici)
     }
     fun SifreEkle(sifre: Sifre)
     {
-        firebase.child("Sifreler").child(sifre._sKullanici!!._kMail.toString()).child(sifre._sId.toString()).setValue(sifre)
+        firebase.child("Sifreler").child(sifre._sKullanici!!._kId.toString()).child(sifre._sId.toString()).setValue(sifre)
     }
     fun SifreGetir(kullanici: Kullanici)
     {
-        firebase.child("Sifreler").child(kullanici._kMail.toString()).get().addOnSuccessListener {
+        firebase.child("Sifreler").child(kullanici._kId.toString()).get().addOnSuccessListener {
             for(deger in it.children)
             {
                 var sifre=Sifre()
@@ -34,7 +34,7 @@ class FirebaseIslemleri(var context: Context) {
                 {
                     if(sifreD.key.equals("_sHesapAdi"))
                     {
-                        sifre._sHesapAdi=sifreD.value.toString()
+                        sifre._sHesapAdi= sqLiteIslemci.coz(sifreD.value.toString())
                     }
                     if(sifreD.key.equals("_sId"))
                     {
@@ -43,11 +43,11 @@ class FirebaseIslemleri(var context: Context) {
                     }
                     if(sifreD.key.equals("_sSifre"))
                     {
-                        sifre._sSifre=sifreD.value.toString()
+                        sifre._sSifre= sqLiteIslemci.coz(sifreD.value.toString())
                     }
                     if(sifreD.key.equals("_sSifreAdi"))
                     {
-                        sifre._sSifreAdi=sifreD.value.toString()
+                        sifre._sSifreAdi= sqLiteIslemci.coz(sifreD.value.toString())
                     }
                     if(sifreD.key.equals("_sTur"))
                     {
@@ -56,7 +56,7 @@ class FirebaseIslemleri(var context: Context) {
                             if(j.key.equals("_TipId"))
                                 tip._TipId=j.value as Long
                             if(j.key.equals("_SifreTipi"))
-                                tip._SifreTipi=j.value.toString()
+                                tip._SifreTipi= sqLiteIslemci.coz(j.value.toString())
                             if(j.key.equals("_kId"))
                                 tip._kId=j.value.toString().toLong()
                         }
@@ -69,13 +69,13 @@ class FirebaseIslemleri(var context: Context) {
                             if(j.key.equals("_kId"))
                                 _kullanici._kId=j.value as Long
                             if(j.key.equals("_kAdi"))
-                                _kullanici._kAdi=j.value.toString()
+                                _kullanici._kAdi= sqLiteIslemci.coz(j.value.toString())
                             if(j.key.equals("_kSoyadi"))
-                                _kullanici._kSoyadi=j.value.toString()
+                                _kullanici._kSoyadi= sqLiteIslemci.coz(j.value.toString())
                             if(j.key.equals("_kSifre"))
-                                _kullanici._kSifre=j.value.toString()
+                                _kullanici._kSifre= sqLiteIslemci.coz(j.value.toString())
                             if(j.key.equals("_kMail"))
-                                _kullanici._kMail=j.value.toString()
+                                _kullanici._kMail= sqLiteIslemci.coz(j.value.toString())
                         }
                         sifre._sKullanici=_kullanici
                     }
@@ -91,11 +91,11 @@ class FirebaseIslemleri(var context: Context) {
     }
     fun sifreleriSil(kullanici: Kullanici)
     {
-        firebase.child("Sifreler").child(kullanici._kMail.toString()).setValue(null)
+        firebase.child("Sifreler").child(kullanici._kId.toString()).setValue(null)
     }
     fun kullaniciSil(kullanici: Kullanici)
     {
-        firebase.child("Kullanicilar").child(kullanici._kMail.toString()).setValue(null)
+        firebase.child("Kullanicilar").child(kullanici._kId.toString()).setValue(null)
         sifreleriSil(kullanici)
     }
 

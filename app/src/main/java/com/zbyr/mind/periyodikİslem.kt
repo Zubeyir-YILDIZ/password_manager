@@ -23,6 +23,14 @@ class periyodikIslem( private val context: Context,workerParams:WorkerParameters
             {
                 for(sifre in sifreler)
                 {
+                    sifre._sSifreAdi=sqLiteIslemci.sifrele(sifre._sSifreAdi)
+                    sifre._sHesapAdi=sqLiteIslemci.sifrele(sifre._sHesapAdi)
+                    sifre._sKullanici?._kAdi=sqLiteIslemci.sifrele(sifre._sKullanici!!._kAdi)
+                    sifre._sKullanici?._kSoyadi=sqLiteIslemci.sifrele(sifre._sKullanici!!._kSoyadi)
+                    sifre._sKullanici?._kMail=sqLiteIslemci.sifrele(sifre._sKullanici!!._kMail)
+                    sifre._sKullanici?._kSifre=sqLiteIslemci.sifrele(sifre._sKullanici!!._kSifre)
+                    sifre._sTur?._SifreTipi=sqLiteIslemci.sifrele(sifre._sTur!!._SifreTipi)
+                    sifre._sSifre=sqLiteIslemci.sifrele(sifre._sSifre)
                     firebaseIslemci.SifreEkle(sifre)
                 }
             }

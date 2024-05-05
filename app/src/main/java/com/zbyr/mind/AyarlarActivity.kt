@@ -66,7 +66,13 @@ class AyarlarActivity : AppCompatActivity() {
             sqLiteIslemci.aktifKullaniciSil(MainActivity.AktifKullanici!!)
             sqLiteIslemci.aktifKullaniciEkle(MainActivity.AktifKullanici!!,1)
             yedekle(this,7)
-            firebaseIslemci.KullaniciEkle(MainActivity.AktifKullanici!!)
+            var kl=Kullanici()
+            kl._kId=MainActivity.AktifKullanici!!._kId
+            kl._kAdi=sqLiteIslemci.sifrele(MainActivity.AktifKullanici!!._kAdi)
+            kl._kSoyadi=sqLiteIslemci.sifrele(MainActivity.AktifKullanici!!._kSoyadi)
+            kl._kMail=sqLiteIslemci.sifrele(MainActivity.AktifKullanici!!._kMail)
+            kl._kSifre=sqLiteIslemci.sifrele(MainActivity.AktifKullanici!!._kSifre)
+            firebaseIslemci.KullaniciEkle(kl)
         }
         bagla.buttonSifreleriGetir.setOnClickListener {
             if(MainActivity.AktifKullanici!=null)
@@ -86,6 +92,7 @@ class AyarlarActivity : AppCompatActivity() {
             WorkManager.getInstance(this).cancelAllWork()
 
             firebaseIslemci.sifreleriSil(MainActivity.AktifKullanici!!)
+            firebaseIslemci.kullaniciSil(MainActivity.AktifKullanici!!)
             sqLiteIslemci.aktifKullaniciSil(MainActivity.AktifKullanici!!)
         }
     }

@@ -20,7 +20,7 @@ const val col_tId="TipId"
 
 const val tablo_adi2="SifreTipi"
 const val col_tip="SifreTipi"
-const val col_shk="3123wrqT6534hjrtndgh8767hrtfvg23"
+const val col_shk="3123wrqT6534hjrtndgh8767hrtfvg45"
 const val tablo_adi3="Kullanicilar"
 const val col_kAdi="Isim"
 const val col_kSoyadi="Soyisim"
@@ -84,7 +84,14 @@ class SqLiteIslemleri (var context: Context):SQLiteOpenHelper(context, database_
         val encryptedBytes = cipher.doFinal(text.toByteArray())
         return android.util.Base64.encodeToString(encryptedBytes, android.util.Base64.DEFAULT)
     }
-
+    fun sifrele(metin:String):String
+    {
+        return encryptAES(metin, col_shk)
+    }
+    fun coz(metin: String):String
+    {
+        return decryptAES(metin, col_shk)
+    }
     fun decryptAES(encryptedText: String, secretKey: String): String {
         val cipher = Cipher.getInstance("AES/ECB/PKCS5Padding")
         val keySpec = SecretKeySpec(secretKey.toByteArray(), "AES")
@@ -215,7 +222,7 @@ class SqLiteIslemleri (var context: Context):SQLiteOpenHelper(context, database_
         var liste=getirSifreTip()
         for(list in liste)
         {
-            if(list._TipId==sifreTip._TipId && list._kId==sifreTip._kId && decryptAES(list._SifreTipi,col_shk)==sifreTip._SifreTipi)
+            if(list._TipId==sifreTip._TipId && list._kId==sifreTip._kId && list._SifreTipi==sifreTip._SifreTipi)
             {
                 return false
             }
@@ -444,8 +451,8 @@ class SqLiteIslemleri (var context: Context):SQLiteOpenHelper(context, database_
                 cv.put(col_kSoyadi, encryptAES(kullanici._kSoyadi, col_shk))
                 cv.put(col_kMail,encryptAES(kullanici._kMail, col_shk))
                 cv.put(col_kSifre,encryptAES(kullanici._kSifre, col_shk))
-                db.update(tablo_adi3,cv,"$col_kId=? AND $col_kMail='${encryptAES(kullanici._kMail, col_shk)}'",
-                    arrayOf(kullanici._kId.toString()))
+                db.update(tablo_adi3,cv,"$col_kId=? ",
+                    arrayOf(kullanici._kId.toString())) //!!!!!!!!!!!!!!!!!!!!!!
             }while (sonuc.moveToNext())
         }
         sonuc.close()
@@ -525,7 +532,7 @@ class SqLiteIslemleri (var context: Context):SQLiteOpenHelper(context, database_
         var liste=tipGetirkIdIle(kullanici._kId)
         for(_tip in liste)
         {
-            if(_tip._SifreTipi==encryptAES(tip, col_shk))
+            if(_tip._SifreTipi==tip)
             {
                 return false
             }
