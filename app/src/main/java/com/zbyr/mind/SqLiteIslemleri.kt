@@ -167,7 +167,7 @@ class SqLiteIslemleri (var context: Context):SQLiteOpenHelper(context, database_
         val db = this.writableDatabase
         val cv = ContentValues()
 
-        cv.put(col_tip,sifreTip._SifreTipi)
+        cv.put(col_tip,encryptAES(sifreTip._SifreTipi, col_shk))
         cv.put(col_kId,kullanici._kId)
 
         var sonuc = db.insert(tablo_adi2,null,cv)
@@ -198,7 +198,7 @@ class SqLiteIslemleri (var context: Context):SQLiteOpenHelper(context, database_
         val cv = ContentValues()
 
         cv.put(col_tId,sifreTip._TipId)
-        cv.put(col_tip,sifreTip._SifreTipi)
+        cv.put(col_tip,encryptAES(sifreTip._SifreTipi, col_shk))
         cv.put(col_kId,sifreTip._kId)
 
         var sonuc = db.insert(tablo_adi2,null,cv)
@@ -215,7 +215,7 @@ class SqLiteIslemleri (var context: Context):SQLiteOpenHelper(context, database_
         var liste=getirSifreTip()
         for(list in liste)
         {
-            if(list._TipId==sifreTip._TipId && list._kId==sifreTip._kId && list._SifreTipi==sifreTip._SifreTipi)
+            if(list._TipId==sifreTip._TipId && list._kId==sifreTip._kId && decryptAES(list._SifreTipi,col_shk)==sifreTip._SifreTipi)
             {
                 return false
             }
@@ -224,7 +224,7 @@ class SqLiteIslemleri (var context: Context):SQLiteOpenHelper(context, database_
     }
     fun kontrolKullanici(kullanici1: Kullanici):Boolean
     {
-        var mail=kullanici1._kMail
+        var mail=encryptAES(kullanici1._kMail, col_shk)
         var liste:MutableList<Kullanici> = ArrayList()
         val db=this.readableDatabase
         var sorgu = "SELECT * FROM "+ tablo_adi3 + " WHERE $col_kMail = '$mail'"
@@ -233,10 +233,10 @@ class SqLiteIslemleri (var context: Context):SQLiteOpenHelper(context, database_
         if(sonuc.moveToFirst())
         {
             kullanici._kId=sonuc.getString(sonuc.getColumnIndexOrThrow(col_kId)).toLong()
-            kullanici._kAdi=sonuc.getString(sonuc.getColumnIndexOrThrow(col_kAdi)).toString()
-            kullanici._kSoyadi=sonuc.getString(sonuc.getColumnIndexOrThrow(col_kSoyadi)).toString()
-            kullanici._kMail=sonuc.getString(sonuc.getColumnIndexOrThrow(col_kMail)).toString()
-            kullanici._kSifre=sonuc.getString(sonuc.getColumnIndexOrThrow(col_kSifre)).toString()
+            kullanici._kAdi= decryptAES(sonuc.getString(sonuc.getColumnIndexOrThrow(col_kAdi)).toString(), col_shk)
+            kullanici._kSoyadi= decryptAES(sonuc.getString(sonuc.getColumnIndexOrThrow(col_kSoyadi)).toString(), col_shk)
+            kullanici._kMail= decryptAES(sonuc.getString(sonuc.getColumnIndexOrThrow(col_kMail)).toString(), col_shk)
+            kullanici._kSifre= decryptAES(sonuc.getString(sonuc.getColumnIndexOrThrow(col_kSifre)).toString(), col_shk)
         }
         else
             return true
@@ -255,10 +255,10 @@ class SqLiteIslemleri (var context: Context):SQLiteOpenHelper(context, database_
             do {
                 var kullanici=Kullanici()
                 kullanici._kId=sonuc.getString(sonuc.getColumnIndexOrThrow(col_kId)).toLong()
-                kullanici._kAdi=sonuc.getString(sonuc.getColumnIndexOrThrow(col_kAdi)).toString()
-                kullanici._kSoyadi=sonuc.getString(sonuc.getColumnIndexOrThrow(col_kSoyadi)).toString()
-                kullanici._kMail=sonuc.getString(sonuc.getColumnIndexOrThrow(col_kMail)).toString()
-                kullanici._kSifre=sonuc.getString(sonuc.getColumnIndexOrThrow(col_kSifre)).toString()
+                kullanici._kAdi= decryptAES(sonuc.getString(sonuc.getColumnIndexOrThrow(col_kAdi)).toString(), col_shk)
+                kullanici._kSoyadi= decryptAES(sonuc.getString(sonuc.getColumnIndexOrThrow(col_kSoyadi)).toString(), col_shk)
+                kullanici._kMail= decryptAES(sonuc.getString(sonuc.getColumnIndexOrThrow(col_kMail)).toString(), col_shk)
+                kullanici._kSifre= decryptAES(sonuc.getString(sonuc.getColumnIndexOrThrow(col_kSifre)).toString(), col_shk)
                 liste.add(kullanici)
             }while (sonuc.moveToNext())
         }
@@ -276,10 +276,10 @@ class SqLiteIslemleri (var context: Context):SQLiteOpenHelper(context, database_
         {
             do {
                 kullanici._kId=sonuc.getString(sonuc.getColumnIndexOrThrow(col_kId)).toLong()
-                kullanici._kAdi=sonuc.getString(sonuc.getColumnIndexOrThrow(col_kAdi)).toString()
-                kullanici._kSoyadi=sonuc.getString(sonuc.getColumnIndexOrThrow(col_kSoyadi)).toString()
-                kullanici._kMail=sonuc.getString(sonuc.getColumnIndexOrThrow(col_kMail)).toString()
-                kullanici._kSifre=sonuc.getString(sonuc.getColumnIndexOrThrow(col_kSifre)).toString()
+                kullanici._kAdi= decryptAES(sonuc.getString(sonuc.getColumnIndexOrThrow(col_kAdi)).toString(), col_shk)
+                kullanici._kSoyadi= decryptAES(sonuc.getString(sonuc.getColumnIndexOrThrow(col_kSoyadi)).toString(), col_shk)
+                kullanici._kMail= decryptAES(sonuc.getString(sonuc.getColumnIndexOrThrow(col_kMail)).toString(), col_shk)
+                kullanici._kSifre= decryptAES(sonuc.getString(sonuc.getColumnIndexOrThrow(col_kSifre)).toString(), col_shk)
             }while (sonuc.moveToNext())
         }
         sonuc.close()
@@ -288,7 +288,7 @@ class SqLiteIslemleri (var context: Context):SQLiteOpenHelper(context, database_
     }
     fun getirSifre(kullanici: Kullanici):ArrayList<Sifre>?
     {
-        var s=kullanici._kMail
+        var s= encryptAES(kullanici._kMail, col_shk)
         var liste:ArrayList<Sifre> = ArrayList()
         val db=this.readableDatabase
         var sorgu = "SELECT s.SifreId,s.Sifre,s.HesapAdi,s.SifreAdi,s.TipId,s.KullaniciId,t.TipId,t.SifreTipi FROM "+ tablo_adi+
@@ -299,12 +299,12 @@ class SqLiteIslemleri (var context: Context):SQLiteOpenHelper(context, database_
             do {
                 var sifre=Sifre()
                 sifre._sId=sonuc.getString(sonuc.getColumnIndexOrThrow(col_sId)).toInt()
-                sifre._sSifre=sonuc.getString(sonuc.getColumnIndexOrThrow(col_sifre))
-                sifre._sHesapAdi=sonuc.getString(sonuc.getColumnIndexOrThrow(col_hesapAdi))
-                sifre._sSifreAdi=sonuc.getString(sonuc.getColumnIndexOrThrow(col_sifreAdi))
+                sifre._sSifre= decryptAES(sonuc.getString(sonuc.getColumnIndexOrThrow(col_sifre)), col_shk)
+                sifre._sHesapAdi= decryptAES(sonuc.getString(sonuc.getColumnIndexOrThrow(col_hesapAdi)), col_shk)
+                sifre._sSifreAdi= decryptAES(sonuc.getString(sonuc.getColumnIndexOrThrow(col_sifreAdi)), col_shk)
                 var sifreTip=SifreTip()
                 sifreTip._TipId=sonuc.getString(sonuc.getColumnIndexOrThrow(col_tId)).toLong()
-                sifreTip._SifreTipi=sonuc.getString(sonuc.getColumnIndexOrThrow(col_tip))
+                sifreTip._SifreTipi= decryptAES(sonuc.getString(sonuc.getColumnIndexOrThrow(col_tip)), col_shk)
                 sifreTip._kId=sonuc.getString(sonuc.getColumnIndexOrThrow(col_kId)).toLong()
                 sifre._sTur=sifreTip
                 sifre._sKullanici=kullanici
@@ -404,7 +404,7 @@ class SqLiteIslemleri (var context: Context):SQLiteOpenHelper(context, database_
             do{
                 var sifreTip=SifreTip()
                 sifreTip._TipId=sonuc.getString(sonuc.getColumnIndexOrThrow(col_tId)).toLong()
-                sifreTip._SifreTipi=sonuc.getString(sonuc.getColumnIndexOrThrow(col_tip)).toString()
+                sifreTip._SifreTipi= decryptAES(sonuc.getString(sonuc.getColumnIndexOrThrow(col_tip)).toString(), col_shk)
                 sifreTip._kId=sonuc.getString(sonuc.getColumnIndexOrThrow(col_kId)).toLong()
                 liste.add(sifreTip)
             }while (sonuc.moveToNext())
@@ -423,7 +423,7 @@ class SqLiteIslemleri (var context: Context):SQLiteOpenHelper(context, database_
         if(sonuc.moveToFirst())
         {
             sifreTip._TipId=sonuc.getLong(sonuc.getColumnIndexOrThrow(col_tId))
-            sifreTip._SifreTipi=sonuc.getString(sonuc.getColumnIndexOrThrow(col_tip)).toString()
+            sifreTip._SifreTipi= decryptAES(sonuc.getString(sonuc.getColumnIndexOrThrow(col_tip)).toString(), col_shk)
             sifreTip._kId=sonuc.getString(sonuc.getColumnIndexOrThrow(col_kId)).toLong()
         }
 
@@ -440,11 +440,11 @@ class SqLiteIslemleri (var context: Context):SQLiteOpenHelper(context, database_
         {
             do {
                 var cv=ContentValues()
-                cv.put(col_kAdi,kullanici._kAdi)
-                cv.put(col_kSoyadi,kullanici._kSoyadi)
-                cv.put(col_kMail,kullanici._kMail)
-                cv.put(col_kSifre,kullanici._kSifre)
-                db.update(tablo_adi3,cv,"$col_kId=? AND $col_kMail='${kullanici._kMail}'",
+                cv.put(col_kAdi,encryptAES(kullanici._kAdi, col_shk))
+                cv.put(col_kSoyadi, encryptAES(kullanici._kSoyadi, col_shk))
+                cv.put(col_kMail,encryptAES(kullanici._kMail, col_shk))
+                cv.put(col_kSifre,encryptAES(kullanici._kSifre, col_shk))
+                db.update(tablo_adi3,cv,"$col_kId=? AND $col_kMail='${encryptAES(kullanici._kMail, col_shk)}'",
                     arrayOf(kullanici._kId.toString()))
             }while (sonuc.moveToNext())
         }
@@ -461,11 +461,11 @@ class SqLiteIslemleri (var context: Context):SQLiteOpenHelper(context, database_
             do {
                 var cv=ContentValues()
                 cv.put(col_sId,sifre._sId)
-                cv.put(col_sifre,sifre._sSifre)
-                cv.put(col_sifreAdi,sifre._sSifreAdi)
+                cv.put(col_sifre,encryptAES(sifre._sSifre, col_shk))
+                cv.put(col_sifreAdi,encryptAES(sifre._sSifreAdi, col_shk))
                 cv.put(col_tId, sifre._sTur!!._TipId)
                 cv.put(col_kId,sifre._sKullanici!!._kId)
-                cv.put(col_hesapAdi,sifre._sHesapAdi)
+                cv.put(col_hesapAdi,encryptAES(sifre._sHesapAdi, col_shk))
                 db.update(tablo_adi,cv,"$col_sId=?",
                     arrayOf(sifre._sId.toString()))
             }while (sonuc.moveToNext())
@@ -477,15 +477,15 @@ class SqLiteIslemleri (var context: Context):SQLiteOpenHelper(context, database_
     {
         var kullanici=Kullanici()
         val db=this.readableDatabase
-        var sorgu = "SELECT * FROM "+ tablo_adi3+" WHERE $col_kMail= '$mail'"
+        var sorgu = "SELECT * FROM "+ tablo_adi3+" WHERE $col_kMail= '${encryptAES(mail, col_shk)}'"
         var sonuc=db.rawQuery(sorgu,null)
         if(sonuc.moveToFirst())
         {
             kullanici._kId=sonuc.getString(sonuc.getColumnIndexOrThrow(col_kId)).toLong()
-            kullanici._kAdi=sonuc.getString(sonuc.getColumnIndexOrThrow(col_kAdi)).toString()
-            kullanici._kSoyadi=sonuc.getString(sonuc.getColumnIndexOrThrow(col_kSoyadi)).toString()
-            kullanici._kMail=sonuc.getString(sonuc.getColumnIndexOrThrow(col_kMail)).toString()
-            kullanici._kSifre=sonuc.getString(sonuc.getColumnIndexOrThrow(col_kSifre)).toString()
+            kullanici._kAdi= decryptAES(sonuc.getString(sonuc.getColumnIndexOrThrow(col_kAdi)).toString(), col_shk)
+            kullanici._kSoyadi= decryptAES(sonuc.getString(sonuc.getColumnIndexOrThrow(col_kSoyadi)).toString(), col_shk)
+            kullanici._kMail= decryptAES(sonuc.getString(sonuc.getColumnIndexOrThrow(col_kMail)).toString(), col_shk)
+            kullanici._kSifre= decryptAES(sonuc.getString(sonuc.getColumnIndexOrThrow(col_kSifre)).toString(), col_shk)
         }
         sonuc.close()
         db.close()
@@ -495,7 +495,7 @@ class SqLiteIslemleri (var context: Context):SQLiteOpenHelper(context, database_
     {
         var kullanici=getirKullaniciIleMail(mail)
         val db=this.writableDatabase
-        var sonuc=db.delete(tablo_adi3,"$col_kMail='?'", arrayOf(kullanici._kMail))
+        var sonuc=db.delete(tablo_adi3,"$col_kMail='?'", arrayOf(encryptAES(kullanici._kMail, col_shk)))
         db.close()
 
         return sonuc !=-1
@@ -525,7 +525,7 @@ class SqLiteIslemleri (var context: Context):SQLiteOpenHelper(context, database_
         var liste=tipGetirkIdIle(kullanici._kId)
         for(_tip in liste)
         {
-            if(_tip._SifreTipi==tip)
+            if(_tip._SifreTipi==encryptAES(tip, col_shk))
             {
                 return false
             }
@@ -543,7 +543,7 @@ class SqLiteIslemleri (var context: Context):SQLiteOpenHelper(context, database_
             do{
                 var sifreTip=SifreTip()
                 sifreTip._TipId=sonuc.getString(sonuc.getColumnIndexOrThrow(col_tId)).toLong()
-                sifreTip._SifreTipi=sonuc.getString(sonuc.getColumnIndexOrThrow(col_tip)).toString()
+                sifreTip._SifreTipi= decryptAES(sonuc.getString(sonuc.getColumnIndexOrThrow(col_tip)).toString(), col_shk)
                 sifreTip._kId=sonuc.getString(sonuc.getColumnIndexOrThrow(col_kId)).toLong()
                 liste.add(sifreTip)
             }while (sonuc.moveToNext())
@@ -574,9 +574,9 @@ class SqLiteIslemleri (var context: Context):SQLiteOpenHelper(context, database_
             do {
                 var sifre=Sifre()
                 sifre._sId=sonuc.getString(sonuc.getColumnIndexOrThrow(col_sId)).toInt()
-                sifre._sSifre=sonuc.getString(sonuc.getColumnIndexOrThrow(col_sifre))
-                sifre._sHesapAdi=sonuc.getString(sonuc.getColumnIndexOrThrow(col_hesapAdi))
-                sifre._sSifreAdi=sonuc.getString(sonuc.getColumnIndexOrThrow(col_sifreAdi))
+                sifre._sSifre= decryptAES(sonuc.getString(sonuc.getColumnIndexOrThrow(col_sifre)), col_shk)
+                sifre._sHesapAdi= decryptAES(sonuc.getString(sonuc.getColumnIndexOrThrow(col_hesapAdi)), col_shk)
+                sifre._sSifreAdi= decryptAES(sonuc.getString(sonuc.getColumnIndexOrThrow(col_sifreAdi)), col_shk)
                 sifre._sTur=getirSifreTipIleId(sifreTip.toLong())
                 sifre._sKullanici=kullanici
 
