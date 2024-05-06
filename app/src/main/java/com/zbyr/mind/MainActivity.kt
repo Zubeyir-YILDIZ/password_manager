@@ -214,6 +214,9 @@ class MainActivity : AppCompatActivity() {
                 popupWindow.dismiss()
             }
         }
+        popupWindow.setOnDismissListener {
+            baglan.layoutMain.alpha=1f
+        }
     }
     override fun onPause() {
         kaydirmaTersine()

@@ -29,6 +29,7 @@
             android:layout_gravity="center_horizontal|center_vertical"
             android:layout_margin="5dp"
             android:clickable="true"
+            android:foreground="@drawable/baseline_delete_24"
             android:textAlignment="center"
             app:backgroundTint="@color/anaRenk"
             app:fabCustomSize="57dp"
@@ -58,11 +59,11 @@
             android:layout_gravity="center"
             android:layout_margin="5dp"
             android:clickable="true"
+            android:foreground="@drawable/baseline_edit_24"
             android:textAlignment="center"
             app:backgroundTint="@color/anaRenk"
             app:fabCustomSize="57dp"
-            app:maxImageSize="28dp"
-            app:srcCompat="@android:drawable/ic_menu_edit" />
+            app:maxImageSize="28dp" />
     </LinearLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout

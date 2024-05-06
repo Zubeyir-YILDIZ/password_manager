@@ -3,6 +3,7 @@ package com.zbyr.mind
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.ObjectAnimator
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
@@ -20,6 +21,7 @@ import android.widget.PopupMenu
 import android.widget.PopupWindow
 import android.widget.TextView
 import androidx.appcompat.app.ActionBar
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.animation.addListener
 import androidx.core.animation.doOnEnd
 import androidx.core.view.children
@@ -50,6 +52,8 @@ class AnasayfaActivity : AppCompatActivity() {
             kategoriOlustur()
             donusAnimasyonu()
         }
+
+
     }
     fun yonCubugu()
     {
@@ -94,6 +98,7 @@ class AnasayfaActivity : AppCompatActivity() {
             {
                 if(deger)
                     rrr.setTitle("Kategori Sil")
+
             }
             if(rrr.title=="Kategori Sil")
             {
@@ -147,8 +152,8 @@ class AnasayfaActivity : AppCompatActivity() {
                 }
             }else
             {
-                popupGirdi(bagla.root,"Yeni Kategori Giriniz")
-                //kategoriSor()
+                popupGirdi("Yeni Kategori Giriniz")
+
             }
         }
         return super.onOptionsItemSelected(item)
@@ -181,7 +186,8 @@ class AnasayfaActivity : AppCompatActivity() {
         }
         inputDialog.show()
     }
-    fun popupGirdi(view:View,metin:String)
+    @SuppressLint("MissingInflatedId")
+    fun popupGirdi(metin:String)
     {
         val inflater: LayoutInflater = getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val popupView = inflater.inflate(R.layout.popup_layout,null)
@@ -206,6 +212,9 @@ class AnasayfaActivity : AppCompatActivity() {
             kategoriOlustur()
             bagla.layout.alpha=1f
             popupWindow.dismiss()
+        }
+        popupWindow.setOnDismissListener {
+            bagla.layout.alpha=1f
         }
 
     }

@@ -3,8 +3,16 @@
     <style name="Base.Theme.Mind" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="android:itemTextAppearance">@style/MyMenuItemTextStyle</item>
+
 
     </style>
+        <style name="MyMenuItemTextStyle" parent="TextAppearance.AppCompat.Widget.ActionBar.Menu">
+            <item name="android:textColor">@color/anaRenk</item>
+            <item name="titleTextColor">@color/black</item>
+        </style>
 
     <style name="Theme.Mind" parent="Base.Theme.Mind" />
 </resources>
