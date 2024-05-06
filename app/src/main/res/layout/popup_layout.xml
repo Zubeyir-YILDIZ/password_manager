@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/kategori_renk"
+    android:elevation="80dp"
+    android:paddingHorizontal="15dp">
+
+    <Button
+        android:id="@+id/buttonPopupGonder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="@color/anaRenk"
+        android:text="Tamam"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textColorHint="#000000"
+        app:cornerRadius="7dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextPopupİstek" />
+
+    <EditText
+        android:id="@+id/editTextPopupİstek"
+        android:layout_width="253dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/uye_ol_text_alani"
+        android:drawableEnd="@drawable/baseline_edit_24"
+        android:ems="10"
+        android:hint="Buraya giriniz"
+        android:inputType="text"
+        android:padding="5dp"
+        android:textAlignment="center"
+        android:textColor="@color/anaRenk"
+        android:textColorHint="@color/anaRenk"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

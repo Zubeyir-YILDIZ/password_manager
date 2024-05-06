@@ -3,10 +3,15 @@ package com.zbyr.mind
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.res.ColorStateList
+import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.core.view.children
 import androidx.work.Constraints
 import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.NetworkType
@@ -14,6 +19,7 @@ import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
 import com.google.firebase.database.collection.LLRBNode.Color
 import com.zbyr.mind.databinding.ActivityAyarlarBinding
+import java.io.File
 import java.sql.Time
 import java.util.concurrent.TimeUnit
 
@@ -21,6 +27,7 @@ class AyarlarActivity : AppCompatActivity() {
     private lateinit var bagla:ActivityAyarlarBinding
     private lateinit var firebaseIslemci:FirebaseIslemleri
     private lateinit var sqLiteIslemci:SqLiteIslemleri
+
     @SuppressLint("ResourceAsColor")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,7 +40,7 @@ class AyarlarActivity : AppCompatActivity() {
         bagla.editTextSoyisim.setText(MainActivity.AktifKullanici!!._kSoyadi.toString())
         bagla.editTextEpostaEdit.setText(MainActivity.AktifKullanici!!._kMail.toString())
         bagla.editTextSifreEdit.setText(MainActivity.AktifKullanici!!._kSifre.toString())
-        val color=android.graphics.Color.argb(255,255,193,7)
+        val renk=resources.getColor(R.color.anaRenk)
         bagla.buttonDuzenle.setOnClickListener {
             if(bagla.buttonDuzenle.text=="Düzenle")
             {
@@ -42,14 +49,14 @@ class AyarlarActivity : AppCompatActivity() {
                 bagla.editTextSoyisim.isEnabled=true
                 bagla.editTextEpostaEdit.isEnabled=true
                 bagla.editTextSifreEdit.isEnabled=true
-                bagla.buttonDuzenle.backgroundTintList=ColorStateList.valueOf(color)
+                bagla.buttonDuzenle.backgroundTintList=ColorStateList.valueOf(renk)
             }else{
                 bagla.buttonDuzenle.setText("Düzenle")
                 bagla.editTextIsim.isEnabled=false
                 bagla.editTextSoyisim.isEnabled=false
                 bagla.editTextEpostaEdit.isEnabled=false
                 bagla.editTextSifreEdit.isEnabled=false
-                bagla.buttonDuzenle.backgroundTintList=ColorStateList.valueOf(color)
+                bagla.buttonDuzenle.backgroundTintList=ColorStateList.valueOf(renk)
 
                 var profil=sqLiteIslemci.getirKullaniciIleMail(bagla.editTextEpostaEdit.text.toString())
                 profil._kAdi=bagla.editTextIsim.text.toString()
@@ -73,6 +80,7 @@ class AyarlarActivity : AppCompatActivity() {
             kl._kMail=sqLiteIslemci.sifrele(MainActivity.AktifKullanici!!._kMail)
             kl._kSifre=sqLiteIslemci.sifrele(MainActivity.AktifKullanici!!._kSifre)
             firebaseIslemci.KullaniciEkle(kl)
+            Toast.makeText(this,"Şifreleriniz kaydedildi,haftalık yedeklemeye açıldı",Toast.LENGTH_SHORT).show()
         }
         bagla.buttonSifreleriGetir.setOnClickListener {
             if(MainActivity.AktifKullanici!=null)
@@ -94,6 +102,7 @@ class AyarlarActivity : AppCompatActivity() {
             firebaseIslemci.sifreleriSil(MainActivity.AktifKullanici!!)
             firebaseIslemci.kullaniciSil(MainActivity.AktifKullanici!!)
             sqLiteIslemci.aktifKullaniciSil(MainActivity.AktifKullanici!!)
+            Toast.makeText(this,"Şifreleriniz silindi,haftalık yedeklemeye kapatıldı",Toast.LENGTH_SHORT).show()
         }
     }
     fun ok(isDrawableUp:Boolean)

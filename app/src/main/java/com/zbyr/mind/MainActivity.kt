@@ -1,18 +1,32 @@
 package com.zbyr.mind
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
+import android.graphics.Color
+import android.health.connect.datatypes.AppInfo
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Gravity
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationSet
 import android.view.animation.AnimationUtils
 import android.view.animation.RotateAnimation
 import android.view.animation.ScaleAnimation
+import android.widget.Button
 import android.widget.EditText
+import android.widget.PopupWindow
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
+import androidx.core.graphics.blue
+import androidx.core.graphics.toColor
 import com.zbyr.mind.databinding.ActivityMainBinding
 import java.util.concurrent.Executor
 
@@ -20,13 +34,15 @@ class MainActivity : AppCompatActivity() {
     companion object{
         var AktifKullanici:Kullanici?=null
     }
-
     private lateinit var baglan:ActivityMainBinding
     private lateinit var sqLiteIslemleri: SqLiteIslemleri
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         baglan= ActivityMainBinding.inflate(layoutInflater)
+
         setContentView(baglan.root)
+        kaydirma()
+        girisAnimasyon()
         sqLiteIslemleri= SqLiteIslemleri(this)
         if(giris()!=null)
         {
@@ -35,7 +51,6 @@ class MainActivity : AppCompatActivity() {
             baglan.checkBoxBeniHatirla.isChecked=true
             biyometrik()
         }
-
         baglan.buttonGiris.setOnClickListener {
             var txtMail=baglan.editTextEposta
             var txtSifre=baglan.editTextSifre
@@ -64,37 +79,8 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
         baglan.textViewUnuttum.setOnClickListener {
-            val inputDialog = AlertDialog.Builder(this)
-            inputDialog.setTitle("Eposta adresinizi giriniz")
-            val inputEditText = EditText(this)
-            inputDialog.setView(inputEditText)
-            inputDialog.setPositiveButton("Tamam") {dialog,which ->
-                val sonuc = inputEditText.text.toString()
-                if(sonuc.isNotEmpty() && sonuc==sqLiteIslemleri.getirKullaniciIleMail(sonuc)._kMail)
-                {
-                    var profil=sqLiteIslemleri.getirKullaniciIleMail(sonuc)
-                    inputDialog.setTitle("Yeni şifrenizi giriniz")
-                    val inputEditText2 = EditText(this)
-                    inputDialog.setView(inputEditText2)
-                    inputDialog.setPositiveButton("Tamam") {dialog2,which2 ->
-                        val sonuc2 = inputEditText2.text.toString()
-                        if(sonuc2.isNotEmpty())
-                        {
-                            profil._kSifre=sonuc2
-                            sqLiteIslemleri.güncelleKullanici(profil)
-                            Toast.makeText(this,"Şifreniz güncellendi",Toast.LENGTH_SHORT).show()
-                        }else
-                            Toast.makeText(this,"Şifre girmediniz",Toast.LENGTH_SHORT).show()
-                    }
-                    inputDialog.show()
-                }else{
-                    Toast.makeText(this,"Eposta adresi bulunamadı",Toast.LENGTH_LONG).show()
-                }
-            }
-            inputDialog.show()
+            popupGirdi(baglan.root,"Eposta adresinizi giriniz")
         }
-        kaydirma()
-        girisAnimasyon()
     }
     fun biyometrik()
     {
@@ -103,16 +89,13 @@ class MainActivity : AppCompatActivity() {
             object : BiometricPrompt.AuthenticationCallback() {
                 override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
                     super.onAuthenticationError(errorCode, errString)
-
                 }
                 override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
                     super.onAuthenticationSucceeded(result)
                         girisYap()
-
                 }
                 override fun onAuthenticationFailed() {
                     super.onAuthenticationFailed()
-
                 }
             })
         var promptInfo = BiometricPrompt.PromptInfo.Builder()
@@ -122,7 +105,6 @@ class MainActivity : AppCompatActivity() {
             .build()
 
         biometricPrompt.authenticate(promptInfo)
-
     }
     fun girisYap()
     {
@@ -140,6 +122,11 @@ class MainActivity : AppCompatActivity() {
     {
         val animation = AnimationUtils.loadAnimation(this, R.anim.giris_kayirma)
         baglan.constraintLayoutIcerik.startAnimation(animation)
+    }
+    fun kaydirmaTersine()
+    {
+        val animation2 = AnimationUtils.loadAnimation(this, R.anim.giris_ters_kaydirma)
+        baglan.constraintLayoutIcerik.startAnimation(animation2)
     }
     fun dogrulama(mutableList: MutableList<Kullanici>,mail:String,sifre:String): Kullanici?
     {
@@ -183,7 +170,53 @@ class MainActivity : AppCompatActivity() {
     }
     override fun onResume() {
         baglan.editTextSifre.text.clear()
+        kaydirma()
         super.onResume()
     }
+    fun popupGirdi(view: View, metin:String)
+    {
+        val inflater: LayoutInflater = getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val popupView = inflater.inflate(R.layout.popup_layout,null)
+        val popupWindow = PopupWindow(popupView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT,true)
+        val animasyon=baglan.layoutMain.animate().alpha(0.4f)
+        val txtGirdi=popupView.findViewById<EditText>(R.id.editTextPopupİstek)
+        val buton=popupView.findViewById<Button>(R.id.buttonPopupGonder)
 
+        animasyon.duration=1000
+        txtGirdi.setHint(metin)
+        txtGirdi.requestFocus()
+
+        animasyon.start()
+        popupWindow.showAtLocation(baglan.root, Gravity.CENTER, 0, 0)
+
+        buton.setOnClickListener {
+            val girdi=txtGirdi.text.toString()
+            if(girdi.isNotEmpty() && girdi==sqLiteIslemleri.getirKullaniciIleMail(girdi)._kMail)
+            {
+                var profil=sqLiteIslemleri.getirKullaniciIleMail(girdi)
+                txtGirdi.text.clear()
+                txtGirdi.setHint("Yeni şifrenizi giriniz")
+                buton.setOnClickListener {
+                    val sonuc2=txtGirdi.text.toString()
+                    if(sonuc2.isNotEmpty())
+                    {
+                        profil._kSifre=sonuc2
+                        sqLiteIslemleri.güncelleKullanici(profil)
+                        Toast.makeText(this,"Şifreniz güncellendi",Toast.LENGTH_SHORT).show()
+                    }else
+                        Toast.makeText(this,"Şifre girmediniz",Toast.LENGTH_SHORT).show()
+                    baglan.layoutMain.alpha=1f
+                    popupWindow.dismiss()
+                }
+            }else{
+                Toast.makeText(this,"Eposta adresi bulunamadı",Toast.LENGTH_LONG).show()
+                baglan.layoutMain.alpha=1f
+                popupWindow.dismiss()
+            }
+        }
+    }
+    override fun onPause() {
+        kaydirmaTersine()
+        super.onPause()
+    }
 }
