@@ -1,5 +1,60 @@
 <resources>
-    <string name="app_name">mind</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="app_name" translatable="false">Mind</string>
+
+    <string name="giris_sayfasi_baslik_en">WELCOME</string>
+    <string name="giris_sayfasi_etMail_en">Email Address</string>
+    <string name="giris_sayfasi_etSifre_en">Password</string>
+    <string name="giris_sayfasi_beni_hatirla_en">Remember Me</string>
+    <string name="giris_sayfasi_sifremi_unuttum_en">I Forgot My Password</string>
+    <string name="giris_sayfasi_uye_ol_en">Sign Up</string>
+    <string name="giris_sayfasi_giris_yap_en">Login</string>
+
+    <string name="anasayfa_baslik_en">Categories</string>
+    <string name="anasayfa_onceki_sayfa_buton_en">Previous Page</string>
+    <string name="anasayfa_selamlama_en">Welcome</string>
+    <string name="anasayfa_menu_kategori_ekle_en">Add Category</string>
+    <string name="anasayfa_menu_kategori_sil_en">Delete Category</string>
+    <string name="anasayfa_menu_ayarlar_en">Settings</string>
+    <string name="anasayfa_menu_cikis_yap_en">Log Out</string>
+
+    <string name="ayarlar_baslik_en">SETTINGS</string>
+    <string name="ayarlar_txt_kisisel_bilgileriniz_en">Personal Information</string>
+    <string name="ayarlar_etIsım_en">Name</string>
+    <string name="ayarlar_etSoyisim_en">Surname</string>
+    <string name="ayarlar_etMail_en">Email Address</string>
+    <string name="ayarlar_etSifre_en">Password</string>
+    <string name="ayarlar_buton_duzenle_en">Edit</string>
+    <string name="ayarlar_buton_kaydet_en">Save</string>
+    <string name="ayarlar_txt_yedekle_en">Backup</string>
+    <string name="ayarlar_buton_yedekle_en">Backup Password</string>
+    <string name="ayarlar_buton_sil_en">Delete Backups</string>
+    <string name="ayarlar_buton_yedek_getir_en">Get Backed Up Passwords</string>
+    <string name="ayarlar_hesap_sil_en">Delete My Account</string>
+
+    <string name="sifre_ekle_baslik_en">ADD PASSWORD</string>
+    <string name="sifre_ekle_etKAdi_en">Enter Username</string>
+    <string name="sifre_ekle_etKAdi_olacakMi_en">Should I Have a Username</string>
+    <string name="sifre_ekle_etSifre_en">Enter Password</string>
+    <string name="sifre_ekle_etSifreAdi_en">Name For Password</string>
+    <string name="sifre_ekle_buton_sifre_olustur_en">Create</string>
+    <string name="sifre_ekle_buton_sifre_oner_en">Suggest Password</string>
+
+    <string name="sifre_oner_baslik_en">CREATE PASSWORD</string>
+    <string name="sifre_oner_txt_sifre_icerigi_en">CONTENT OF PASSWORD</string>
+    <string name="sifre_oner_txt_sifre_uzunlugu_en">LENGTH OF PASSWORD</string>
+    <string name="sifre_oner_buton_olustur_en">Create Password</string>
+    <string name="sifre_oner_txt_sifre_en">CREATED PASSWORD</string>
+    <string name="sifre_oner_bilgi_burada_gorunecek_en">Will Appear Here</string>
+
+    <string name="uye_ol_baslik_en">SIGN UP</string>
+    <string name="uye_ol_buton_en">Sign Up</string>
+
+    <string name="popup_etBurayaGiriniz_en">Enter Here</string>
+    <string name="popup_buton_tamam_en">OK</string>
+
+
+    <string name="rec_item_sifre_adi_en">Password Name</string>
+    <string name="rec_item_sifre_en">Password</string>
+    <string name="rec_item_kullanici_adi_en">Username</string>
+
 </resources>

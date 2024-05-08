@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="giris_sayfasi_baslik_en">HOŞGELDİNİZ</string>
+    <string name="giris_sayfasi_etMail_en">Eposta Adresiniz</string>
+    <string name="giris_sayfasi_etSifre_en">Şifreniz</string>
+    <string name="giris_sayfasi_beni_hatirla_en">Beni Hatırla</string>
+    <string name="giris_sayfasi_sifremi_unuttum_en">Şifremi Unuttum</string>
+    <string name="giris_sayfasi_uye_ol_en">Üye Ol</string>
+    <string name="giris_sayfasi_giris_yap_en">Giriş Yap</string>
+
+    <string name="anasayfa_baslik_en">Kategoriler</string>
+    <string name="anasayfa_onceki_sayfa_buton_en">Önceki Sayfa</string>
+    <string name="anasayfa_selamlama_en">Hoşgeldin</string>
+    <string name="anasayfa_menu_kategori_ekle_en">Kategori Ekle</string>
+    <string name="anasayfa_menu_kategori_sil_en">Kategori Sil</string>
+    <string name="anasayfa_menu_ayarlar_en">Ayarlar</string>
+    <string name="anasayfa_menu_cikis_yap_en">Çıkış Yap</string>
+
+    <string name="ayarlar_baslik_en">AYARLAR</string>
+    <string name="ayarlar_txt_kisisel_bilgileriniz_en">Kişisel Bilgileriniz</string>
+    <string name="ayarlar_etIsım_en">İsminiz</string>
+    <string name="ayarlar_etSoyisim_en">Soyisminiz</string>
+    <string name="ayarlar_etMail_en">Eposta Adresiniz</string>
+    <string name="ayarlar_etSifre_en">Şifreniz</string>
+    <string name="ayarlar_buton_duzenle_en">Düzenle</string>
+    <string name="ayarlar_buton_kaydet_en">Kaydet</string>
+    <string name="ayarlar_txt_yedekle_en">Yedekleme</string>
+    <string name="ayarlar_buton_yedekle_en">Şifre Yedekle</string>
+    <string name="ayarlar_buton_sil_en">Yedekleri Sil</string>
+    <string name="ayarlar_buton_yedek_getir_en">Yedeklenmiş Şifreleri Getir</string>
+    <string name="ayarlar_hesap_sil_en">Hesabımı Sil</string>
+
+    <string name="sifre_ekle_baslik_en">ŞİFRE EKLE</string>
+    <string name="sifre_ekle_etKAdi_en">Kullanıcı Adı Giriniz</string>
+    <string name="sifre_ekle_etKAdi_olacakMi_en">Kullanıcı Adı Olsun Mu</string>
+    <string name="sifre_ekle_etSifre_en">Şifre Giriniz</string>
+    <string name="sifre_ekle_etSifreAdi_en">Şifreniz İçin İsim</string>
+    <string name="sifre_ekle_buton_sifre_olustur_en">Oluştur</string>
+    <string name="sifre_ekle_buton_sifre_oner_en">Şifre Öner</string>
+
+    <string name="sifre_oner_baslik_en">ŞİFRE OLUŞTUR</string>
+    <string name="sifre_oner_txt_sifre_icerigi_en">ŞİFRENİZİN İÇERİĞİ</string>
+    <string name="sifre_oner_txt_sifre_uzunlugu_en">ŞİFRENİZİN UZUNLUĞU</string>
+    <string name="sifre_oner_buton_olustur_en">Şifre Oluştur</string>
+    <string name="sifre_oner_txt_sifre_en">OLUŞTURULAN ŞİFRENİZ</string>
+    <string name="sifre_oner_bilgi_burada_gorunecek_en">Burada Görünecek</string>
+
+    <string name="uye_ol_baslik_en">ÜYE OL</string>
+    <string name="uye_ol_buton_en">Üye Ol</string>
+
+    <string name="popup_etBurayaGiriniz_en">Buraya Giriniz</string>
+    <string name="popup_buton_tamam_en">Tamam</string>
+
+    <string name="rec_item_sifre_adi_en">Şifre Adı</string>
+    <string name="rec_item_sifre_en">Şifreniz</string>
+    <string name="rec_item_kullanici_adi_en">Kullanıcı Adı</string>
+</resources>

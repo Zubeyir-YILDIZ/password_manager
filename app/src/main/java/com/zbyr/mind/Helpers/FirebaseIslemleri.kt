@@ -1,19 +1,16 @@
-package com.zbyr.mind
+package com.zbyr.mind.Helpers
 
-import android.app.Application
 import android.content.Context
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.ValueEventListener
-import com.google.firebase.database.getValue
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
-import com.zbyr.mind.databinding.ActivityAnasayfaBinding
+import com.zbyr.mind.Models.Kullanici
+import com.zbyr.mind.Models.Sifre
+import com.zbyr.mind.Models.SifreTip
 
 class FirebaseIslemleri(var context: Context) {
     private var firebase: DatabaseReference = Firebase.database.reference
-    var sqLiteIslemci=SqLiteIslemleri(context)
+    var sqLiteIslemci= SqLiteIslemleri(context)
     fun KullaniciEkle(kullanici: Kullanici)
     {
         firebase.child("Kullanicilar").child(kullanici._kId.toString()).setValue(kullanici)
@@ -27,9 +24,9 @@ class FirebaseIslemleri(var context: Context) {
         firebase.child("Sifreler").child(kullanici._kId.toString()).get().addOnSuccessListener {
             for(deger in it.children)
             {
-                var sifre=Sifre()
-                var tip=SifreTip()
-                var _kullanici=Kullanici()
+                var sifre= Sifre()
+                var tip= SifreTip()
+                var _kullanici= Kullanici()
                 for(sifreD in deger.children)
                 {
                     if(sifreD.key.equals("_sHesapAdi"))

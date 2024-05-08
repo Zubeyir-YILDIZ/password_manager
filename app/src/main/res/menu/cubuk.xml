@@ -8,17 +8,17 @@
         android:id="@+id/yon_sil"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:title="Kategori Ekle"
+        android:title="@string/anasayfa_menu_kategori_ekle_en"
         android:visible="true"
         app:showAsAction="always" />
     <item
         android:id="@+id/yon_ayarlar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:title="Ayarlar" />
+        android:title="@string/anasayfa_menu_ayarlar_en" />
     <item
         android:id="@+id/yon_cikis"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:title="Çıkış Yap" />
+        android:title="@string/anasayfa_menu_cikis_yap_en" />
 </menu>

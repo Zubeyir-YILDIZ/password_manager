@@ -1,29 +1,25 @@
-package com.zbyr.mind
+package com.zbyr.mind.Views
 
-import android.app.AlertDialog
-import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.view.animation.Animation
-import android.view.animation.RotateAnimation
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.EditText
-import android.widget.Spinner
 import android.widget.Toast
+import com.zbyr.mind.Helpers.FirebaseIslemleri
+import com.zbyr.mind.Models.Sifre
+import com.zbyr.mind.Models.SifreTip
+import com.zbyr.mind.Helpers.SqLiteIslemleri
 import com.zbyr.mind.databinding.ActivitySifreEkleBinding
 
 class SifreEkleActivity : AppCompatActivity() {
     private lateinit var bagla:ActivitySifreEkleBinding
-    private lateinit var firebaseIslemci:FirebaseIslemleri
-    private lateinit var sqLiteIslemci:SqLiteIslemleri
+    private lateinit var firebaseIslemci: FirebaseIslemleri
+    private lateinit var sqLiteIslemci: SqLiteIslemleri
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        firebaseIslemci=FirebaseIslemleri(this)
+        firebaseIslemci= FirebaseIslemleri(this)
         sqLiteIslemci= SqLiteIslemleri(this)
         bagla=ActivitySifreEkleBinding.inflate(layoutInflater)
         setContentView(bagla.root)
@@ -32,13 +28,13 @@ class SifreEkleActivity : AppCompatActivity() {
         acilisAnimasyonu()
         bagla.buttonSifreOlustur.setOnClickListener {
             val txtSifre=bagla.editTextSifreSifre
-            val sifre:Sifre
+            val sifre: Sifre
             val txtSifreAdi=bagla.editTextSifreAdi
             if(txtSifre.text.isNotEmpty() && txtSifreAdi.text.isNotEmpty())
             {
-                val seciliDeger:String=AnasayfaActivity.kategori
-                val sifreTipi=SifreTip()
-                val tip=sqLiteIslemci.tipDogrula(seciliDeger,MainActivity.AktifKullanici!!)
+                val seciliDeger:String= AnasayfaActivity.kategori
+                val sifreTipi= SifreTip()
+                val tip=sqLiteIslemci.tipDogrula(seciliDeger, MainActivity.AktifKullanici!!)
                 if(tip!=null)
                 {
                     sifreTipi._TipId= tip._TipId
@@ -46,12 +42,12 @@ class SifreEkleActivity : AppCompatActivity() {
                     if(bagla.switchAcKullaniciAdi.isChecked && bagla.editTextText.text.isNotEmpty())
                     {
                         val txtKullaniciAdi=bagla.editTextText
-                        sifre=Sifre(txtSifre.text.toString(),sifreTipi, MainActivity.AktifKullanici!!,txtKullaniciAdi.text.toString(),txtSifreAdi.text.toString())
+                        sifre= Sifre(txtSifre.text.toString(),sifreTipi, MainActivity.AktifKullanici!!,txtKullaniciAdi.text.toString(),txtSifreAdi.text.toString())
                     }else
-                        sifre=Sifre(txtSifre.text.toString(),sifreTipi, MainActivity.AktifKullanici!!,txtSifreAdi.text.toString())
+                        sifre= Sifre(txtSifre.text.toString(),sifreTipi, MainActivity.AktifKullanici!!,txtSifreAdi.text.toString())
 
                     sqLiteIslemci.ekleSifre(sifre)
-                    AnasayfaActivity.anahtar=true
+                    AnasayfaActivity.anahtar =true
                     finish()
                 }else
                     Toast.makeText(applicationContext,"Kategori bulunamadı", Toast.LENGTH_LONG).show()
@@ -61,7 +57,7 @@ class SifreEkleActivity : AppCompatActivity() {
             }
         }
         bagla.buttonSifreOner.setOnClickListener {
-            val intent=Intent(this,SifreOnerActivity::class.java)
+            val intent=Intent(this, SifreOnerActivity::class.java)
             startActivity(intent)
         }
         bagla.switchAcKullaniciAdi.setOnClickListener {

@@ -1,27 +1,18 @@
-package com.zbyr.mind
+package com.zbyr.mind.Adapters
 
-import android.animation.ObjectAnimator
-import android.annotation.SuppressLint
-import android.app.AlertDialog
-import android.content.Context
-import android.content.Intent
-import android.graphics.Color
-import android.view.Gravity
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.ViewGroup
-import android.widget.EditText
-import android.widget.Spinner
-import android.widget.TextView
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.zbyr.mind.Helpers.SqLiteIslemleri
+import com.zbyr.mind.Models.SifreTip
+import com.zbyr.mind.Views.AnasayfaActivity
+import com.zbyr.mind.Views.MainActivity
 import com.zbyr.mind.databinding.ActivityAnasayfaBinding
-import com.zbyr.mind.databinding.RecyclerItemBinding
 import com.zbyr.mind.databinding.RecyclerKategorilerBinding
 
 class KategoriAdapter(val kategorilar:MutableList<SifreTip>):RecyclerView.Adapter<KategoriAdapter.KategoriHolder>() {
 
-    private lateinit var sqLiteIslemci:SqLiteIslemleri
+    private lateinit var sqLiteIslemci: SqLiteIslemleri
     private lateinit var bind:ActivityAnasayfaBinding
     private lateinit var bagla: RecyclerKategorilerBinding
     class KategoriHolder(val bagla :RecyclerKategorilerBinding) :RecyclerView.ViewHolder(bagla.root)
@@ -39,7 +30,8 @@ class KategoriAdapter(val kategorilar:MutableList<SifreTip>):RecyclerView.Adapte
         return kategorilar.count()
     }
     override fun onBindViewHolder(holder: KategoriHolder, position: Int) {
-        var sifreAdeti=sqLiteIslemci.getirSifrelerTipIle(kategorilar.get(position)._TipId.toString(),MainActivity.AktifKullanici!!).count()
+        var sifreAdeti=sqLiteIslemci.getirSifrelerTipIle(kategorilar.get(position)._TipId.toString(),
+            MainActivity.AktifKullanici!!).count()
         var metin=kategorilar.get(position)._SifreTipi
         if(metin.length>11)
         {

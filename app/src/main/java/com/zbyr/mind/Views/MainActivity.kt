@@ -1,11 +1,7 @@
-package com.zbyr.mind
+package com.zbyr.mind.Views
 
-import android.annotation.SuppressLint
-import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
-import android.graphics.Color
-import android.health.connect.datatypes.AppInfo
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Gravity
@@ -21,18 +17,17 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.PopupWindow
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatDelegate
-import androidx.appcompat.content.res.AppCompatResources
 import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
-import androidx.core.graphics.blue
-import androidx.core.graphics.toColor
+import com.zbyr.mind.Models.Kullanici
+import com.zbyr.mind.R
+import com.zbyr.mind.Helpers.SqLiteIslemleri
 import com.zbyr.mind.databinding.ActivityMainBinding
 import java.util.concurrent.Executor
 
 class MainActivity : AppCompatActivity() {
     companion object{
-        var AktifKullanici:Kullanici?=null
+        var AktifKullanici: Kullanici?=null
     }
     private lateinit var baglan:ActivityMainBinding
     private lateinit var sqLiteIslemleri: SqLiteIslemleri
@@ -44,9 +39,10 @@ class MainActivity : AppCompatActivity() {
         kaydirma()
         girisAnimasyon()
         sqLiteIslemleri= SqLiteIslemleri(this)
+
         if(giris()!=null)
         {
-            AktifKullanici=giris()
+            AktifKullanici =giris()
             baglan.editTextEposta.setText(AktifKullanici!!._kMail)
             baglan.checkBoxBeniHatirla.isChecked=true
             biyometrik()
@@ -67,7 +63,7 @@ class MainActivity : AppCompatActivity() {
                     sqLiteIslemleri.kapatKullanici()
                     baglan.editTextEposta.text.clear()
                 }
-                AktifKullanici=kisi
+                AktifKullanici =kisi
                 val intent = Intent(this, AnasayfaActivity::class.java)
                 startActivity(intent)
             }else{
@@ -111,8 +107,8 @@ class MainActivity : AppCompatActivity() {
         val intent = Intent(this, AnasayfaActivity::class.java)
         startActivity(intent)
     }
-    fun giris():Kullanici?
-    {   var acikHesap:Kullanici?=null
+    fun giris(): Kullanici?
+    {   var acikHesap: Kullanici?=null
         val hatirla=sqLiteIslemleri.acikKullaniciGetir()
         if(hatirla.isNotEmpty())
              acikHesap=sqLiteIslemleri.getirKullaniciIleId(hatirla.toLong())
@@ -128,7 +124,7 @@ class MainActivity : AppCompatActivity() {
         val animation2 = AnimationUtils.loadAnimation(this, R.anim.giris_ters_kaydirma)
         baglan.constraintLayoutIcerik.startAnimation(animation2)
     }
-    fun dogrulama(mutableList: MutableList<Kullanici>,mail:String,sifre:String): Kullanici?
+    fun dogrulama(mutableList: MutableList<Kullanici>, mail:String, sifre:String): Kullanici?
     {
         for(kisi in mutableList)
         {

@@ -1,7 +1,5 @@
-package com.zbyr.mind
+package com.zbyr.mind.Views
 
-import android.animation.Animator
-import android.animation.AnimatorListenerAdapter
 import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
 import android.app.AlertDialog
@@ -17,21 +15,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
-import android.widget.PopupMenu
 import android.widget.PopupWindow
-import android.widget.TextView
-import androidx.appcompat.app.ActionBar
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.animation.addListener
-import androidx.core.animation.doOnEnd
 import androidx.core.view.children
-import androidx.core.view.isVisible
-import androidx.navigation.Navigation
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.zbyr.mind.Adapters.KategoriAdapter
+import com.zbyr.mind.R
+import com.zbyr.mind.Adapters.SifreAdapter
+import com.zbyr.mind.Models.SifreTip
+import com.zbyr.mind.Helpers.SqLiteIslemleri
 import com.zbyr.mind.databinding.ActivityAnasayfaBinding
-import com.zbyr.mind.databinding.ActivityMainBinding
-import kotlinx.coroutines.delay
 
 class AnasayfaActivity : AppCompatActivity() {
     private lateinit var bagla:ActivityAnasayfaBinding
@@ -43,7 +36,7 @@ class AnasayfaActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         bagla= ActivityAnasayfaBinding.inflate(layoutInflater)
-        sqLiteIslemleri=SqLiteIslemleri(this)
+        sqLiteIslemleri= SqLiteIslemleri(this)
         setContentView(bagla.root)
         yonCubugu()
         kategoriOlustur()
@@ -59,7 +52,7 @@ class AnasayfaActivity : AppCompatActivity() {
     {
         setSupportActionBar(bagla.yon)
         bagla.floatingActionButton.setOnClickListener {
-            val intent=Intent(this,SifreEkleActivity::class.java)
+            val intent=Intent(this, SifreEkleActivity::class.java)
             intent.putExtra("kategori",bagla.root.context.toString())
             startActivity(intent)
         }
@@ -78,17 +71,18 @@ class AnasayfaActivity : AppCompatActivity() {
     }
     fun sifreleriGetir(kategori:String)
     {
-        val liste=sqLiteIslemleri.getirSifrelerTipIle(kategori,MainActivity.AktifKullanici!!)
+        val liste=sqLiteIslemleri.getirSifrelerTipIle(kategori, MainActivity.AktifKullanici!!)
         gecisAnimasyonu()
-        supportActionBar?.title=sqLiteIslemleri.tipDogrula(kategori,MainActivity.AktifKullanici!!)!!._SifreTipi
+        supportActionBar?.title=sqLiteIslemleri.tipDogrula(kategori, MainActivity.AktifKullanici!!)!!._SifreTipi
         if(!bagla.floatingActionButton.isShown)
             bagla.floatingActionButton.show()
         bagla.textViewSifreleriniz.setText("Şifreleriniz")
         bagla.textViewOncekiSayfa.visibility=View.VISIBLE
         bagla.RecyclerViewSifreler.layoutManager=LinearLayoutManager(this)
-        val sifreAdapter=SifreAdapter(liste)
+        val sifreAdapter= SifreAdapter(liste)
         gösterKategoriEkleSil(true)
         bagla.RecyclerViewSifreler.adapter=sifreAdapter
+
     }
     fun gösterKategoriEkleSil(deger:Boolean)
     {
@@ -112,11 +106,11 @@ class AnasayfaActivity : AppCompatActivity() {
         var kategoriler=sqLiteIslemleri.tipGetirkIdIle(MainActivity.AktifKullanici!!._kId)
 
         bagla.textViewSifreleriniz.setText("Kategoriler")
-        supportActionBar?.title="Hoşgeldin "+MainActivity.AktifKullanici?._kAdi
+        supportActionBar?.title= R.string.anasayfa_selamlama_en.toString() +" "+ MainActivity.AktifKullanici?._kAdi
         bagla.floatingActionButton.hide()
         bagla.textViewOncekiSayfa.visibility=View.GONE
         bagla.RecyclerViewSifreler.layoutManager=GridLayoutManager(this,2)
-        val kategoriAdapter=KategoriAdapter(kategoriler)
+        val kategoriAdapter= KategoriAdapter(kategoriler)
         gösterKategoriEkleSil(false)
         bagla.RecyclerViewSifreler.adapter=kategoriAdapter
     }
@@ -126,28 +120,30 @@ class AnasayfaActivity : AppCompatActivity() {
     }
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
-        if(item.itemId==R.id.yon_ayarlar)
+        if(item.itemId== R.id.yon_ayarlar)
         {
-            val intent=Intent(this,AyarlarActivity::class.java)
+            val intent=Intent(this, AyarlarActivity::class.java)
             startActivity(intent)
         }
-        if(item.itemId==R.id.yon_cikis)
+        if(item.itemId== R.id.yon_cikis)
         {
-            MainActivity.AktifKullanici=null
+            MainActivity.AktifKullanici =null
             finish()
         }
-        if(item.itemId==R.id.yon_sil)
+        if(item.itemId== R.id.yon_sil)
         {
             if(item.title=="Kategori Sil")
             {
-                if(sqLiteIslemleri.tipDogrula(kategori,MainActivity.AktifKullanici!!)!=null)
+                if(sqLiteIslemleri.tipDogrula(kategori, MainActivity.AktifKullanici!!)!=null)
                 {
                     var sifreler=sqLiteIslemleri.getirSifrelerTipIle(
-                        (sqLiteIslemleri.tipDogrula(kategori,MainActivity.AktifKullanici!!)!!)._TipId.toString(),
+                        (sqLiteIslemleri.tipDogrula(kategori, MainActivity.AktifKullanici!!)!!)._TipId.toString(),
                         MainActivity.AktifKullanici!!
                     )
                     sqLiteIslemleri.silSifreler(sifreler)
-                    sqLiteIslemleri.silTip(sqLiteIslemleri.tipDogrula(kategori,MainActivity.AktifKullanici!!)!!)
+                    sqLiteIslemleri.silTip(sqLiteIslemleri.tipDogrula(
+                        kategori,
+                        MainActivity.AktifKullanici!!)!!)
                     kategoriOlustur()
                 }
             }else
@@ -162,10 +158,10 @@ class AnasayfaActivity : AppCompatActivity() {
         if(anahtar)
         {
             sifreleriGetir(kategori)
-            anahtar=false
+            anahtar =false
         }
         super.onResume()
-        if(MainActivity.AktifKullanici==null)
+        if(MainActivity.AktifKullanici ==null)
         {
             finish()
         }
@@ -178,9 +174,11 @@ class AnasayfaActivity : AppCompatActivity() {
         inputDialog.setView(inputEditText2)
         inputDialog.setPositiveButton("Tamam") {dialog2,which2 ->
             val sonuc = inputEditText2.text.toString()
-            if(sqLiteIslemleri.tipKarsilastir(sonuc,MainActivity.AktifKullanici!!) && sonuc.isNotEmpty())
+            if(sqLiteIslemleri.tipKarsilastir(sonuc, MainActivity.AktifKullanici!!) && sonuc.isNotEmpty())
             {
-                sqLiteIslemleri.ekleSifreTipi(SifreTip(sonuc,MainActivity.AktifKullanici!!._kId),MainActivity.AktifKullanici!!)
+                sqLiteIslemleri.ekleSifreTipi(
+                    SifreTip(sonuc, MainActivity.AktifKullanici!!._kId),
+                    MainActivity.AktifKullanici!!)
             }
             kategoriOlustur()
         }
@@ -205,9 +203,11 @@ class AnasayfaActivity : AppCompatActivity() {
         buton.setOnClickListener {
             val girdi=txtGirdi.text.toString()
 
-            if(sqLiteIslemleri.tipKarsilastir(girdi,MainActivity.AktifKullanici!!) && girdi.isNotEmpty())
+            if(sqLiteIslemleri.tipKarsilastir(girdi, MainActivity.AktifKullanici!!) && girdi.isNotEmpty())
             {
-                sqLiteIslemleri.ekleSifreTipi(SifreTip(girdi,MainActivity.AktifKullanici!!._kId),MainActivity.AktifKullanici!!)
+                sqLiteIslemleri.ekleSifreTipi(
+                    SifreTip(girdi, MainActivity.AktifKullanici!!._kId),
+                    MainActivity.AktifKullanici!!)
             }
             kategoriOlustur()
             bagla.layout.alpha=1f

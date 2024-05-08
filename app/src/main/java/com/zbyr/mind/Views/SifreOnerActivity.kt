@@ -1,14 +1,13 @@
-package com.zbyr.mind
+package com.zbyr.mind.Views
 
 import android.content.ClipboardManager
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.animation.Animation
 import android.view.animation.AnimationUtils
-import android.view.animation.RotateAnimation
 import android.widget.SeekBar
 import android.widget.Toast
+import com.zbyr.mind.R
 import com.zbyr.mind.databinding.ActivitySifreOnerBinding
 import kotlin.random.Random
 

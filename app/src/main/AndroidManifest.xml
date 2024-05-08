@@ -14,22 +14,22 @@
         android:theme="@style/Theme.Mind"
         tools:targetApi="31">
         <activity
-            android:name=".SifreOnerActivity"
+            android:name=".Views.SifreOnerActivity"
             android:exported="false" />
         <activity
-            android:name=".SifreEkleActivity"
+            android:name=".Views.SifreEkleActivity"
             android:exported="false" />
         <activity
-            android:name=".AyarlarActivity"
+            android:name=".Views.AyarlarActivity"
             android:exported="false" />
         <activity
-            android:name=".UyeOlActivity"
+            android:name=".Views.UyeOlActivity"
             android:exported="false" />
         <activity
-            android:name=".AnasayfaActivity"
+            android:name=".Views.AnasayfaActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".Views.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

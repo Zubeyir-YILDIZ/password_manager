@@ -1,4 +1,4 @@
-package com.zbyr.mind
+package com.zbyr.mind.Models
 
 class Kullanici {
     var _kId:Long=0

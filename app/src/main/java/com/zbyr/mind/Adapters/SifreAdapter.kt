@@ -1,4 +1,4 @@
-package com.zbyr.mind
+package com.zbyr.mind.Adapters
 
 import android.app.AlertDialog
 import android.content.ClipboardManager
@@ -7,10 +7,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
-import android.widget.Toast
-import androidx.core.content.ContextCompat.getSystemService
-import androidx.core.content.getSystemService
 import androidx.recyclerview.widget.RecyclerView
+import com.zbyr.mind.Helpers.SqLiteIslemleri
+import com.zbyr.mind.Models.Sifre
+import com.zbyr.mind.Views.AnasayfaActivity
 import com.zbyr.mind.databinding.RecyclerItemBinding
 
 class SifreAdapter(val sifreler:ArrayList<Sifre>) :RecyclerView.Adapter<SifreAdapter.SifreHolder>() {
@@ -23,7 +23,7 @@ class SifreAdapter(val sifreler:ArrayList<Sifre>) :RecyclerView.Adapter<SifreAda
     private lateinit var sqLiteIslemleri: SqLiteIslemleri
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SifreHolder {
         bagla = RecyclerItemBinding.inflate(LayoutInflater.from(parent.context),parent,false)
-        sqLiteIslemleri=SqLiteIslemleri(bagla.root.context)
+        sqLiteIslemleri= SqLiteIslemleri(bagla.root.context)
         return SifreHolder(bagla)
     }
     override fun getItemCount(): Int {
@@ -79,7 +79,7 @@ class SifreAdapter(val sifreler:ArrayList<Sifre>) :RecyclerView.Adapter<SifreAda
                 val sonuc = inputEditText2.text.toString()
                 if(sonuc.isNotEmpty())
                 {
-                    var sifre=Sifre()
+                    var sifre= Sifre()
                     sifre._sId=sifreler.get(position)._sId
                     sifre._sSifre=sonuc
                     sifre._sTur=sifreler.get(position)._sTur

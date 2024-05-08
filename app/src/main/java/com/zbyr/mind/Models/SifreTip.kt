@@ -1,4 +1,4 @@
-package com.zbyr.mind
+package com.zbyr.mind.Models
 
 class SifreTip {
     var _TipId:Long=0

@@ -1,39 +1,37 @@
-package com.zbyr.mind
+package com.zbyr.mind.Views
 
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.res.ColorStateList
-import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
-import android.view.ViewGroup
-import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
-import androidx.core.view.children
 import androidx.work.Constraints
 import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.NetworkType
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
-import com.google.firebase.database.collection.LLRBNode.Color
+import com.zbyr.mind.Helpers.FirebaseIslemleri
+import com.zbyr.mind.Models.Kullanici
+import com.zbyr.mind.R
+import com.zbyr.mind.Models.Sifre
+import com.zbyr.mind.Helpers.SqLiteIslemleri
 import com.zbyr.mind.databinding.ActivityAyarlarBinding
-import java.io.File
-import java.sql.Time
+import com.zbyr.mind.Helpers.periyodikIslem
 import java.util.concurrent.TimeUnit
 
 class AyarlarActivity : AppCompatActivity() {
     private lateinit var bagla:ActivityAyarlarBinding
-    private lateinit var firebaseIslemci:FirebaseIslemleri
-    private lateinit var sqLiteIslemci:SqLiteIslemleri
+    private lateinit var firebaseIslemci: FirebaseIslemleri
+    private lateinit var sqLiteIslemci: SqLiteIslemleri
 
     @SuppressLint("ResourceAsColor")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         bagla=ActivityAyarlarBinding.inflate(layoutInflater)
-        firebaseIslemci=FirebaseIslemleri(this)
-        sqLiteIslemci=SqLiteIslemleri(this)
+        firebaseIslemci= FirebaseIslemleri(this)
+        sqLiteIslemci= SqLiteIslemleri(this)
         setContentView(bagla.root)
 
         bagla.editTextIsim.setText(MainActivity.AktifKullanici!!._kAdi.toString())
@@ -65,7 +63,7 @@ class AyarlarActivity : AppCompatActivity() {
                 profil._kSifre=bagla.editTextSifreEdit.text.toString()
 
                 sqLiteIslemci.güncelleKullanici(profil)
-                MainActivity.AktifKullanici=profil
+                MainActivity.AktifKullanici =profil
                 bagla.buttonDuzenle.setBackgroundResource(R.drawable.ayarlar_text_alani)
             }
         }
@@ -73,8 +71,8 @@ class AyarlarActivity : AppCompatActivity() {
             sqLiteIslemci.aktifKullaniciSil(MainActivity.AktifKullanici!!)
             sqLiteIslemci.aktifKullaniciEkle(MainActivity.AktifKullanici!!,1)
             yedekle(this,7)
-            var kl=Kullanici()
-            kl._kId=MainActivity.AktifKullanici!!._kId
+            var kl= Kullanici()
+            kl._kId= MainActivity.AktifKullanici!!._kId
             kl._kAdi=sqLiteIslemci.sifrele(MainActivity.AktifKullanici!!._kAdi)
             kl._kSoyadi=sqLiteIslemci.sifrele(MainActivity.AktifKullanici!!._kSoyadi)
             kl._kMail=sqLiteIslemci.sifrele(MainActivity.AktifKullanici!!._kMail)
@@ -83,7 +81,7 @@ class AyarlarActivity : AppCompatActivity() {
             Toast.makeText(this,"Şifreleriniz kaydedildi,haftalık yedeklemeye açıldı",Toast.LENGTH_SHORT).show()
         }
         bagla.buttonSifreleriGetir.setOnClickListener {
-            if(MainActivity.AktifKullanici!=null)
+            if(MainActivity.AktifKullanici !=null)
             {
                 firebaseIslemci.SifreGetir(MainActivity.AktifKullanici!!)
                 finish()
@@ -93,7 +91,7 @@ class AyarlarActivity : AppCompatActivity() {
         bagla.textViewSil.setOnClickListener {
             sqLiteIslemci.silKullanici(MainActivity.AktifKullanici!!._kMail)
             firebaseIslemci.kullaniciSil(MainActivity.AktifKullanici!!)
-            MainActivity.AktifKullanici=null
+            MainActivity.AktifKullanici =null
             finish()
         }
         bagla.textViewYedekSil.setOnClickListener {
@@ -107,8 +105,12 @@ class AyarlarActivity : AppCompatActivity() {
     }
     fun ok(isDrawableUp:Boolean)
     {
-        val drawableUp = ContextCompat.getDrawable(this, R.drawable.baseline_keyboard_double_arrow_up_24)
-        val drawableDown = ContextCompat.getDrawable(this, R.drawable.baseline_keyboard_double_arrow_down_24)
+        val drawableUp = ContextCompat.getDrawable(this,
+            R.drawable.baseline_keyboard_double_arrow_up_24
+        )
+        val drawableDown = ContextCompat.getDrawable(this,
+            R.drawable.baseline_keyboard_double_arrow_down_24
+        )
 
         val drawable = if (isDrawableUp) drawableDown else drawableUp
         drawable?.setBounds(0, 0, drawable.intrinsicWidth, drawable.intrinsicHeight)
