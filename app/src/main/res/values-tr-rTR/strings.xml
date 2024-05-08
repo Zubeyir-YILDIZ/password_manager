@@ -30,6 +30,7 @@
     <string name="ayarlar_buton_yedek_getir_en">Yedeklenmiş Şifreleri Getir</string>
     <string name="ayarlar_hesap_sil_en">Hesabımı Sil</string>
 
+    <string name="ayarlar_dil_secimi_en">Dil Seçimi</string>
     <string name="sifre_ekle_baslik_en">ŞİFRE EKLE</string>
     <string name="sifre_ekle_etKAdi_en">Kullanıcı Adı Giriniz</string>
     <string name="sifre_ekle_etKAdi_olacakMi_en">Kullanıcı Adı Olsun Mu</string>
@@ -78,4 +79,6 @@
     <string name="sql_hatali_ekleme_en">Hatalı ekleme</string>
     <string name="sql_basarili_ekleme_en">Kayıt başarılı</string>
     <string name="sql_zaten_var_en">Kayıt zaten var</string>
+    <string name="ayarlar_tr_en">Türkçe</string>
+    <string name="ayarlar_en_en">İngilizce</string>
 </resources>

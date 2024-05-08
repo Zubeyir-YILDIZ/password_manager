@@ -1,10 +1,13 @@
 package com.zbyr.mind.Views
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.content.res.ColorStateList
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.work.Constraints
@@ -19,13 +22,13 @@ import com.zbyr.mind.R
 import com.zbyr.mind.Models.Sifre
 import com.zbyr.mind.Helpers.SqLiteIslemleri
 import com.zbyr.mind.databinding.ActivityAyarlarBinding
+import java.util.Locale
 import java.util.concurrent.TimeUnit
 
 class AyarlarActivity : AppCompatActivity() {
     private lateinit var bagla:ActivityAyarlarBinding
     private lateinit var firebaseIslemci: FirebaseIslemleri
     private lateinit var sqLiteIslemci: SqLiteIslemleri
-
     @SuppressLint("ResourceAsColor")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -102,32 +105,12 @@ class AyarlarActivity : AppCompatActivity() {
             sqLiteIslemci.aktifKullaniciSil(MainActivity.AktifKullanici!!)
             Toast.makeText(this,getString(R.string.ayarlar_toast_bilgi_yedekleme_silindi),Toast.LENGTH_SHORT).show()
         }
-    }
-    fun ok(isDrawableUp:Boolean)
-    {
-        val drawableUp = ContextCompat.getDrawable(this,
-            R.drawable.baseline_keyboard_double_arrow_up_24
-        )
-        val drawableDown = ContextCompat.getDrawable(this,
-            R.drawable.baseline_keyboard_double_arrow_down_24
-        )
-
-        val drawable = if (isDrawableUp) drawableDown else drawableUp
-        drawable?.setBounds(0, 0, drawable.intrinsicWidth, drawable.intrinsicHeight)
-        bagla.textViewKisiselBilgiler.setCompoundDrawables(null, null, drawable, null)
-    }
-    fun kontrol(sifre: Sifre):Boolean
-    {
-        var sonuc=true
-        var liste=sqLiteIslemci.getirSifre(MainActivity.AktifKullanici!!)
-        if (liste != null) {
-            for(_sifre in liste)
-            {
-                if(_sifre._sId == sifre._sId && _sifre._sKullanici!!._kId == sifre._sKullanici!!._kId)
-                    sonuc=false
-            }
+        bagla.textViewTR.setOnClickListener {
+            dilSecimi("tr")
         }
-        return sonuc
+        bagla.textViewEN.setOnClickListener {
+            dilSecimi("en")
+        }
     }
     fun yedekle(context: Context,aralik:Long) {
         val constraints = Constraints.Builder()
@@ -143,5 +126,17 @@ class AyarlarActivity : AppCompatActivity() {
             ExistingPeriodicWorkPolicy.KEEP,
             yedek
         )
+    }
+    fun dilSecimi(dil:String)
+    {
+        val local=Locale(dil)
+        val r=this.resources
+        val c=r.configuration
+        c.setLocale(local)
+        r.updateConfiguration(c,r.displayMetrics)
+        val intent = Intent(this, MainActivity::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+        startActivity(intent)
+        finish()
     }
 }

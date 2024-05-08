@@ -43,6 +43,9 @@
     <string name="ayarlar_toast_bilgi_yedeklendi_en">Your passwords are saved and made available for weekly backup.</string>
     <string name="ayarlar_toast_bilgi_basarisiz_oldu">"Failed"</string>
     <string name="ayarlar_toast_bilgi_yedekleme_silindi">Your passwords have been deleted and weekly backups are disabled.</string>
+    <string name="ayarlar_dil_secimi_en">Language</string>
+    <string name="ayarlar_tr_en">Turkish</string>
+    <string name="ayarlar_en_en">English</string>
 
     <string name="sifre_ekle_baslik_en">ADD PASSWORD</string>
     <string name="sifre_ekle_etKAdi_en">Enter Username</string>
