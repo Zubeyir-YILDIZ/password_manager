@@ -8,6 +8,7 @@ import android.widget.Toast
 import com.zbyr.mind.Models.Kullanici
 import com.zbyr.mind.Models.Sifre
 import com.zbyr.mind.Models.SifreTip
+import com.zbyr.mind.R
 import com.zbyr.mind.Views.MainActivity
 import javax.crypto.Cipher
 import javax.crypto.spec.SecretKeySpec
@@ -32,6 +33,9 @@ const val col_kMail="Eposta"
 const val col_kSifre="Sifre"
 
 const val tablo_adi4="TipSifre"
+private var hatali:String=""
+private var basarili:String=""
+private var zatenVar:String=""
 
 class SqLiteIslemleri (var context: Context):SQLiteOpenHelper(context, database_adi,null,1){
     override fun onCreate(db: SQLiteDatabase?) {
@@ -76,6 +80,10 @@ class SqLiteIslemleri (var context: Context):SQLiteOpenHelper(context, database_
 
         val olusturTablo6 = "CREATE TABLE AcikKullanici(kId INTEGER PRIMARY KEY)"
         db?.execSQL(olusturTablo6)
+
+        hatali=context.getString(R.string.sql_hatali_ekleme_en)
+        basarili=context.getString(R.string.sql_basarili_ekleme_en)
+        zatenVar=context.getString(R.string.sql_zaten_var_en)
     }
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
         TODO("Not yet implemented")
@@ -119,13 +127,13 @@ class SqLiteIslemleri (var context: Context):SQLiteOpenHelper(context, database_
             var sonuc = db.insert(tablo_adi3,null,cv)
             if(sonuc==(-1).toLong())
             {
-                Toast.makeText(context,"Hatalı ekleme",Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, hatali,Toast.LENGTH_SHORT).show()
             }else
             {
-                Toast.makeText(context,"Kayıt başarılı",Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, basarili,Toast.LENGTH_SHORT).show()
             }
         }else
-            Toast.makeText(context,"Kayıt zaten var",Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, zatenVar,Toast.LENGTH_SHORT).show()
 
     }
     fun ekleSifre(sifre: Sifre)
@@ -144,10 +152,10 @@ class SqLiteIslemleri (var context: Context):SQLiteOpenHelper(context, database_
 
         if(sonuc==(-1).toLong())
         {
-            Toast.makeText(context,"Hatalı ekleme",Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, hatali,Toast.LENGTH_SHORT).show()
         }else
         {
-            Toast.makeText(context,"Kayıt başarılı",Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, basarili,Toast.LENGTH_SHORT).show()
         }
     }
     fun ekleSifreFirebaseden(sifre: Sifre)
@@ -167,10 +175,10 @@ class SqLiteIslemleri (var context: Context):SQLiteOpenHelper(context, database_
 
         if(sonuc==(-1).toLong())
         {
-            Toast.makeText(context,"Hatalı ekleme",Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, hatali,Toast.LENGTH_SHORT).show()
         }else
         {
-            Toast.makeText(context,"Kayıt başarılı",Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, basarili,Toast.LENGTH_SHORT).show()
         }
     }
     fun ekleSifreTipi(sifreTip: SifreTip, kullanici: Kullanici)
@@ -184,10 +192,10 @@ class SqLiteIslemleri (var context: Context):SQLiteOpenHelper(context, database_
         var sonuc = db.insert(tablo_adi2,null,cv)
         if(sonuc==(-1).toLong())
         {
-            Toast.makeText(context,"Hatalı ekleme",Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, hatali,Toast.LENGTH_SHORT).show()
         }else
         {
-            Toast.makeText(context,"Kayıt başarılı",Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, basarili,Toast.LENGTH_SHORT).show()
         }
     }
     fun kontrolSifre(sifre: Sifre):Boolean
@@ -215,10 +223,10 @@ class SqLiteIslemleri (var context: Context):SQLiteOpenHelper(context, database_
         var sonuc = db.insert(tablo_adi2,null,cv)
         if(sonuc==(-1).toLong())
         {
-            Toast.makeText(context,"Hatalı ekleme",Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, hatali,Toast.LENGTH_SHORT).show()
         }else
         {
-            Toast.makeText(context,"Kayıt başarılı",Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, basarili,Toast.LENGTH_SHORT).show()
         }
     }
     fun kontrolKategori(sifreTip: SifreTip):Boolean
@@ -349,10 +357,10 @@ class SqLiteIslemleri (var context: Context):SQLiteOpenHelper(context, database_
         var sonuc = db.insert("AcikKullanici",null,cv)
         if(sonuc==(-1).toLong())
         {
-            Toast.makeText(context,"Hatalı ekleme",Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, hatali,Toast.LENGTH_SHORT).show()
         }else
         {
-            Toast.makeText(context,"Kayıt başarılı",Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, basarili,Toast.LENGTH_SHORT).show()
         }
     }
     fun acikKullaniciGetir():String
@@ -388,10 +396,10 @@ class SqLiteIslemleri (var context: Context):SQLiteOpenHelper(context, database_
         var sonuc = db.insert("AktifK",null,cv)
         if(sonuc==(-1).toLong())
         {
-            Toast.makeText(context,"Hatalı ekleme",Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, hatali,Toast.LENGTH_SHORT).show()
         }else
         {
-            Toast.makeText(context,"Kayıt başarılı",Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, basarili,Toast.LENGTH_SHORT).show()
         }
     }
     fun aktifKullaniciSil(kullanici: Kullanici)

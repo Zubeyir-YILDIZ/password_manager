@@ -6,6 +6,7 @@ import android.widget.Toast
 import com.zbyr.mind.Helpers.FirebaseIslemleri
 import com.zbyr.mind.Models.Kullanici
 import com.zbyr.mind.Helpers.SqLiteIslemleri
+import com.zbyr.mind.R
 import com.zbyr.mind.databinding.ActivityUyeOlBinding
 
 class UyeOlActivity : AppCompatActivity() {
@@ -32,7 +33,7 @@ class UyeOlActivity : AppCompatActivity() {
                 finish()
             }else
             {
-                Toast.makeText(applicationContext,"Lütfen boş alanları doldurunuz", Toast.LENGTH_LONG).show()
+                Toast.makeText(applicationContext,getString(R.string.uye_ol_uyari_en), Toast.LENGTH_LONG).show()
             }
         }
     }

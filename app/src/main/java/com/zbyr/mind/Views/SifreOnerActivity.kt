@@ -85,9 +85,9 @@ class SifreOnerActivity : AppCompatActivity() {
     }
     private fun panoyaKopyala(text: String) {
         val pano = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-        val metin = android.content.ClipData.newPlainText("Şifre", text)
+        val metin = android.content.ClipData.newPlainText(getString(R.string.sifre_oner_pano_sifre_en), text)
         pano.setPrimaryClip(metin)
-        Toast.makeText(this, "Kopyalandı", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, getString(R.string.sifre_oner_pano_kopyalandi_en), Toast.LENGTH_SHORT).show()
     }
 
 

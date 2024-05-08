@@ -13,12 +13,12 @@ import androidx.work.NetworkType
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
 import com.zbyr.mind.Helpers.FirebaseIslemleri
+import com.zbyr.mind.Helpers.PeriyodikIslem
 import com.zbyr.mind.Models.Kullanici
 import com.zbyr.mind.R
 import com.zbyr.mind.Models.Sifre
 import com.zbyr.mind.Helpers.SqLiteIslemleri
 import com.zbyr.mind.databinding.ActivityAyarlarBinding
-import com.zbyr.mind.Helpers.periyodikIslem
 import java.util.concurrent.TimeUnit
 
 class AyarlarActivity : AppCompatActivity() {
@@ -40,16 +40,16 @@ class AyarlarActivity : AppCompatActivity() {
         bagla.editTextSifreEdit.setText(MainActivity.AktifKullanici!!._kSifre.toString())
         val renk=resources.getColor(R.color.anaRenk)
         bagla.buttonDuzenle.setOnClickListener {
-            if(bagla.buttonDuzenle.text=="Düzenle")
+            if(bagla.buttonDuzenle.text==getString(R.string.ayarlar_buton_duzenle_en))
             {
-                bagla.buttonDuzenle.setText("Kaydet")
+                bagla.buttonDuzenle.setText(getString(R.string.ayarlar_buton_kaydet_en))
                 bagla.editTextIsim.isEnabled=true
                 bagla.editTextSoyisim.isEnabled=true
                 bagla.editTextEpostaEdit.isEnabled=true
                 bagla.editTextSifreEdit.isEnabled=true
                 bagla.buttonDuzenle.backgroundTintList=ColorStateList.valueOf(renk)
             }else{
-                bagla.buttonDuzenle.setText("Düzenle")
+                bagla.buttonDuzenle.setText(getString(R.string.ayarlar_buton_duzenle_en))
                 bagla.editTextIsim.isEnabled=false
                 bagla.editTextSoyisim.isEnabled=false
                 bagla.editTextEpostaEdit.isEnabled=false
@@ -78,7 +78,7 @@ class AyarlarActivity : AppCompatActivity() {
             kl._kMail=sqLiteIslemci.sifrele(MainActivity.AktifKullanici!!._kMail)
             kl._kSifre=sqLiteIslemci.sifrele(MainActivity.AktifKullanici!!._kSifre)
             firebaseIslemci.KullaniciEkle(kl)
-            Toast.makeText(this,"Şifreleriniz kaydedildi,haftalık yedeklemeye açıldı",Toast.LENGTH_SHORT).show()
+            Toast.makeText(this,getString(R.string.ayarlar_toast_bilgi_yedeklendi_en),Toast.LENGTH_SHORT).show()
         }
         bagla.buttonSifreleriGetir.setOnClickListener {
             if(MainActivity.AktifKullanici !=null)
@@ -86,7 +86,7 @@ class AyarlarActivity : AppCompatActivity() {
                 firebaseIslemci.SifreGetir(MainActivity.AktifKullanici!!)
                 finish()
             }else
-                Toast.makeText(this,"Başarısız oldu",Toast.LENGTH_SHORT).show()
+                Toast.makeText(this,getString(R.string.ayarlar_toast_bilgi_basarisiz_oldu),Toast.LENGTH_SHORT).show()
         }
         bagla.textViewSil.setOnClickListener {
             sqLiteIslemci.silKullanici(MainActivity.AktifKullanici!!._kMail)
@@ -100,7 +100,7 @@ class AyarlarActivity : AppCompatActivity() {
             firebaseIslemci.sifreleriSil(MainActivity.AktifKullanici!!)
             firebaseIslemci.kullaniciSil(MainActivity.AktifKullanici!!)
             sqLiteIslemci.aktifKullaniciSil(MainActivity.AktifKullanici!!)
-            Toast.makeText(this,"Şifreleriniz silindi,haftalık yedeklemeye kapatıldı",Toast.LENGTH_SHORT).show()
+            Toast.makeText(this,getString(R.string.ayarlar_toast_bilgi_yedekleme_silindi),Toast.LENGTH_SHORT).show()
         }
     }
     fun ok(isDrawableUp:Boolean)
@@ -135,7 +135,7 @@ class AyarlarActivity : AppCompatActivity() {
             .setRequiredNetworkType(NetworkType.CONNECTED)
             .build()
         val yedek =
-            PeriodicWorkRequestBuilder<periyodikIslem>(aralik,TimeUnit.DAYS)
+            PeriodicWorkRequestBuilder<PeriyodikIslem>(aralik,TimeUnit.DAYS)
                 .setConstraints(constraints)
                 .build()
         WorkManager.getInstance(context).enqueueUniquePeriodicWork(

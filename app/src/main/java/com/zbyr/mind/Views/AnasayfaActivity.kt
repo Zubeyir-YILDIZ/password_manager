@@ -46,7 +46,6 @@ class AnasayfaActivity : AppCompatActivity() {
             donusAnimasyonu()
         }
 
-
     }
     fun yonCubugu()
     {
@@ -76,28 +75,28 @@ class AnasayfaActivity : AppCompatActivity() {
         supportActionBar?.title=sqLiteIslemleri.tipDogrula(kategori, MainActivity.AktifKullanici!!)!!._SifreTipi
         if(!bagla.floatingActionButton.isShown)
             bagla.floatingActionButton.show()
-        bagla.textViewSifreleriniz.setText("Şifreleriniz")
+        bagla.textViewSifreleriniz.setText(R.string.anasayfa_baslik_sifre_en)
         bagla.textViewOncekiSayfa.visibility=View.VISIBLE
         bagla.RecyclerViewSifreler.layoutManager=LinearLayoutManager(this)
         val sifreAdapter= SifreAdapter(liste)
-        gösterKategoriEkleSil(true)
+        gosterKategoriEkleSil(true)
         bagla.RecyclerViewSifreler.adapter=sifreAdapter
 
     }
-    fun gösterKategoriEkleSil(deger:Boolean)
+    fun gosterKategoriEkleSil(deger:Boolean)
     {
         for(rrr in bagla.yon.menu.children)
         {
-            if(rrr.title=="Kategori Ekle")
+            if(rrr.title==getString(R.string.anasayfa_menu_kategori_ekle_en))
             {
                 if(deger)
-                    rrr.setTitle("Kategori Sil")
+                    rrr.setTitle(getString(R.string.anasayfa_menu_kategori_sil_en))
 
             }
-            if(rrr.title=="Kategori Sil")
+            if(rrr.title==getString(R.string.anasayfa_menu_kategori_sil_en))
             {
                 if(!deger)
-                    rrr.setTitle("Kategori Ekle")
+                    rrr.setTitle(getString(R.string.anasayfa_menu_kategori_ekle_en))
             }
         }
     }
@@ -105,13 +104,13 @@ class AnasayfaActivity : AppCompatActivity() {
     {
         var kategoriler=sqLiteIslemleri.tipGetirkIdIle(MainActivity.AktifKullanici!!._kId)
 
-        bagla.textViewSifreleriniz.setText("Kategoriler")
-        supportActionBar?.title= R.string.anasayfa_selamlama_en.toString() +" "+ MainActivity.AktifKullanici?._kAdi
+        bagla.textViewSifreleriniz.setText(R.string.anasayfa_baslik_en)
+        supportActionBar?.title= getString(R.string.anasayfa_selamlama_en) +" "+ MainActivity.AktifKullanici?._kAdi
         bagla.floatingActionButton.hide()
         bagla.textViewOncekiSayfa.visibility=View.GONE
         bagla.RecyclerViewSifreler.layoutManager=GridLayoutManager(this,2)
         val kategoriAdapter= KategoriAdapter(kategoriler)
-        gösterKategoriEkleSil(false)
+        gosterKategoriEkleSil(false)
         bagla.RecyclerViewSifreler.adapter=kategoriAdapter
     }
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -132,7 +131,7 @@ class AnasayfaActivity : AppCompatActivity() {
         }
         if(item.itemId== R.id.yon_sil)
         {
-            if(item.title=="Kategori Sil")
+            if(item.title==getString(R.string.anasayfa_menu_kategori_sil_en))
             {
                 if(sqLiteIslemleri.tipDogrula(kategori, MainActivity.AktifKullanici!!)!=null)
                 {
@@ -148,8 +147,7 @@ class AnasayfaActivity : AppCompatActivity() {
                 }
             }else
             {
-                popupGirdi("Yeni Kategori Giriniz")
-
+                popupGirdi(getString(R.string.anasayfa_popup_mesaj_en))
             }
         }
         return super.onOptionsItemSelected(item)
@@ -165,24 +163,6 @@ class AnasayfaActivity : AppCompatActivity() {
         {
             finish()
         }
-    }
-    fun kategoriSor()
-    {
-        val inputDialog = AlertDialog.Builder(bagla.root.context)
-        inputDialog.setTitle("Yeni kategorinizi giriniz")
-        val inputEditText2 = EditText(bagla.root.context)
-        inputDialog.setView(inputEditText2)
-        inputDialog.setPositiveButton("Tamam") {dialog2,which2 ->
-            val sonuc = inputEditText2.text.toString()
-            if(sqLiteIslemleri.tipKarsilastir(sonuc, MainActivity.AktifKullanici!!) && sonuc.isNotEmpty())
-            {
-                sqLiteIslemleri.ekleSifreTipi(
-                    SifreTip(sonuc, MainActivity.AktifKullanici!!._kId),
-                    MainActivity.AktifKullanici!!)
-            }
-            kategoriOlustur()
-        }
-        inputDialog.show()
     }
     @SuppressLint("MissingInflatedId")
     fun popupGirdi(metin:String)

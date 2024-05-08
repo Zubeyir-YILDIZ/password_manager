@@ -8,14 +8,24 @@
     <string name="giris_sayfasi_sifremi_unuttum_en">I Forgot My Password</string>
     <string name="giris_sayfasi_uye_ol_en">Sign Up</string>
     <string name="giris_sayfasi_giris_yap_en">Login</string>
+    <string name="giris_sayfasi_hatali_giris_en">Your email or password is incorrect</string>
+    <string name="giris_sayfasi_eposta_gir_en">Enter your email address</string>
+    <string name="giris_sayfasi_biyometrik_dogrula_en">Log in using biometric verification</string>
+    <string name="giris_sayfasi_iptal_en">Cancel</string>
+    <string name="giris_sayfasi_sifre_gir_en">Enter your new password</string>
+    <string name="giris_sayfasi_sifre_guncellendi_en">Your password has been updated</string>
+    <string name="giris_sayfasi_sifre_guncellenemedi_en">"You did not enter a password"</string>
+    <string name="giris_sayfasi_eposta_bulunamadi_en">"Email address not found"</string>
 
     <string name="anasayfa_baslik_en">Categories</string>
+    <string name="anasayfa_baslik_sifre_en">Passwords</string>
     <string name="anasayfa_onceki_sayfa_buton_en">Previous Page</string>
     <string name="anasayfa_selamlama_en">Welcome</string>
     <string name="anasayfa_menu_kategori_ekle_en">Add Category</string>
     <string name="anasayfa_menu_kategori_sil_en">Delete Category</string>
     <string name="anasayfa_menu_ayarlar_en">Settings</string>
     <string name="anasayfa_menu_cikis_yap_en">Log Out</string>
+    <string name="anasayfa_popup_mesaj_en">Enter New Category</string>
 
     <string name="ayarlar_baslik_en">SETTINGS</string>
     <string name="ayarlar_txt_kisisel_bilgileriniz_en">Personal Information</string>
@@ -30,6 +40,9 @@
     <string name="ayarlar_buton_sil_en">Delete Backups</string>
     <string name="ayarlar_buton_yedek_getir_en">Get Backed Up Passwords</string>
     <string name="ayarlar_hesap_sil_en">Delete My Account</string>
+    <string name="ayarlar_toast_bilgi_yedeklendi_en">Your passwords are saved and made available for weekly backup.</string>
+    <string name="ayarlar_toast_bilgi_basarisiz_oldu">"Failed"</string>
+    <string name="ayarlar_toast_bilgi_yedekleme_silindi">Your passwords have been deleted and weekly backups are disabled.</string>
 
     <string name="sifre_ekle_baslik_en">ADD PASSWORD</string>
     <string name="sifre_ekle_etKAdi_en">Enter Username</string>
@@ -38,6 +51,8 @@
     <string name="sifre_ekle_etSifreAdi_en">Name For Password</string>
     <string name="sifre_ekle_buton_sifre_olustur_en">Create</string>
     <string name="sifre_ekle_buton_sifre_oner_en">Suggest Password</string>
+    <string name="sifre_ekle_kategori_bulunamadi_en">Category not found</string>
+    <string name="sifre_ekle_uyari_en">Please fill in the blank fields</string>
 
     <string name="sifre_oner_baslik_en">CREATE PASSWORD</string>
     <string name="sifre_oner_txt_sifre_icerigi_en">CONTENT OF PASSWORD</string>
@@ -45,16 +60,27 @@
     <string name="sifre_oner_buton_olustur_en">Create Password</string>
     <string name="sifre_oner_txt_sifre_en">CREATED PASSWORD</string>
     <string name="sifre_oner_bilgi_burada_gorunecek_en">Will Appear Here</string>
+    <string name="sifre_oner_pano_sifre_en">Password</string>
+    <string name="sifre_oner_pano_kopyalandi_en">Copied</string>
 
     <string name="uye_ol_baslik_en">SIGN UP</string>
     <string name="uye_ol_buton_en">Sign Up</string>
+    <string name="uye_ol_uyari_en">Please fill in the blank fields</string>
 
     <string name="popup_etBurayaGiriniz_en">Enter Here</string>
     <string name="popup_buton_tamam_en">OK</string>
 
-
     <string name="rec_item_sifre_adi_en">Password Name</string>
     <string name="rec_item_sifre_en">Password</string>
     <string name="rec_item_kullanici_adi_en">Username</string>
+
+    <string name="adapter_adet_en">Count</string>
+    <string name="adapter_tiklayiniz_en">"(Click)"</string>
+    <string name="adapter_yeni_sifre_en">Enter your new password</string>
+
+    <string name="sql_hatali_ekleme_en">Incorrect addition</string>
+    <string name="sql_basarili_ekleme_en">Registration Successful</string>
+    <string name="sql_zaten_var_en">Registration already exists</string>
+
 
 </resources>

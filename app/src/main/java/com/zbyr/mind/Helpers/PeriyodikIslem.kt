@@ -9,7 +9,7 @@ import com.google.firebase.ktx.Firebase
 import com.zbyr.mind.Models.Sifre
 
 
-class periyodikIslem( private val context: Context,workerParams:WorkerParameters):Worker(context,workerParams)
+class PeriyodikIslem( private val context: Context,workerParams:WorkerParameters):Worker(context,workerParams)
 {
     private var sqLiteIslemci= SqLiteIslemleri(context)
     private var firebaseIslemci= FirebaseIslemleri(context)

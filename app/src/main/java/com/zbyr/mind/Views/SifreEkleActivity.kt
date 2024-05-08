@@ -9,6 +9,7 @@ import com.zbyr.mind.Helpers.FirebaseIslemleri
 import com.zbyr.mind.Models.Sifre
 import com.zbyr.mind.Models.SifreTip
 import com.zbyr.mind.Helpers.SqLiteIslemleri
+import com.zbyr.mind.R
 import com.zbyr.mind.databinding.ActivitySifreEkleBinding
 
 class SifreEkleActivity : AppCompatActivity() {
@@ -50,10 +51,10 @@ class SifreEkleActivity : AppCompatActivity() {
                     AnasayfaActivity.anahtar =true
                     finish()
                 }else
-                    Toast.makeText(applicationContext,"Kategori bulunamadı", Toast.LENGTH_LONG).show()
+                    Toast.makeText(applicationContext,getString(R.string.sifre_ekle_kategori_bulunamadi_en) , Toast.LENGTH_LONG).show()
             }else
             {
-                Toast.makeText(applicationContext,"Lütfen boş alanları dolduralım", Toast.LENGTH_LONG).show()
+                Toast.makeText(applicationContext,getString(R.string.sifre_ekle_uyari_en), Toast.LENGTH_LONG).show()
             }
         }
         bagla.buttonSifreOner.setOnClickListener {

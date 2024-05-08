@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.zbyr.mind.Helpers.SqLiteIslemleri
 import com.zbyr.mind.Models.SifreTip
+import com.zbyr.mind.R
 import com.zbyr.mind.Views.AnasayfaActivity
 import com.zbyr.mind.Views.MainActivity
 import com.zbyr.mind.databinding.ActivityAnasayfaBinding
@@ -15,6 +16,7 @@ class KategoriAdapter(val kategorilar:MutableList<SifreTip>):RecyclerView.Adapte
     private lateinit var sqLiteIslemci: SqLiteIslemleri
     private lateinit var bind:ActivityAnasayfaBinding
     private lateinit var bagla: RecyclerKategorilerBinding
+    private lateinit var sayi:String
     class KategoriHolder(val bagla :RecyclerKategorilerBinding) :RecyclerView.ViewHolder(bagla.root)
     {
 
@@ -23,6 +25,7 @@ class KategoriAdapter(val kategorilar:MutableList<SifreTip>):RecyclerView.Adapte
         bagla=RecyclerKategorilerBinding.inflate(LayoutInflater.from(parent.context),parent,false)
         sqLiteIslemci= SqLiteIslemleri(bagla.root.context)
         var layoutInflater=LayoutInflater.from(bagla.root.context)
+        sayi=parent.context.getString(R.string.adapter_adet_en)
         bind=ActivityAnasayfaBinding.inflate(layoutInflater)
         return KategoriHolder(bagla)
     }
@@ -38,13 +41,14 @@ class KategoriAdapter(val kategorilar:MutableList<SifreTip>):RecyclerView.Adapte
             metin=metin.removeRange(10,metin.length)
             metin+=".."
         }
-        metin+="\n adet:"+sifreAdeti
+        metin+="\n "+sayi+":"+sifreAdeti
         holder.bagla.textViewKategorilar.setText(metin)
         holder.bagla.textViewKategorilar.setOnClickListener {
             (holder.itemView.context as AnasayfaActivity).sifreleriGetir(kategorilar.get(position)._TipId.toString())
             AnasayfaActivity.kategori=kategorilar.get(position)._TipId.toString()
             notifyItemInserted(position)
         }
+
     }
 
 }

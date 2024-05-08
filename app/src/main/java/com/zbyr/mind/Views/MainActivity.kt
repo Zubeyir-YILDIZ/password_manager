@@ -67,7 +67,7 @@ class MainActivity : AppCompatActivity() {
                 val intent = Intent(this, AnasayfaActivity::class.java)
                 startActivity(intent)
             }else{
-                Toast.makeText(this,"Eposta veya şifreniz hatalı",Toast.LENGTH_LONG).show()
+                Toast.makeText(this,getString(R.string.giris_sayfasi_hatali_giris_en),Toast.LENGTH_LONG).show()
             }
         }
         baglan.textViewUyeOl.setOnClickListener {
@@ -75,7 +75,7 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
         baglan.textViewUnuttum.setOnClickListener {
-            popupGirdi(baglan.root,"Eposta adresinizi giriniz")
+            popupGirdi(baglan.root,getString(R.string.giris_sayfasi_eposta_gir_en))
         }
     }
     fun biyometrik()
@@ -95,9 +95,9 @@ class MainActivity : AppCompatActivity() {
                 }
             })
         var promptInfo = BiometricPrompt.PromptInfo.Builder()
-            .setTitle("Giriş Yap")
-            .setSubtitle("Biyometrik doğrulama kullanarak giriş yapın")
-            .setNegativeButtonText("İptal")
+            .setTitle(getString(R.string.giris_sayfasi_giris_yap_en))
+            .setSubtitle(getString(R.string.giris_sayfasi_biyometrik_dogrula_en))
+            .setNegativeButtonText(getString(R.string.giris_sayfasi_iptal_en))
             .build()
 
         biometricPrompt.authenticate(promptInfo)
@@ -191,21 +191,21 @@ class MainActivity : AppCompatActivity() {
             {
                 var profil=sqLiteIslemleri.getirKullaniciIleMail(girdi)
                 txtGirdi.text.clear()
-                txtGirdi.setHint("Yeni şifrenizi giriniz")
+                txtGirdi.setHint(getString(R.string.giris_sayfasi_sifre_gir_en))
                 buton.setOnClickListener {
                     val sonuc2=txtGirdi.text.toString()
                     if(sonuc2.isNotEmpty())
                     {
                         profil._kSifre=sonuc2
                         sqLiteIslemleri.güncelleKullanici(profil)
-                        Toast.makeText(this,"Şifreniz güncellendi",Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this,getString(R.string.giris_sayfasi_sifre_guncellendi_en),Toast.LENGTH_SHORT).show()
                     }else
-                        Toast.makeText(this,"Şifre girmediniz",Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this,getString(R.string.giris_sayfasi_sifre_guncellenemedi_en),Toast.LENGTH_SHORT).show()
                     baglan.layoutMain.alpha=1f
                     popupWindow.dismiss()
                 }
             }else{
-                Toast.makeText(this,"Eposta adresi bulunamadı",Toast.LENGTH_LONG).show()
+                Toast.makeText(this,getString(R.string.giris_sayfasi_eposta_bulunamadi_en),Toast.LENGTH_LONG).show()
                 baglan.layoutMain.alpha=1f
                 popupWindow.dismiss()
             }
