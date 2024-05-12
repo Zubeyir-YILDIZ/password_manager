@@ -105,12 +105,6 @@ class AyarlarActivity : AppCompatActivity() {
             sqLiteIslemci.aktifKullaniciSil(MainActivity.AktifKullanici!!)
             Toast.makeText(this,getString(R.string.ayarlar_toast_bilgi_yedekleme_silindi),Toast.LENGTH_SHORT).show()
         }
-        bagla.textViewTR.setOnClickListener {
-            dilSecimi("tr")
-        }
-        bagla.textViewEN.setOnClickListener {
-            dilSecimi("en")
-        }
     }
     fun yedekle(context: Context,aralik:Long) {
         val constraints = Constraints.Builder()
@@ -132,7 +126,7 @@ class AyarlarActivity : AppCompatActivity() {
         val local=Locale(dil)
         val r=this.resources
         val c=r.configuration
-        c.setLocale(local)
+        c.setLocale(Locale("Turkish"))
         r.updateConfiguration(c,r.displayMetrics)
         val intent = Intent(this, MainActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)

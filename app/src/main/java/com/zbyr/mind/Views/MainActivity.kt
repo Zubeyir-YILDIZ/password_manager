@@ -1,7 +1,9 @@
 package com.zbyr.mind.Views
 
+import android.app.Application
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Gravity
@@ -34,7 +36,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         baglan= ActivityMainBinding.inflate(layoutInflater)
-
         setContentView(baglan.root)
         kaydirma()
         girisAnimasyon()
@@ -77,6 +78,7 @@ class MainActivity : AppCompatActivity() {
         baglan.textViewUnuttum.setOnClickListener {
             popupGirdi(baglan.root,getString(R.string.giris_sayfasi_eposta_gir_en))
         }
+
     }
     fun biyometrik()
     {
@@ -218,4 +220,5 @@ class MainActivity : AppCompatActivity() {
         kaydirmaTersine()
         super.onPause()
     }
+
 }

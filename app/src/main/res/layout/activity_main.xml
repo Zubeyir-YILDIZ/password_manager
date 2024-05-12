@@ -9,6 +9,7 @@
     tools:context=".Views.MainActivity">
 
 
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayoutIcerik"
         android:layout_width="408dp"
