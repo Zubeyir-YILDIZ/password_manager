@@ -1,0 +1,17 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <solid android:color="@color/uygulama_rengi" />
+    <padding
+        android:left="3dp"
+        android:right="3dp"
+        android:bottom="3dp"
+        android:top="3dp" />
+
+    <gradient
+        android:startColor="@color/arkaplan_rengi"
+        android:centerColor="#8BA2DD"
+        android:endColor="@color/siyah"
+        android:angle="@integer/material_motion_duration_long_2"
+
+        />
+</shape>
