@@ -72,6 +72,10 @@
 
     <string name="popup_etBurayaGiriniz_en">Enter Here</string>
     <string name="popup_buton_tamam_en">OK</string>
+    <string name="popup_onay_alma_onayla_en">Approve</string>
+    <string name="popup_onay_alma_iptal_en">Cancel</string>
+    <string name="popup_onaylanacak_metin_sifre_doldur_en">Your password has been created, should it be filled automatically?</string>
+    <string name="popup_onaylanacak_metin_kategori_sil_en">Are you sure you want to delete the category?</string>
 
     <string name="rec_item_sifre_adi_en">Password Name</string>
     <string name="rec_item_sifre_en">Password</string>

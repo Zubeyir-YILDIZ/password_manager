@@ -1,11 +1,19 @@
 package com.zbyr.mind.Views
 
+import android.annotation.SuppressLint
 import android.content.ClipboardManager
 import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Gravity
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import android.view.animation.AnimationUtils
+import android.widget.Button
+import android.widget.PopupWindow
 import android.widget.SeekBar
+import android.widget.TextView
 import android.widget.Toast
 import com.zbyr.mind.R
 import com.zbyr.mind.databinding.ActivitySifreOnerBinding
@@ -13,17 +21,21 @@ import kotlin.random.Random
 
 class SifreOnerActivity : AppCompatActivity() {
     private lateinit var bagla:ActivitySifreOnerBinding
+    private var sonuc:String=""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         bagla= ActivitySifreOnerBinding.inflate(layoutInflater)
         setContentView(bagla.root)
         bagla.textViewSayiUzunluk.setText("8")
         bagla.buttonOlusturSifre.setOnClickListener {
-            var sonuc=RastgeleSifreOlustur()
+            sonuc=RastgeleSifreOlustur()
             bagla.editTextBilgiSifre.setText(sonuc)
+            if(sonuc.isNotEmpty())
+                onayAl(getString(R.string.popup_onaylanacak_metin_sifre_doldur_en))
         }
         bagla.textViewKopyala.setOnClickListener {
-                panoyaKopyala(bagla.editTextBilgiSifre.text.toString())
+            panoyaKopyala(bagla.editTextBilgiSifre.text.toString())
+            finish()
         }
         bagla.seekBarSayiUzunluk.setOnSeekBarChangeListener(object :
             SeekBar.OnSeekBarChangeListener {
@@ -41,8 +53,8 @@ class SifreOnerActivity : AppCompatActivity() {
     }
     fun kaydirma()
     {
-        val animasyonBaslık = AnimationUtils.loadAnimation(this, R.anim.sifre_oner_kaydirma)
-        bagla.layoutBaslik.startAnimation(animasyonBaslık)
+        val animasyonBaslik = AnimationUtils.loadAnimation(this, R.anim.sifre_oner_kaydirma)
+        bagla.layoutBaslik.startAnimation(animasyonBaslik)
         val animasyonSol = AnimationUtils.loadAnimation(this, R.anim.sifre_oner_kaydirma_sol)
         bagla.layoutSol.startAnimation(animasyonSol)
         val animasyonSag = AnimationUtils.loadAnimation(this, R.anim.sifre_oner_kaydirma_sag)
@@ -89,7 +101,33 @@ class SifreOnerActivity : AppCompatActivity() {
         pano.setPrimaryClip(metin)
         Toast.makeText(this, getString(R.string.sifre_oner_pano_kopyalandi_en), Toast.LENGTH_SHORT).show()
     }
+    @SuppressLint("MissingInflatedId")
+    fun onayAl(metin:String)
+    {
+        val inflater: LayoutInflater = getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val popupView = inflater.inflate(R.layout.popup_onay_alma_layout,null)
 
+        val popupWindow = PopupWindow(popupView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT,true)
+
+        bagla.sifreOnerLayout.alpha=0.4f
+
+        val txtGirdi=popupView.findViewById<TextView>(R.id.textViewOnayMetin)
+        txtGirdi.setText(metin)
+        popupWindow.showAtLocation(bagla.root, Gravity.CENTER, 0, 0)
+        val butonOnay=popupView.findViewById<Button>(R.id.buttonPopupOnayla)
+        val butonIptal=popupView.findViewById<Button>(R.id.buttonPopupIptalEt)
+        butonOnay.setOnClickListener {
+            SifreEkleActivity.onerilenSifre=sonuc
+            finish()
+        }
+        butonIptal.setOnClickListener {
+            bagla.sifreOnerLayout.alpha=1f
+            popupWindow.dismiss()
+        }
+        popupWindow.setOnDismissListener {
+            bagla.sifreOnerLayout.alpha=1f
+        }
+    }
 
 
 

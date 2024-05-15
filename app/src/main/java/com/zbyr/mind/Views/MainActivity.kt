@@ -78,7 +78,6 @@ class MainActivity : AppCompatActivity() {
         baglan.textViewUnuttum.setOnClickListener {
             popupGirdi(baglan.root,getString(R.string.giris_sayfasi_eposta_gir_en))
         }
-
     }
     fun biyometrik()
     {
@@ -157,7 +156,7 @@ class MainActivity : AppCompatActivity() {
             Animation.RELATIVE_TO_SELF, 0.5f
         )
         rotateAnimation.duration = 1000
-        //rotateAnimation.repeatCount = Animation.REVERSE
+
         simge.scaleX=1.5f
         simge.scaleY=1.5f
         val animasyonlar = AnimationSet(true)
@@ -176,15 +175,13 @@ class MainActivity : AppCompatActivity() {
         val inflater: LayoutInflater = getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val popupView = inflater.inflate(R.layout.popup_layout,null)
         val popupWindow = PopupWindow(popupView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT,true)
-        val animasyon=baglan.layoutMain.animate().alpha(0.4f)
+        baglan.layoutMain.alpha=0.4f
         val txtGirdi=popupView.findViewById<EditText>(R.id.editTextPopupİstek)
         val buton=popupView.findViewById<Button>(R.id.buttonPopupGonder)
 
-        animasyon.duration=1000
         txtGirdi.setHint(metin)
         txtGirdi.requestFocus()
 
-        animasyon.start()
         popupWindow.showAtLocation(baglan.root, Gravity.CENTER, 0, 0)
 
         buton.setOnClickListener {

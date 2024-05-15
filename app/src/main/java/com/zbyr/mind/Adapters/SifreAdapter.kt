@@ -60,7 +60,7 @@ class SifreAdapter(val sifreler:ArrayList<Sifre>) :RecyclerView.Adapter<SifreAda
             holder.binding.textViewRecItem2.visibility=View.GONE
 
         holder.binding.textViewRecItem.setText("$_Bsifre  ${sifreler.get(position)._sSifre}")
-        holder.binding.textViewRecItem3.setText("$sifreAdi  ${sifreler.get(position)._sSifreAdi}\n$_tik")
+        holder.binding.textViewRecItem3.setText("${sifreler.get(position)._sSifreAdi}\n$_tik")
 
         holder.binding.constraintLayout.setOnClickListener {
             if(holder.binding.textViewRecItem3.visibility==View.VISIBLE)

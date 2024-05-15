@@ -52,6 +52,8 @@
     <string name="popup_etBurayaGiriniz_en">Buraya Giriniz</string>
     <string name="popup_buton_tamam_en">Tamam</string>
 
+    <string name="popup_onay_alma_onayla_en">Onayla</string>
+    <string name="popup_onaylanacak_metin_kategori_sil_en">Kategoriyi silmek istediğinize emin misiniz?</string>
     <string name="rec_item_sifre_adi_en">Şifre Adı</string>
     <string name="rec_item_sifre_en">Şifreniz</string>
     <string name="rec_item_kullanici_adi_en">Kullanıcı Adı</string>
@@ -81,4 +83,6 @@
     <string name="sql_zaten_var_en">Kayıt zaten var</string>
     <string name="ayarlar_tr_en">Türkçe</string>
     <string name="ayarlar_en_en">İngilizce</string>
+    <string name="popup_onay_alma_iptal_en">İptal</string>
+    <string name="popup_onaylanacak_metin_sifre_doldur_en">Şifreniz oluşturuldu otomatik doldurulsun mu?</string>
 </resources>

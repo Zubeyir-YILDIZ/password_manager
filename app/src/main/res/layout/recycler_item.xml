@@ -29,13 +29,11 @@
             android:layout_gravity="center_horizontal|center_vertical"
             android:layout_margin="5dp"
             android:clickable="true"
-            android:foreground="@drawable/baseline_delete_24"
+            android:foreground="@drawable/sil_logo"
             android:textAlignment="center"
-            app:backgroundTint="@color/anaRenk"
+            app:backgroundTint="@color/ucuncul_mavi"
             app:fabCustomSize="57dp"
-            app:fabSize="auto"
-            app:maxImageSize="28dp"
-            app:srcCompat="@android:drawable/ic_menu_delete" />
+            app:maxImageSize="28dp" />
     </LinearLayout>
 
     <LinearLayout
@@ -59,9 +57,9 @@
             android:layout_gravity="center"
             android:layout_margin="5dp"
             android:clickable="true"
-            android:foreground="@drawable/baseline_edit_24"
+            android:foreground="@drawable/duzenle_logo"
             android:textAlignment="center"
-            app:backgroundTint="@color/anaRenk"
+            app:backgroundTint="@color/ucuncul_mavi"
             app:fabCustomSize="57dp"
             app:maxImageSize="28dp" />
     </LinearLayout>
@@ -82,7 +80,7 @@
             android:id="@+id/textViewRecItem2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#000000"
+            android:textColor="@color/metin_rengi"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -95,7 +93,8 @@
             android:id="@+id/textViewRecItem3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#000000"
+            android:textColor="@color/metin_rengi"
+            android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -108,7 +107,7 @@
             android:id="@+id/textViewRecItem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#000000"
+            android:textColor="@color/metin_rengi"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

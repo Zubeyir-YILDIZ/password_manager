@@ -16,7 +16,9 @@ class SifreEkleActivity : AppCompatActivity() {
     private lateinit var bagla:ActivitySifreEkleBinding
     private lateinit var firebaseIslemci: FirebaseIslemleri
     private lateinit var sqLiteIslemci: SqLiteIslemleri
-
+    companion object{
+        var onerilenSifre:String=""
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -67,7 +69,7 @@ class SifreEkleActivity : AppCompatActivity() {
     }
     fun acilisAnimasyonu()
     {
-        var layout=bagla.constraintLayout
+        val layout=bagla.constraintLayout
 
         layout.animate().rotationX(0f).duration=1000
     }
@@ -79,5 +81,8 @@ class SifreEkleActivity : AppCompatActivity() {
         }else
             bagla.editTextText.visibility=View.GONE
     }
-
+    override fun onRestart() {
+        bagla.editTextSifreSifre.setText(onerilenSifre)
+        super.onRestart()
+    }
 }

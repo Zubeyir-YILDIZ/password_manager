@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
-    <color name="anaRenk">#FFC107</color>
-    <color name="anaRenkMavi">#00BCD4</color>
-    <color name="Turkuaz">#00BCD4</color>
-    <color name="arkaplan">#FF333333</color>
+    <color name="siyah">#FF000000</color>
+    <color name="beyaz">#FFFFFFFF</color>
+    <color name="sari">#FFC107</color>
+    <color name="turkuaz">#00BCD4</color>
+    <color name="uygulama_rengi">#fff2df</color>
+    <color name="arkaplan_rengi">#87bdd8</color>
+    <color name="metin_rengi">#FF000000</color>
+    <color name="gri">#FF333333</color>
+    <color name="acik_mavi">#b7d7e8</color>
+    <color name="ikincil_mavi">#8BA2DD</color>
+    <color name="ucuncul_mavi">#daebe8</color>
+
 </resources>

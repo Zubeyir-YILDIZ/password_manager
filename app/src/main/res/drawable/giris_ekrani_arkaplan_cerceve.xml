@@ -1,15 +1,15 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
     <stroke
         android:width="2dp"
-        android:color="@color/arkaplan" />
-    <solid android:color="@color/arkaplan" />
+        android:color="@color/uygulama_rengi" />
+    <solid android:color="@color/uygulama_rengi" />
     <padding
         android:left="3dp"
         android:right="3dp"
         android:bottom="3dp"
         android:top="3dp" />
     <corners
-        android:topLeftRadius="45dp"
-        android:topRightRadius="45dp" />
+        android:topLeftRadius="40dp"
+        android:topRightRadius="40dp" />
 
 </shape>

@@ -4,9 +4,9 @@
     android:shape="rectangle"
     android:thicknessRatio="2"
     android:useLevel="false">
-    <solid android:color="#FFC107" />
+    <solid android:color="@color/uygulama_rengi" />
     <stroke android:width="5dp"
-        android:color="@color/black" />
+        android:color="@color/siyah" />
     <corners android:radius="20dp"/>
 
 </shape>

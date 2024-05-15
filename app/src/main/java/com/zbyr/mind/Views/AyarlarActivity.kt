@@ -41,7 +41,7 @@ class AyarlarActivity : AppCompatActivity() {
         bagla.editTextSoyisim.setText(MainActivity.AktifKullanici!!._kSoyadi.toString())
         bagla.editTextEpostaEdit.setText(MainActivity.AktifKullanici!!._kMail.toString())
         bagla.editTextSifreEdit.setText(MainActivity.AktifKullanici!!._kSifre.toString())
-        val renk=resources.getColor(R.color.anaRenk)
+        val renk=getColor(R.color.uygulama_rengi)
         bagla.buttonDuzenle.setOnClickListener {
             if(bagla.buttonDuzenle.text==getString(R.string.ayarlar_buton_duzenle_en))
             {
@@ -67,7 +67,6 @@ class AyarlarActivity : AppCompatActivity() {
 
                 sqLiteIslemci.güncelleKullanici(profil)
                 MainActivity.AktifKullanici =profil
-                bagla.buttonDuzenle.setBackgroundResource(R.drawable.ayarlar_text_alani)
             }
         }
         bagla.buttonYedekle.setOnClickListener {

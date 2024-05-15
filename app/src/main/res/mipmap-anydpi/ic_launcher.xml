@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
-    <background android:drawable="@drawable/arkaplan_2" />
-    <foreground android:drawable="@drawable/baseline_private_connectivity_24" />
+    <background android:drawable="@drawable/giris_ekrani_arkaplan" />
+    <foreground android:drawable="@drawable/uygulama_logo" />
     <monochrome android:drawable="@drawable/ic_launcher_foreground" />
 </adaptive-icon>
