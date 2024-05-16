@@ -39,12 +39,15 @@ class UyeOlActivity : AppCompatActivity() {
     }
     fun girisAnimasyonu()
     {
-        bagla.textViewBaslikUyeOl.alpha=0f
-        bagla.editTextOlusturIsim.animate().rotationX(-360f).duration=1000
-        bagla.editTextOlusturSoyisim.animate().rotationX(-360f).duration=1200
-        bagla.editTextOlusturMail.animate().rotationX(-360f).duration=1400
-        bagla.editTextOlusturSifre.animate().rotationX(-360f).duration=1600
-        bagla.buttonOlusturUyelik.animate().rotationX(-360f).duration=2000
-        bagla.textViewBaslikUyeOl.animate().alpha(1f).duration=3000
+        if(MainActivity.animasyonTercihi)
+        {
+            bagla.textViewBaslikUyeOl.alpha=0f
+            bagla.editTextOlusturIsim.animate().rotationX(-360f).duration=1000
+            bagla.editTextOlusturSoyisim.animate().rotationX(-360f).duration=1200
+            bagla.editTextOlusturMail.animate().rotationX(-360f).duration=1400
+            bagla.editTextOlusturSifre.animate().rotationX(-360f).duration=1600
+            bagla.buttonOlusturUyelik.animate().rotationX(-360f).duration=2000
+            bagla.textViewBaslikUyeOl.animate().alpha(1f).duration=3000
+        }
     }
 }

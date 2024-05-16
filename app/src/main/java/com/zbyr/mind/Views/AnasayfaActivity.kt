@@ -55,21 +55,26 @@ class AnasayfaActivity : AppCompatActivity() {
         setSupportActionBar(bagla.yon)
         bagla.floatingButonSifreEkle.setOnClickListener {
             val intent=Intent(this, SifreEkleActivity::class.java)
-            intent.putExtra("kategori",bagla.root.context.toString())
             startActivity(intent)
         }
     }
     fun gecisAnimasyonu()
     {
-        val rotationAnimation = ObjectAnimator.ofFloat(bagla.RecyclerViewSifreler, "rotation", 0f, 360f)
-        rotationAnimation.duration = 500
-        rotationAnimation.start()
+        if(MainActivity.animasyonTercihi)
+        {
+            val rotationAnimation = ObjectAnimator.ofFloat(bagla.RecyclerViewSifreler, "rotation", 0f, 360f)
+            rotationAnimation.duration = 500
+            rotationAnimation.start()
+        }
     }
     fun donusAnimasyonu()
     {
-        val rotationAnimation = ObjectAnimator.ofFloat(bagla.RecyclerViewSifreler, "rotation", 0f, -360f)
-        rotationAnimation.duration = 500
-        rotationAnimation.start()
+        if(MainActivity.animasyonTercihi)
+        {
+            val rotationAnimation = ObjectAnimator.ofFloat(bagla.RecyclerViewSifreler, "rotation", 0f, -360f)
+            rotationAnimation.duration = 500
+            rotationAnimation.start()
+        }
     }
     fun sifreleriGetir(kategori:String)
     {

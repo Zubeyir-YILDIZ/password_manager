@@ -46,13 +46,15 @@
     <string name="ayarlar_dil_secimi_en">Language</string>
     <string name="ayarlar_tr_en">Turkish</string>
     <string name="ayarlar_en_en">English</string>
+    <string name="ayarlar_diger_baslik_en">Other Options</string>
+    <string name="ayarlar_animasyon_ayar_sw_en">Animations</string>
 
     <string name="sifre_ekle_baslik_en">ADD PASSWORD</string>
     <string name="sifre_ekle_etKAdi_en">Enter Username</string>
     <string name="sifre_ekle_etKAdi_olacakMi_en">Should I Have a Username</string>
     <string name="sifre_ekle_etSifre_en">Enter Password</string>
     <string name="sifre_ekle_etSifreAdi_en">Name For Password</string>
-    <string name="sifre_ekle_buton_sifre_olustur_en">Create</string>
+    <string name="sifre_ekle_buton_sifre_olustur_en">Save</string>
     <string name="sifre_ekle_buton_sifre_oner_en">Suggest Password</string>
     <string name="sifre_ekle_kategori_bulunamadi_en">Category not found</string>
     <string name="sifre_ekle_uyari_en">Please fill in the blank fields</string>

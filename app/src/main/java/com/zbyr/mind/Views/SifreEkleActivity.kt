@@ -26,7 +26,8 @@ class SifreEkleActivity : AppCompatActivity() {
         sqLiteIslemci= SqLiteIslemleri(this)
         bagla=ActivitySifreEkleBinding.inflate(layoutInflater)
         setContentView(bagla.root)
-        bagla.constraintLayout.rotationX=90f
+        if(MainActivity.animasyonTercihi)
+            bagla.constraintLayout.rotationX=90f
         bagla.editTextText.visibility=View.GONE
         acilisAnimasyonu()
         bagla.buttonSifreOlustur.setOnClickListener {
@@ -69,9 +70,12 @@ class SifreEkleActivity : AppCompatActivity() {
     }
     fun acilisAnimasyonu()
     {
-        val layout=bagla.constraintLayout
+        if(MainActivity.animasyonTercihi)
+        {
+            val layout=bagla.constraintLayout
 
-        layout.animate().rotationX(0f).duration=1000
+            layout.animate().rotationX(0f).duration=1000
+        }
     }
     fun aktifMi()
     {

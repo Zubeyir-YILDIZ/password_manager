@@ -4,7 +4,7 @@
         <!-- Customize your dark theme here. -->
         <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
         <item name="android:itemTextAppearance">@style/MyMenuItemTextStyle</item>
-        <item name="actionMenuTextColor">@color/metin_rengi</item>
+        <item name="actionMenuTextColor">@color/uygulama_rengi</item>
         <item name="popupMenuBackground">@color/uygulama_rengi</item>
     </style>
         <style name="MyMenuItemTextStyle" parent="TextAppearance.AppCompat.Widget.ActionBar.Menu">

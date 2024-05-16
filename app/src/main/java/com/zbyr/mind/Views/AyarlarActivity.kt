@@ -4,9 +4,11 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.res.ColorStateList
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
@@ -36,7 +38,7 @@ class AyarlarActivity : AppCompatActivity() {
         firebaseIslemci= FirebaseIslemleri(this)
         sqLiteIslemci= SqLiteIslemleri(this)
         setContentView(bagla.root)
-
+        bagla.switchAnimasyonAyar.isChecked=MainActivity.animasyonTercihi
         bagla.editTextIsim.setText(MainActivity.AktifKullanici!!._kAdi.toString())
         bagla.editTextSoyisim.setText(MainActivity.AktifKullanici!!._kSoyadi.toString())
         bagla.editTextEpostaEdit.setText(MainActivity.AktifKullanici!!._kMail.toString())
@@ -104,6 +106,9 @@ class AyarlarActivity : AppCompatActivity() {
             sqLiteIslemci.aktifKullaniciSil(MainActivity.AktifKullanici!!)
             Toast.makeText(this,getString(R.string.ayarlar_toast_bilgi_yedekleme_silindi),Toast.LENGTH_SHORT).show()
         }
+        bagla.switchAnimasyonAyar.setOnCheckedChangeListener { buttonView, acikMi ->
+            animasyonKapat(acikMi)
+        }
     }
     fun yedekle(context: Context,aralik:Long) {
         val constraints = Constraints.Builder()
@@ -127,6 +132,14 @@ class AyarlarActivity : AppCompatActivity() {
         val c=r.configuration
         c.setLocale(Locale("Turkish"))
         r.updateConfiguration(c,r.displayMetrics)
+        val intent = Intent(this, MainActivity::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+        startActivity(intent)
+        finish()
+    }
+    fun animasyonKapat(acikMi:Boolean)
+    {
+        MainActivity.pref!!.edit().putBoolean("animasyon",acikMi).apply()
         val intent = Intent(this, MainActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
         startActivity(intent)

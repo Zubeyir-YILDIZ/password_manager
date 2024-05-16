@@ -36,7 +36,7 @@
     <string name="sifre_ekle_etKAdi_olacakMi_en">Kullanıcı Adı Olsun Mu</string>
     <string name="sifre_ekle_etSifre_en">Şifre Giriniz</string>
     <string name="sifre_ekle_etSifreAdi_en">Şifreniz İçin İsim</string>
-    <string name="sifre_ekle_buton_sifre_olustur_en">Oluştur</string>
+    <string name="sifre_ekle_buton_sifre_olustur_en">Kaydet</string>
     <string name="sifre_ekle_buton_sifre_oner_en">Şifre Öner</string>
 
     <string name="sifre_oner_baslik_en">ŞİFRE OLUŞTUR</string>
@@ -85,4 +85,6 @@
     <string name="ayarlar_en_en">İngilizce</string>
     <string name="popup_onay_alma_iptal_en">İptal</string>
     <string name="popup_onaylanacak_metin_sifre_doldur_en">Şifreniz oluşturuldu otomatik doldurulsun mu?</string>
+    <string name="ayarlar_diger_baslik_en">Diğer Seçenekler</string>
+    <string name="ayarlar_animasyon_ayar_sw_en">Animasyonlar</string>
 </resources>

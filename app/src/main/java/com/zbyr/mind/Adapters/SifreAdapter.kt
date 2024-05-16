@@ -18,11 +18,11 @@ import com.zbyr.mind.Models.SifreTip
 import com.zbyr.mind.R
 import com.zbyr.mind.Views.AnasayfaActivity
 import com.zbyr.mind.Views.MainActivity
-import com.zbyr.mind.databinding.RecyclerItemBinding
+import com.zbyr.mind.databinding.RecyclerSifrelerBinding
 
 class SifreAdapter(val sifreler:ArrayList<Sifre>) :RecyclerView.Adapter<SifreAdapter.SifreHolder>() {
 
-    private lateinit var bagla:RecyclerItemBinding
+    private lateinit var bagla:RecyclerSifrelerBinding
     private lateinit var kAdi:String
     private lateinit var sifreAdi:String
     private lateinit var _Bsifre:String
@@ -30,13 +30,13 @@ class SifreAdapter(val sifreler:ArrayList<Sifre>) :RecyclerView.Adapter<SifreAda
     private lateinit var girdiAl:String
     private lateinit var onay:String
     private lateinit var layoutInflater: LayoutInflater
-    class SifreHolder(val binding: RecyclerItemBinding) : RecyclerView.ViewHolder(binding.root)
+    class SifreHolder(val binding: RecyclerSifrelerBinding) : RecyclerView.ViewHolder(binding.root)
     {
 
     }
     private lateinit var sqLiteIslemleri: SqLiteIslemleri
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SifreHolder {
-        bagla = RecyclerItemBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+        bagla = RecyclerSifrelerBinding.inflate(LayoutInflater.from(parent.context),parent,false)
         layoutInflater = LayoutInflater.from(parent.context)
         sqLiteIslemleri= SqLiteIslemleri(bagla.root.context)
         kAdi=parent.context.getString(R.string.rec_item_kullanici_adi_en)

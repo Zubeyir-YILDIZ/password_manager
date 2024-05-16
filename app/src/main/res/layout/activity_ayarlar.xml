@@ -19,7 +19,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.13">
+        app:layout_constraintVertical_bias="0.118">
 
         <EditText
             android:id="@+id/editTextIsim"
@@ -141,7 +141,6 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutYedekle"
         android:layout_width="match_parent"
@@ -153,7 +152,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/layoutKisiselBilgiler"
-        app:layout_constraintVertical_bias="0.132">
+        app:layout_constraintVertical_bias="0.064">
 
         <Button
             android:id="@+id/buttonYedekle"
@@ -240,6 +239,45 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutDiger"
+        android:layout_width="match_parent"
+        android:layout_height="118dp"
+        android:background="@drawable/edit_text_cerceve_rengi"
+        android:elevation="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/textViewSil"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layoutYedekle">
+
+        <TextView
+            android:id="@+id/textViewDiger"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:drawableEnd="@drawable/ayarlar_asagi_ok_logo"
+            android:drawableTint="@color/metin_rengi"
+            android:text="@string/ayarlar_diger_baslik_en"
+            android:textColor="@color/metin_rengi"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Switch
+            android:id="@+id/switchAnimasyonAyar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ayarlar_animasyon_ayar_sw_en"
+            android:thumbTint="@color/uygulama_rengi"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.054"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.318" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

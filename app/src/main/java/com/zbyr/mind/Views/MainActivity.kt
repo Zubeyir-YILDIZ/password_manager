@@ -3,9 +3,11 @@ package com.zbyr.mind.Views
 import android.app.Application
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -28,14 +30,19 @@ import com.zbyr.mind.databinding.ActivityMainBinding
 import java.util.concurrent.Executor
 
 class MainActivity : AppCompatActivity() {
+
     companion object{
         var AktifKullanici: Kullanici?=null
+        var pref: SharedPreferences? =null
+        var animasyonTercihi:Boolean=true
     }
     private lateinit var baglan:ActivityMainBinding
     private lateinit var sqLiteIslemleri: SqLiteIslemleri
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         baglan= ActivityMainBinding.inflate(layoutInflater)
+        pref= PreferenceManager.getDefaultSharedPreferences(this)
+        animasyonTercihi= pref!!.getBoolean("animasyon", false)
         setContentView(baglan.root)
         kaydirma()
         girisAnimasyon()
@@ -117,13 +124,19 @@ class MainActivity : AppCompatActivity() {
     }
     fun kaydirma()
     {
-        val animation = AnimationUtils.loadAnimation(this, R.anim.giris_kayirma)
-        baglan.constraintLayoutIcerik.startAnimation(animation)
+        if(animasyonTercihi)
+        {
+            val animation = AnimationUtils.loadAnimation(this, R.anim.giris_kayirma)
+            baglan.constraintLayoutIcerik.startAnimation(animation)
+        }
     }
     fun kaydirmaTersine()
     {
-        val animation2 = AnimationUtils.loadAnimation(this, R.anim.giris_ters_kaydirma)
-        baglan.constraintLayoutIcerik.startAnimation(animation2)
+        if(animasyonTercihi)
+        {
+            val animation2 = AnimationUtils.loadAnimation(this, R.anim.giris_ters_kaydirma)
+            baglan.constraintLayoutIcerik.startAnimation(animation2)
+        }
     }
     fun dogrulama(mutableList: MutableList<Kullanici>, mail:String, sifre:String): Kullanici?
     {
@@ -138,32 +151,35 @@ class MainActivity : AppCompatActivity() {
     }
     fun girisAnimasyon()
     {
-        var simge=baglan.imageViewLogo
+        if(animasyonTercihi)
+        {
+            var simge=baglan.imageViewLogo
 
-        val scaleAnimation = ScaleAnimation(
-            1.0f, 1.5f,
-            1.0f, 1.5f,
-            Animation.RELATIVE_TO_SELF, 0.5f,
-            Animation.RELATIVE_TO_SELF, 0.5f
-        )
-        scaleAnimation.duration = 1000
-        scaleAnimation.repeatCount = Animation.REVERSE
-        scaleAnimation.repeatMode = Animation.REVERSE
+            val scaleAnimation = ScaleAnimation(
+                1.0f, 1.5f,
+                1.0f, 1.5f,
+                Animation.RELATIVE_TO_SELF, 0.5f,
+                Animation.RELATIVE_TO_SELF, 0.5f
+            )
+            scaleAnimation.duration = 1000
+            scaleAnimation.repeatCount = Animation.REVERSE
+            scaleAnimation.repeatMode = Animation.REVERSE
 
-        val rotateAnimation = RotateAnimation(
-            0f, 360f,
-            Animation.RELATIVE_TO_SELF, 0.5f,
-            Animation.RELATIVE_TO_SELF, 0.5f
-        )
-        rotateAnimation.duration = 1000
+            val rotateAnimation = RotateAnimation(
+                0f, 360f,
+                Animation.RELATIVE_TO_SELF, 0.5f,
+                Animation.RELATIVE_TO_SELF, 0.5f
+            )
+            rotateAnimation.duration = 1000
 
-        simge.scaleX=1.5f
-        simge.scaleY=1.5f
-        val animasyonlar = AnimationSet(true)
-        animasyonlar.addAnimation(scaleAnimation)
-        animasyonlar.addAnimation(rotateAnimation)
+            simge.scaleX=1.5f
+            simge.scaleY=1.5f
+            val animasyonlar = AnimationSet(true)
+            animasyonlar.addAnimation(scaleAnimation)
+            animasyonlar.addAnimation(rotateAnimation)
 
-        simge.startAnimation(animasyonlar)
+            simge.startAnimation(animasyonlar)
+        }
     }
     override fun onResume() {
         baglan.editTextSifre.text.clear()

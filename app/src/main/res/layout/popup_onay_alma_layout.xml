@@ -49,6 +49,7 @@
         android:layout_margin="10dp"
         android:text="Girilen metin burada görünecek"
         android:textAlignment="center"
+        android:textColor="@color/metin_rengi"
         app:layout_constraintBottom_toTopOf="@+id/buttonPopupIptalEt"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.545"

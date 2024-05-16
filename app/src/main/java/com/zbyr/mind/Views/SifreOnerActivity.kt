@@ -53,12 +53,15 @@ class SifreOnerActivity : AppCompatActivity() {
     }
     fun kaydirma()
     {
-        val animasyonBaslik = AnimationUtils.loadAnimation(this, R.anim.sifre_oner_kaydirma)
-        bagla.layoutBaslik.startAnimation(animasyonBaslik)
-        val animasyonSol = AnimationUtils.loadAnimation(this, R.anim.sifre_oner_kaydirma_sol)
-        bagla.layoutSol.startAnimation(animasyonSol)
-        val animasyonSag = AnimationUtils.loadAnimation(this, R.anim.sifre_oner_kaydirma_sag)
-        bagla.layoutSag.startAnimation(animasyonSag)
+        if(MainActivity.animasyonTercihi)
+        {
+            val animasyonBaslik = AnimationUtils.loadAnimation(this, R.anim.sifre_oner_kaydirma)
+            bagla.layoutBaslik.startAnimation(animasyonBaslik)
+            val animasyonSol = AnimationUtils.loadAnimation(this, R.anim.sifre_oner_kaydirma_sol)
+            bagla.layoutSol.startAnimation(animasyonSol)
+            val animasyonSag = AnimationUtils.loadAnimation(this, R.anim.sifre_oner_kaydirma_sag)
+            bagla.layoutSag.startAnimation(animasyonSag)
+        }
     }
     fun RastgeleSifreOlustur():String
     {
