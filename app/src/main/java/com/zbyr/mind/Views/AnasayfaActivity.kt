@@ -2,14 +2,10 @@ package com.zbyr.mind.Views
 
 import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
-import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
-import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.SpannableString
-import android.text.style.ForegroundColorSpan
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.Menu

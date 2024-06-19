@@ -35,6 +35,7 @@
         android:background="@drawable/yuvarlak_kose"
         android:elevation="10dp"
         android:text="@string/anasayfa_baslik_en"
+        android:textAlignment="center"
         android:textColor="@color/metin_rengi"
         android:textSize="20sp"
         android:textStyle="bold"

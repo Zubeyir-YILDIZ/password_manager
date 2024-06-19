@@ -48,7 +48,6 @@ class KategoriAdapter(val kategorilar:MutableList<SifreTip>):RecyclerView.Adapte
             AnasayfaActivity.kategori=kategorilar.get(position)._TipId.toString()
             notifyItemInserted(position)
         }
-
     }
 
 }
